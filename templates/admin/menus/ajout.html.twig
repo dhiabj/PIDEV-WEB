@@ -1,0 +1,46 @@
+{% extends 'adminTemplate.html.twig' %}
+
+{% block title %}Ajouter un menu
+{% endblock %}
+
+{% block body %}
+
+
+	<nav class="navbar navbar-dark bg-dark mb-3 rounded">
+	<span class="navbar-brand mb-0 h1">Ajouter Menu</span>
+	</nav>
+	{{form_start(form)}}
+	<div class="form-group">
+		<label for="titre">Titre</label>
+		{{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+	</div>
+	<div class="form-group">
+		<label for="description">Description</label>
+		{{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+	</div>
+	<div class="form-group">
+		<label for="prix">Prix</label>
+		{{ form_widget(form.prix, {'attr': {'class': 'form-control'}}) }}
+
+	</div>
+	<div class="form-group">
+		<label for="ingredients">Ingredients</label>
+		{{ form_widget(form.ingredients, {'attr': {'class': 'form-control'}}) }}
+
+	</div>
+	<div class="form-group">
+		<label for="categorie">Categorie</label>
+		{{ form_widget(form.categorie, {'attr': {'class': 'form-control'}}) }}
+
+	</div>
+	<div class="form-group">
+		<label for="categorie">Image</label>
+		{{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+
+	</div>
+	{{ form_row(form.valider, {'attr': {'class': 'btn btn-primary'}}) }}
+
+	{{form_end(form)}}
+
+
+{% endblock %}
