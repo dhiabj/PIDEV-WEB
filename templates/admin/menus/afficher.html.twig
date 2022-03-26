@@ -4,13 +4,13 @@
 
 {% block body %}
 {% for message in app.flashes('notice') %}
-<div class="alert alert-success mt-4 mb-b">
+<div class="alert alert-success mb-b">
     {{ message }}
 </div>
 {% endfor %}
 <div class="table-responsive">
     <table class="table">
-    <thead>
+    <thead class="thead-dark">
         <tr>
         <th scope="col">#</th>
         <th scope="col">Titre</th>
