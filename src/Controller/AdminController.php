@@ -37,15 +37,73 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $menu->getImage();
+            $filename = md5(uniqid()) . '.' . $file->guessExtension();
+            $file->move($this->getParameter('images_directory'), $filename);
+            $menu->setImage($filename);
             $em = $this->getDoctrine()->getManager();
             $em->persist($menu);
             $em->flush();
 
-            return $this->redirectToRoute('admin_home');
+            $this->addFlash('notice', 'Menu ajouté avec succès!');
+            return $this->redirectToRoute('admin_menus_afficher');
         }
 
         return $this->render('admin/menus/ajout.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/menus/afficher", name="menus_afficher")
+     */
+    public function afficherMenus(): Response
+    {
+        $menus = $this->getDoctrine()->getRepository(Menu::class)->findAll();
+        return $this->render('admin/menus/afficher.html.twig', [
+            'menus' => $menus
+        ]);
+    }
+
+    /**
+     * @Route("/menus/modifier/{id}", name="menus_modifier")
+     */
+    public function modifierMenu(Request $request, $id): Response
+    {
+        $menu = $this->getDoctrine()->getRepository(Menu::class)->find($id);
+
+        $form = $this->createForm(MenuType::class, $menu);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $file = $menu->getImage();
+            $filename = md5(uniqid()) . '.' . $file->guessExtension();
+            $file->move($this->getParameter('images_directory'), $filename);
+            $menu->setImage($filename);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($menu);
+            $em->flush();
+
+            $this->addFlash('notice', 'Menu modifié avec succès!');
+            return $this->redirectToRoute('admin_menus_afficher');
+        }
+
+        return $this->render('admin/menus/modifier.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/menus/supprimer/{id}", name="menus_supprimer")
+     */
+    public function supprimerMenu($id)
+    {
+        $menu = $this->getDoctrine()->getRepository(Menu::class)->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($menu);
+        $em->flush();
+        $this->addFlash('notice', 'Menu supprimé avec succès!');
+        return $this->redirectToRoute('admin_menus_afficher');
     }
 }

@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Menu;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,8 +20,15 @@ class MenuType extends AbstractType
             ->add('description', TextType::class)
             ->add('prix', TextType::class)
             ->add('ingredients', TextType::class)
-            ->add('categorie', TextType::class)
-            ->add('image', TextType::class)
+            ->add('categorie', ChoiceType::class, [
+                'choices'  => [
+                    'Normal' => 'normal',
+                    'Vegan' => 'vegan',
+                ],
+            ])
+            ->add('image', FileType::class, [
+                'data_class' => null
+            ])
             ->add('valider', SubmitType::class);
     }
 

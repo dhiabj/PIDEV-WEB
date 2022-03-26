@@ -7,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Starter</title>
+  <title>Admin</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -80,7 +80,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link">
+    <a href="{{ path('admin_home') }}" class="brand-link">
       <img src="{{ asset ('dist/img/logo.png')}}" alt="ForU" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">ForU</span>
     </a>
@@ -147,6 +147,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       </a>
                     </li>
                   </ul>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                      <a href="{{ path('admin_menus_afficher') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Menu liste</p>
+                      </a>
+                    </li>
+                  </ul>
                 </li>
                 <li class="nav-item">
                   <a href="#" class="nav-link">
@@ -167,7 +175,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </li>
                 <li class="nav-item">
                   <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-calendar-check"></i>
+                    <i class="nav-icon fas fa-calendar-alt"></i>
                     <p>
                       Événements
                       <i class="right fas fa-angle-left"></i>
