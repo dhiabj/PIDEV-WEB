@@ -3,6 +3,16 @@
 {% block title %}Ajouter menu
 {% endblock %}
 
+{% block stylesheets %}
+<style>
+select{
+	display: block;
+	width: 100%;
+}
+</style>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
 {% block body %}
 
 
@@ -24,9 +34,9 @@
 
 	</div>
 	<div class="form-group">
-		{{ form_label(form.ingredients) }}
-		{{ form_widget(form.ingredients, {'attr': {'class': 'form-control'}}) }}
-
+	{{form_label(form.ingredients)}}
+	<br>
+	{{ form_widget(form.ingredients)}}
 	</div>
 	<div class="form-group">
 		{{ form_label(form.categorie) }}
@@ -46,4 +56,29 @@
 	{{form_end(form)}}
 
 
+{% endblock %}
+{% block javascripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+	$(function(){
+	$('.select-ingredients').select2({
+		tags: true,
+		tokenSeparators: [','],
+		theme: "classic",
+	}).on('change', function(e){
+		let label = $(this).find("[data-select2-tag=true]");
+		if(label.length && $.inArray(label.val(), $(this).val() !== -1)){
+			$.ajax({
+				url: "/ingredients/ajout/ajax/"+label.val(),
+				type: "POST"
+			}).done(function(data){
+				console.log(data)
+				label.replaceWith(`<option selected value="${data.id}">${label.val()}</option>`);
+			});
+		}
+		//console.log(label);
+	});
+})
+</script>
 {% endblock %}

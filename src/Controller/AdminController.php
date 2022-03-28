@@ -59,7 +59,7 @@ class AdminController extends AbstractController
      */
     public function afficherMenus(): Response
     {
-        $menus = $this->getDoctrine()->getRepository(Menu::class)->findAll();
+        $menus = $this->getDoctrine()->getRepository(Menu::class)->findMenuIngredients();
         return $this->render('admin/menus/afficher.html.twig', [
             'menus' => $menus
         ]);

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MenuRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -33,7 +35,7 @@ class Menu
     private $prix;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToMany(targetEntity=Ingredients::class, mappedBy="menu")
      */
     private $ingredients;
 
@@ -46,6 +48,11 @@ class Menu
      * @ORM\Column(type="string", length=255)
      */
     private $image;
+
+    public function __construct()
+    {
+        $this->ingredients = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -88,18 +95,6 @@ class Menu
         return $this;
     }
 
-    public function getIngredients(): ?string
-    {
-        return $this->ingredients;
-    }
-
-    public function setIngredients(string $ingredients): self
-    {
-        $this->ingredients = $ingredients;
-
-        return $this;
-    }
-
     public function getCategorie(): ?string
     {
         return $this->categorie;
@@ -120,6 +115,33 @@ class Menu
     public function setImage($image)
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ingredients>
+     */
+    public function getIngredients(): Collection
+    {
+        return $this->ingredients;
+    }
+
+    public function addIngredient(Ingredients $ingredient): self
+    {
+        if (!$this->ingredients->contains($ingredient)) {
+            $this->ingredients[] = $ingredient;
+            $ingredient->addMenu($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIngredient(Ingredients $ingredient): self
+    {
+        if ($this->ingredients->removeElement($ingredient)) {
+            $ingredient->removeMenu($this);
+        }
 
         return $this;
     }

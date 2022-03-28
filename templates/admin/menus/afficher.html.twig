@@ -30,12 +30,20 @@
         <td>{{ menus.titre }}</td>
         <td>{{ menus.description }}</td>
         <td>{{ menus.prix }}</td>
-        <td>{{ menus.ingredients }}</td>
-        <td>{{ menus.categorie }}</td>
-        <td><img src="{{ asset('uploads/' ~ menus.image) }}" alt="Image" class="img-fluid img-thumbnail" width="100"/></td>
         <td>
-        <a href="{{ path('admin_menus_modifier',{'id': menus.id }) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
-        <a href="{{ path('admin_menus_supprimer',{'id': menus.id }) }}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+        {% for ingredient in menus.ingredients %}
+            <ul>
+                <li>
+                {{ingredient.nom}}
+                </li>
+            </ul>
+        {% endfor %}
+        </td>
+        <td>{{ menus.categorie }}</td>
+        <td><img src="{{ asset('uploads/' ~ menus.image) }}" alt="Image" class="img-fluid img-thumbnail" width="120"/></td>
+        <td>
+        <a href="{{ path('admin_menus_modifier',{'id': menus.id }) }}" class="btn btn-warning"><i class="fas fa-pen"> Modifer</i></a>
+        <a href="{{ path('admin_menus_supprimer',{'id': menus.id }) }}" class="btn btn-danger"><i class="fas fa-trash"> Supprimer</i></a>
         </td>
         </tr>
     {% endfor %}

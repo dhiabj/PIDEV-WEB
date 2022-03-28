@@ -45,6 +45,16 @@ class MenuRepository extends ServiceEntityRepository
         }
     }
 
+    public function findMenuIngredients()
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('m,i')
+            ->from(Menu::class, 'm')
+            ->leftJoin('m.ingredients', 'i')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Menu[] Returns an array of Menu objects
     //  */

@@ -3,6 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Menu;
+use App\Entity\Ingredients;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -19,11 +22,23 @@ class MenuType extends AbstractType
             ->add('titre', TextType::class)
             ->add('description', TextType::class)
             ->add('prix', TextType::class)
-            ->add('ingredients', TextType::class)
+            ->add('ingredients', EntityType::class, [
+                'class' => Ingredients::class,
+                'multiple' => true,
+                'choice_label' => 'nom',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('i')
+                        ->orderBy('i.nom', 'ASC');
+                },
+                'by_reference' => false,
+                'attr' => [
+                    'class' => 'select-ingredients'
+                ]
+            ])
             ->add('categorie', ChoiceType::class, [
                 'choices'  => [
-                    'Normal' => 'normal',
-                    'Vegan' => 'vegan',
+                    'Normal' => 'Normal',
+                    'Vegan' => 'Vegan',
                 ],
             ])
             ->add('image', FileType::class, [
