@@ -11,15 +11,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class IngredientsController extends AbstractController
 {
-    /**
-     * @Route("/ingredients", name="app_ingredients")
-     */
-    public function index(): Response
-    {
-        return $this->render('ingredients/index.html.twig', [
-            'controller_name' => 'IngredientsController',
-        ]);
-    }
 
     /**
      * @Route("/ingredients/ajout/ajax/{label}", name="ingredients_ajout_ajax", methods={"POST"})
