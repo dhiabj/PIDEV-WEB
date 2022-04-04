@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ReclamationAdmin{% endblock %}
+
+{% block body %}
+    <h1>ReclamationAdmin</h1>
+
+    <table class="table">
+        <tbody>
+
+            <tr>
+                <th>Reponse</th>
+                <td>{{ reclamation_admin.reponse }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reclamation_admin_index') }}">back to list</a>
+
+    <a href="{{ path('app_reclamation_admin_edit', {'id': reclamation_admin.id}) }}">edit</a>
+
+    {{ include('reclamation_admin/_delete_form.html.twig') }}
+{% endblock %}

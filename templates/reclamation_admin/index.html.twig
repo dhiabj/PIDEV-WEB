@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ReclamationAdmin index{% endblock %}
+
+{% block body %}
+    <h1>ReclamationAdmin index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Reclamation</th>
+                <th>Reponse</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reclamation_admin in reclamation_admins %}
+            <tr>
+                {% for reclamation_user in reclamation_users %}
+                    {% if reclamation_admin.idr == reclamation_user.idrep %}
+                        <td>{{ reclamation_user.texte }}</td>
+                    {% endif %}
+                {% endfor %}
+
+                    {% if reclamation_admin.reponse %}
+                        <td>{{ reclamation_admin.reponse }}</td>
+                    {% else %}
+                        <td>no reponse yet</td>
+                    {% endif %}
+                <td>
+                    <a href="{{ path('app_reclamation_user_show', {'id': reclamation_admin.id}) }}">show</a>
+                    <a href="{{ path('app_reclamation_admin_edit', {'id': reclamation_admin.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reclamation_admin_new') }}">Create new</a>
+{% endblock %}
