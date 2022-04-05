@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * @Route("/admin", name="admin_")
  * @package App\Controller
  */
-class AdminController extends AbstractController
+class AdminMenuController extends AbstractController
 {
     /**
      * @Route("/", name="home")
@@ -21,7 +21,7 @@ class AdminController extends AbstractController
     public function index(): Response
     {
         return $this->render('adminTemplate.html.twig', [
-            'controller_name' => 'AdminController',
+            'controller_name' => 'AdminMenuController',
         ]);
     }
 
