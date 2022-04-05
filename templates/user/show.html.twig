@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter Utilisateur
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        select{
+            display: block;
+            width: 100%;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+<h1>List of users</h1>
+
+<a href="{{ path('adduser') }}">Add new User</a>
+<table border="1">
+    {% for u in users %}
+        <tr>
+            <td>{{ u.id }}</td>
+            <td>{{ u.nom }}</td>
+            <td>{{ u.prenom }}</td>
+            <td>{{ u.email }}</td>
+            <td>{{ u.password }}</td>
+            <td>{{ u.date }}</td>
+            <td>{{ u.numTel }}</td>
+            <td>{{ u.adresse }}</td>
+            <td>{{ u.role }}</td>
+            <td>{{ u.etat }}</td>
+            <td>
+                <a href="{{ path('updateuser',{'id': u.id }) }}" class="btn btn-danger"><i class="fas fa-trash"> Modifier</i></a>
+                <a href="{{ path('delete',{'id': u.id }) }}" class="btn btn-warning"><i class="fas fa-pen"> Supprimer</i></a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

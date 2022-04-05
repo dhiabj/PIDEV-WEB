@@ -1,0 +1,7 @@
+<h3 style="color: red">List of users {{ class.name }}</h3>
+
+<ul>
+    {% for user in class.users %}
+        <li style="color: green">{{ user.nom }} {{ user.prenom }}</li>
+    {% endfor %}
+</ul>
