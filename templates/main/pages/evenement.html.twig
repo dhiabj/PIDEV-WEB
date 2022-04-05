@@ -1,0 +1,39 @@
+{% extends 'userTemplate.html.twig' %}
+
+{% block title %}Événement{% endblock %}
+
+{% block body %}
+
+<section class="review" id="review">
+
+    <h3 class="sub-heading"> Evenements </h3>
+    <h1 class="heading"> ForU evenements </h1>
+
+    <div class="swiper-container review-slider">
+
+        <div class="swiper-wrapper">
+            {% for r in evenement %}
+
+            <div class="swiper-slide slide">
+                <i class="fas fa-quote-right"></i>
+                <div class="user">
+                    <div class="user-info">
+                        <h3>{{ r.nom }}</h3>
+                        <div class="stars">
+                            {{ r.date|date('d/m/y')}}
+                        </div>
+                    </div>
+                </div>
+                <p>{{r.categorie }}  </p>
+                <p>{{r.description }}  </p>
+            </div>
+            {% endfor %}
+
+
+        </div>
+
+    </div>
+    
+</section>
+
+{% endblock %}

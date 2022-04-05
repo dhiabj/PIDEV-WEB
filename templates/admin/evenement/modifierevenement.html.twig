@@ -1,0 +1,80 @@
+{% extends 'adminTemplate.html.twig' %}
+
+{% block title %}Ajouter evenement
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        select{
+            display: block;
+            width: 100%;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+
+
+    <nav class="navbar navbar-dark bg-dark mb-3 rounded">
+        <span class="navbar-brand mb-0 h1">Ajouter menu</span>
+    </nav>
+    {{form_start(form,{'attr':{'novalidate':'novalidate'}})}}
+    <div class="form-group">
+        {{ form_label(form.nom) }}
+        {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.date, 'date', {'label_attr': {'class': 'evenement'}}) }}
+        {{ form_widget(form.date, {'attr': {'class': 'evenement'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.categorie) }}
+        {{ form_widget(form.categorie, {'attr': {'class': 'form-control'}}) }}
+
+    </div>
+    <div class="form-group">
+        {{form_label(form.description)}}
+        <br>
+        {{ form_widget(form.description)}}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.nbrPersonnes, 'Nombre Personnes') }}
+        {{ form_widget(form.nbrPersonnes, {'attr': {'class': 'form-control'}}) }}
+
+    </div>
+
+
+
+
+    {{ form_row(form.valider, {'attr': {'class': 'btn btn-primary'}}) }}
+
+    {{form_end(form)}}
+
+
+{% endblock %}
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(function(){
+            $('.select-ingredients').select2({
+                tags: true,
+                tokenSeparators: [','],
+                theme: "classic",
+            }).on('change', function(e){
+                let label = $(this).find("[data-select2-tag=true]");
+                if(label.length && $.inArray(label.val(), $(this).val() !== -1)){
+                    $.ajax({
+                        url: "/ingredients/ajout/ajax/"+label.val(),
+                        type: "POST"
+                    }).done(function(data){
+                        console.log(data)
+                        label.replaceWith(`<option selected value="${data.id}">${label.val()}</option>`);
+                    });
+                }
+                //console.log(label);
+            });
+        })
+    </script>
+{% endblock %}
