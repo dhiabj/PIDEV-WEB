@@ -1,0 +1,90 @@
+{% extends 'userTemplate.html.twig' %}
+
+{% block title %}Menu{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset ('css/menu.css')}}">
+{% endblock %}
+
+{% block body %}
+<section class="menu" id="menu">
+
+    <h3 class="sub-heading"> notre carte </h3>
+    <h1 class="heading"> la spécialité du jour </h1>
+    <div class="pos-switch">
+        <h3 class="title-switch">vegan</h3>
+        <label class="switch">
+            <input type="checkbox" checked>
+            <span class="slider round"></span>
+        </label>
+    </div>
+    
+
+<div id="main_content">
+    <div class="box-container">
+            {% for menusVegan in menusVegan %}
+                <div class="box">
+                    <div class="image">
+                        <img src="{{ asset('uploads/' ~ menusVegan.image) }}" alt="Image">
+                        <a href="#" class="fas fa-heart"></a>
+                    </div>
+                    <div class="content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <h3>{{menusVegan.titre}}</h3>
+                        <p>{{menusVegan.description}}</p>
+                        <h3>ingrédients</h3>
+                        {% for ingredient in menusVegan.ingredients %}
+                            <ul>
+                                <li>
+                                {{ingredient.nom}}
+                                </li>
+                            </ul>
+                        {% endfor %}
+                        <a href="#" class="btn">add to cart</a>
+                        <span class="price">{{menusVegan.prix}} TND</span>
+                    </div>
+                </div>
+            {% endfor %}
+    </div>
+</div>
+<div id="secondary_content">
+    <div class="box-container">
+        {% for menusNormal in menusNormal %}
+            <div class="box">
+                <div class="image">
+                        <img src="{{ asset('uploads/' ~ menusNormal.image) }}" alt="Image">
+                        <a href="#" class="fas fa-heart"></a>
+                </div>
+                <div class="content">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <h3>{{menusNormal.titre}}</h3>
+                    <p>{{menusNormal.description}}</p>
+                    <h3>ingrédients</h3>
+                    {% for ingredient in menusNormal.ingredients %}
+                        <ul>
+                            <li>
+                                {{ingredient.nom}}
+                            </li>
+                        </ul>
+                    {% endfor %}
+                    <a href="#" class="btn">add to cart</a>
+                    <span class="price">{{menusNormal.prix}} TND</span>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+</section>
+{% endblock %}
+

@@ -55,6 +55,30 @@ class MenuRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findVeganMenus()
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('m,i')
+            ->from(Menu::class, 'm')
+            ->leftJoin('m.ingredients', 'i')
+            ->where('m.categorie = :categorie')
+            ->setParameter('categorie', 'vegan')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findNormalMenus()
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('m,i')
+            ->from(Menu::class, 'm')
+            ->leftJoin('m.ingredients', 'i')
+            ->where('m.categorie = :categorie')
+            ->setParameter('categorie', 'normal')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Menu[] Returns an array of Menu objects
     //  */
