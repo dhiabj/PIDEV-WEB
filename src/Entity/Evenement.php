@@ -37,6 +37,7 @@ class Evenement
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotNull
      */
     private $nbrPersonnes;
 

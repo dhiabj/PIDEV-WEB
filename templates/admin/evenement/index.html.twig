@@ -15,6 +15,7 @@
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">categorie</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">description</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">date</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nombre Personnes</th>
                                 <th class="text-secondary opacity-7"></th>
                             </tr>
                             </thead>
@@ -40,7 +41,10 @@
                                     <td class="align-middle text-center">
                                         <span class="text-secondary text-xs font-weight-bold">{{ r.date|date('d/m/y')}} </span>
                                     </td>
-                                    <td class="align-middle">
+                                    <td class="align-middle text-center text-sm">
+                                        <p class="text-xs text-secondary mb-0">{{ r.nbrPersonnes }}</p>
+                                    </td>
+                                    <td class="align-middle text-center ">
 
                                             <a href="{{ path ('modifierevenement',{'id':r.id}) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                 Modifier
