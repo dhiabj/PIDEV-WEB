@@ -6,6 +6,7 @@ use App\Repository\MenuRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Menu
@@ -28,6 +29,18 @@ class Menu
      * @var string
      *
      * @ORM\Column(name="titre", type="string", length=255, nullable=false)
+     * @Assert\Regex(
+     *     pattern = "/^[a-zA-ZÀ-Ÿ ]*$/",
+     *     message="Cette valeur n'est pas valide"
+     * )
+     * @Assert\Length(
+     *     min= 2,
+     *     max= 15,
+     *     minMessage = "le titre doit etre supperieur a {{ limit }} caracteres",
+     *     maxMessage = " le titre ne doit pas depasser {{ limit }} caracteres")
+     * @Assert\NotNull(
+     *     message="Cette valeur ne doit pas être nulle"
+     * )
      */
     private $titre;
 
@@ -35,6 +48,18 @@ class Menu
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=255, nullable=false)
+     * @Assert\Regex(
+     *     pattern = "/^[a-zA-ZÀ-Ÿ, ]*$/",
+     *     message="Cette valeur n'est pas valide"
+     * )
+     * @Assert\Length(
+     *     min= 2,
+     *     max= 255,
+     *     minMessage = "la description doit etre supperieur a {{ limit }} caracteres",
+     *     maxMessage = " la description ne doit pas depasser {{ limit }} caracteres")
+     * @Assert\NotNull(
+     *     message="Cette valeur ne doit pas être nulle"
+     * )
      */
     private $description;
 
@@ -42,11 +67,19 @@ class Menu
      * @var float
      *
      * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=false)
+     * @Assert\NotEqualTo(
+     *     value = 0, 
+     *     message = "Le prix d'un menu ne doit pas être égal à 0"
+     * )
+     * @Assert\NotNull(
+     *     message="Cette valeur ne doit pas être nulle"
+     * )
      */
     private $prix;
 
     /**
      * @ORM\ManyToMany(targetEntity=Ingredients::class, mappedBy="menu")
+     * @Assert\NotNull
      */
     private $ingredients;
 
@@ -54,6 +87,7 @@ class Menu
      * @var string
      *
      * @ORM\Column(name="categorie", type="string", length=255, nullable=false)
+     * @Assert\NotNull
      */
     private $categorie;
 
@@ -61,6 +95,9 @@ class Menu
      * @var string
      *
      * @ORM\Column(name="image", type="string", length=255, nullable=false)
+     * @Assert\NotNull(
+     *     message="Cette valeur ne doit pas être nulle"
+     * )
      */
     private $image;
 

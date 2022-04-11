@@ -19,7 +19,7 @@ select{
 	<nav class="navbar navbar-dark bg-dark mb-3 rounded">
 	<span class="navbar-brand mb-0 h1">Ajouter menu</span>
 	</nav>
-	{{form_start(form)}}
+	{{form_start(form,{'attr':{'novalidate':'novalidate'}})}}
 	<div class="form-group">
 		{{ form_label(form.titre) }}
 		{{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
@@ -43,11 +43,8 @@ select{
 		{{ form_widget(form.categorie, {'attr': {'class': 'form-control'}}) }}
 	</div>
 	<div class="mb-3">
-		<label>Image</label>
-		<div class="custom-file">
-			{{ form_label(form.image, 'Choisissez votre fichier', {'label_attr': {'class': 'custom-file-label'}}) }}
-			{{ form_widget(form.image, {'attr': {'class': 'custom-file-input'}}) }}
-		</div>
+			{{ form_label(form.image) }}
+			{{ form_widget(form.image) }}
 	</div>
 	
 	
