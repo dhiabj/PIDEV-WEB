@@ -3,8 +3,8 @@
 namespace App\Form;
 
 use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -19,21 +19,25 @@ class FormUserType extends AbstractType
             ->add('prenom')
             ->add('email')
             ->add('password')
-            ->add('date')
-//            ->add('date', DateType::class, [
-//                'widget' => 'choice',
-//                'input'  => 'datetime_immutable'
-//            ])
+            ->add('date', DateType::class, [
+                'widget' => 'choice',
+            ])
             ->add('numTel')
             ->add('adresse')
-            ->add('role')
-            ->add('etat')
-//            ->add('etat',EntityType::class,[
-//                'class'=>User::class,
-//                'choice_label'=>'etat',
-//                'multiple'=>false,
-//                'expanded'=>true,
-//            ])
+            ->add('role', ChoiceType::class, [
+                'choices'  => [
+                    'CLient' => 'CLient',
+                    'Admin' => 'Admin',
+                    'Livreur' => 'Livreur',
+                ],
+            ])
+            ->add('etat', ChoiceType::class, [
+                'choices'  => [
+                    'Not Verified' => 'Not Verified',
+                    'Verified' => 'Verified',
+                    'Banned' => 'Banned',
+                ],
+            ])
             ->add('valider', SubmitType::class)
         ;
     }

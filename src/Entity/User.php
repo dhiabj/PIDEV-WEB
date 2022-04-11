@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
@@ -82,7 +83,7 @@ class User
      *
      * @ORM\Column(name="etat", type="string", length=25, nullable=false, options={"default"="not verified"})
      */
-    private $etat = 'not verified';
+    private $etat = 'Not Verified';
 
     public function getId(): ?int
     {

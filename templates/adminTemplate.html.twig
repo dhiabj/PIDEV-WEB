@@ -122,9 +122,15 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ path('admin_test') }}" class="nav-link">
+                                <a href="{{ path('listusers') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Test</p>
+                                    <p>Listes des utilisateur</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('adduser') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Ajouter Utilisateur</p>
                                 </a>
                             </li>
                         </ul>
@@ -171,6 +177,32 @@
                             </li>
                         </ul>
                     </li>
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+                             with font-awesome or any other icon font library -->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    Livraison
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ path('listusers') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Listes des Livraison</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ path('adduser') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Ajouter Livraison</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-calendar-alt"></i>
