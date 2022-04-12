@@ -1,0 +1,39 @@
+{% extends 'adminTemplate.html.twig' %}
+
+{% block title %}Ajouter reservation
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        select{
+            display: block;
+            width: 100%;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
+
+{% block body %}
+
+    <nav class="navbar navbar-dark bg-dark mb-3 rounded">
+        <span class="navbar-brand mb-0 h1">Ajouter Une Réservation</span>
+    </nav>
+
+    {{form_start(form,{'attr':{'novalidate':'novalidate'}})}}
+    <div class="form-group">
+        {{ form_errors(form.nom) }}
+        {{ form_label(form.nom) }}
+       <input type="text" {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    {{ form_row(form.valider, {'attr': {'class': 'btn btn-primary'}}) }}
+
+
+    {{form_end(form)}}
+
+
+{% endblock %}
+{% block footer %}
+{% endblock %}
+{% block aside %}
+{% endblock %}

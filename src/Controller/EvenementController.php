@@ -30,6 +30,7 @@ class EvenementController extends AbstractController
 
 
     }
+
     /**
      * @Route("/user/listevenementforU", name="app_evenement")
      */
@@ -115,5 +116,13 @@ class EvenementController extends AbstractController
         $em->flush();
         return $this->redirectToRoute('listevenement');
     }
-
+    /**
+     * @Route("admin/showevenement/{id}", name="showevenement")
+     */
+    public function show(Evenement $evenement): Response
+    {
+        return $this->render('admin/evenement/show.html.twig', [
+            'evenement' => $evenement,
+        ]);
+    }
 }

@@ -74,7 +74,7 @@
         </ul>
     </nav>
     <!-- /.navbar -->
-
+{% block aside %}
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
@@ -185,6 +185,10 @@
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Evenements</p>
                                 </a>
+                                <a href="{{ path('listreservation') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Réservations</p>
+                                </a>l
                             </li>
                             <li class="nav-item">
                                 <a href="{{ path('addevenement') }}" class="nav-link">
@@ -226,6 +230,7 @@
         </div>
         <!-- /.sidebar -->
     </aside>
+    {% endblock %}
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
