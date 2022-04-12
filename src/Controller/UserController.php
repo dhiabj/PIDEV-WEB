@@ -72,7 +72,7 @@ class UserController extends AbstractController
      * @Route("/updateusers/{id}", name="updateuser")
      */
     public function update(Request $req,$id,UserRepository $rep)
-    {/* $this->getDoctrine()->getRepository(Classroom::class)*/
+    {
         $class = $rep->find($id);
         $form = $this->createForm(FormUserType::class,$class);
         $form->handleRequest($req);

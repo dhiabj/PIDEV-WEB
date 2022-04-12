@@ -1,0 +1,44 @@
+{% extends 'adminTemplate.html.twig' %}
+
+{% block title %}Livraison index{% endblock %}
+
+{% block body %}
+    <h1>Liste des livraisons</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Client</th>
+                <th>Livreur</th>
+                <th>Commande</th>
+                <th>Etat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for livraison in livraisons %}
+            <tr>
+                <td>{{ livraison.id }}</td>
+                <td>{{ livraison.nom }}</td>
+                <td>{{ livraison.user }}</td>
+                <td>{{ livraison.livreur }}</td>
+                <td>{{ livraison.commande }}</td>
+                <td>{{ livraison.etat }}</td>
+                <td>
+                    <a href="{{ path('app_livraison_edit',{'id': livraison.id }) }}" class="btn btn-danger"><i class="fas fa-trash"> Modifier</i></a>
+                    <a href="{{ path('liv_supp',{'id': livraison.id }) }}" class="btn btn-warning"><i class="fas fa-pen"> Supprimer</i></a>
+                    <a href="{{ path('app_livraison_show', {'id': livraison.id}) }}"class="btn btn-info"><i class="fas fa-pen"> Details</i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_livraison_new') }}">Create new</a>
+{% endblock %}

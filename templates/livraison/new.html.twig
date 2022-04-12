@@ -1,0 +1,37 @@
+{% extends 'adminTemplate.html.twig' %}
+
+{% block title %}New Livraison{% endblock %}
+
+{% block body %}
+    <h1>Créer une Livraison</h1>
+
+    <nav class="navbar navbar-dark bg-dark mb-3 rounded">
+        <span class="navbar-brand mb-0 h1">Ajouter livraison</span>
+    </nav>
+    {{form_start(formClass)}}
+    <div class="form-group">
+        {{ form_label(formClass.nom) }}
+        {{ form_widget(formClass.nom, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(formClass.etat) }}
+        {{ form_widget(formClass.etat, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(formClass.user) }}
+        {{ form_widget(formClass.user, {'attr': {'class': 'form-control'}}) }}
+
+    </div>
+    <div class="form-group">
+        {{ form_label(formClass.commande,'Mot de passe') }}
+        {{ form_widget(formClass.commande, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(formClass.livreur, 'Date') }}
+        {{ form_widget(formClass.livreur, {'attr': {'class': 'date'}}) }}
+    </div>
+
+    {{ form_row(formClass.valider, {'attr': {'class': 'btn btn-primary'}}) }}
+
+    {{form_end(formClass)}}
+{% endblock %}

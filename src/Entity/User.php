@@ -2,8 +2,11 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints\Date;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -26,6 +29,9 @@ class User
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255, nullable=false)
+     * @Assert\NotNull(
+     *     message="Cette valeur ne doit pas être nulle"
+     * )
      */
     private $nom;
 
@@ -33,6 +39,9 @@ class User
      * @var string
      *
      * @ORM\Column(name="prenom", type="string", length=255, nullable=false)
+     * @Assert\NotNull(
+     *     message="Cette valeur ne doit pas être nulle"
+     * )
      */
     private $prenom;
 
@@ -40,27 +49,62 @@ class User
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=false)
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email."
+     * )
+     * @Assert\NotNull(
+     *     message="Cette valeur ne doit pas être nulle"
+     * )
      */
     private $email;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=255, nullable=false)
+     * @ORM\Column(name="password", type="string", length=16, nullable=false)
+     * @Assert\Length(
+     *     min= 8,
+     *     max= 16,
+     *     minMessage = "Mot de passe doit etre supperieur a {{ limit }} caracteres",
+     *     maxMessage = "Mot de passe ne doit pas depasser {{ limit }} caracteres")
+     * @Assert\NotNull(
+     *     message="Cette valeur ne doit pas être nulle"
+     * )
      */
     private $password;
 
     /**
-     * @var string
+     * @var \DateTimeInterface A "Y-m-d" formatted value
      *
-     * @ORM\Column(name="date", type="string", nullable=false)
+     * @ORM\Column(name="date", type="date", nullable=false)
+     * @Assert\Date
+     * @Assert\NotNull(
+     *     message="Cette valeur ne doit pas être nulle"
+     * )
      */
     private $date;
+
+/* @Assert\Length(
+*      min = 8,
+*      max = 8,
+*      minMessage = "Your first name must be at least {{ limit }} characters long",
+*      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+* )
+* @Assert\Range(
+*      min = 11111111,
+*      max = 99999999,
+*      notInRangeMessage = "téléphone doit etre 8 chiffres",
+* )*/
 
     /**
      * @var string
      *
      * @ORM\Column(name="num_tel", type="string", length=8, nullable=false)
+     * @Assert\Regex(pattern="/^[0-9]*$/", message="number_only")
+
+     * @Assert\NotNull(
+     *     message="Cette valeur ne doit pas être nulle"
+     * )
      */
     private $numTel;
 
@@ -68,6 +112,9 @@ class User
      * @var string
      *
      * @ORM\Column(name="adresse", type="string", length=255, nullable=false)
+     * @Assert\NotNull(
+     *     message="Cette valeur ne doit pas être nulle"
+     * )
      */
     private $adresse;
 
@@ -75,6 +122,9 @@ class User
      * @var string
      *
      * @ORM\Column(name="role", type="string", length=255, nullable=false)
+     * @Assert\NotNull(
+     *     message="Cette valeur ne doit pas être nulle"
+     * )
      */
     private $role;
 
@@ -82,6 +132,9 @@ class User
      * @var string
      *
      * @ORM\Column(name="etat", type="string", length=25, nullable=false, options={"default"="not verified"})
+     * @Assert\NotNull(
+     *     message="Cette valeur ne doit pas être nulle"
+     * )
      */
     private $etat = 'Not Verified';
 
@@ -138,12 +191,12 @@ class User
         return $this;
     }
 
-    public function getDate(): ?string
+    public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
     }
 
-    public function setDate(string $date): self
+    public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
 
@@ -198,13 +251,10 @@ class User
         return $this;
     }
 
-    /**
-     * @return Collection<int, User>
-     */
-    public function getUser(): Collection
-    {
-        return $this->User;
+    public function __toString() {
+        return $this->nom;
     }
+
 
     public function addUser(User $user): self
     {
