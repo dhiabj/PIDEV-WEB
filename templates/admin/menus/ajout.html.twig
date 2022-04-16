@@ -9,6 +9,18 @@ select{
 	display: block;
 	width: 100%;
 }
+.card.addmenu-card {
+  margin: auto;
+  padding-top: 5%;
+  background-color: #f4f4f4;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.center-col {
+  margin: auto;
+  padding-bottom: 10%;
+}
+
 </style>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 {% endblock %}
@@ -19,7 +31,11 @@ select{
 	<nav class="navbar navbar-dark bg-dark mb-3 rounded">
 	<span class="navbar-brand mb-0 h1">Ajouter menu</span>
 	</nav>
-	{{form_start(form,{'attr':{'novalidate':'novalidate'}})}}
+	<div class="col-md-12">
+    <div class="col-md-12 center-col">
+	<div class="card addmenu-card">
+	<div class="card-body">
+	{{form_start(form, {'attr':{'novalidate':'novalidate'}})}}
 	<div class="form-group">
 		{{ form_label(form.titre) }}
 		{{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
@@ -51,6 +67,11 @@ select{
 	{{ form_row(form.valider, {'attr': {'class': 'btn btn-primary'}}) }}
 
 	{{form_end(form)}}
+	</div>
+	</div>
+	</div>
+	</div>
+	
 
 
 {% endblock %}

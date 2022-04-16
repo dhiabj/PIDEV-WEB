@@ -1,0 +1,42 @@
+{% extends 'userTemplate.html.twig' %}
+
+{% block title %}favoris{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    h3{
+    color:var(--black);
+    font-size: 2.5rem;
+}
+    .btn:hover {
+    background: var(--red);
+    letter-spacing: .1rem;
+    border-color: var(--red);
+}
+.btn{
+    border-color: #0062cc;
+}
+</style>
+
+<div class="example-wrapper">
+{% for favoris in favorites %}
+    <div class="card shadow mb-3">
+    <div class="card-body">
+    <div class="row">
+    <div class="col-md-4">
+    <img src="{{ asset('uploads/' ~ favoris.menu.image) }}" alt="Image" class="img-fluid img-thumbnail" width="200">
+    </div>
+    <div class="col-md-8">
+    <h3 class="card-title">{{favoris.menu.titre}}</h3>
+    <p class="card-text">{{favoris.menu.description}}</p>
+    <a href="{{ path('favoris_supprimer',{'id': favoris.id }) }}" class="btn btn-danger"><i class="fas fa-trash"> Supprimer</i></a>
+    </div>
+    </div>
+    
+  </div>
+</div>
+{% endfor %}
+</div>
+{% endblock %}
