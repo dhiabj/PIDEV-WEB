@@ -25,7 +25,7 @@
                 <div class="box">
                     <div class="image">
                         <img src="{{ asset('uploads/' ~ menusVegan.image) }}" alt="Image">
-                        <button data-url="{{ path('ajout_favoris',{'id': menusVegan.id }) }}" id="{{ menusVegan.id }}" class="fas fa-heart favoris"></button>
+                        <a href="{{ path('ajout_favoris',{'id': menusVegan.id }) }}" class="fas fa-heart favoris"></a>
                     </div>
                     <div class="content">
                         <div class="stars">
@@ -58,7 +58,7 @@
             <div class="box">
                 <div class="image">
                         <img src="{{ asset('uploads/' ~ menusNormal.image) }}" alt="Image">
-                        <button data-url="{{ path('ajout_favoris',{'id': menusNormal.id }) }}" id="{{ menusNormal.id }}" class="fas fa-heart favoris"></button>
+                        <a href="{{ path('ajout_favoris',{'id': menusNormal.id }) }}" class="fas fa-heart favoris"></a>
                 </div>
                 <div class="content">
                     <div class="stars">
@@ -88,7 +88,6 @@
 </section>
 {% endblock %}
 {% block javascripts %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 let mainContent = document.querySelector("#main_content");
 let secondaryContent = document.querySelector("#secondary_content");
@@ -97,21 +96,6 @@ document.querySelector(".switch input").addEventListener("change", (e) => {
   mainContent.style.display = e.target.checked ? "block" : "none";
   secondaryContent.style.display = e.target.checked ? "none" : "block";
 });
-	$(function(){
-	$('.favoris').on('click', function(e){
-		var id = $(this).attr('id');
-       
-			$.ajax({
-				url: $(this).data('url'),
-				type: "POST"
-			}).done(function(){
-                console.log(id);
-				$('#'+id).css({'background': 'red', 'color': 'var(--white)'});
-			});
-		}
-		//console.log(data);
-	);
-})
 </script>
 {% endblock %}
 

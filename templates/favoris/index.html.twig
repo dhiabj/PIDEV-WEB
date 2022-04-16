@@ -24,20 +24,19 @@
 <h1 class="heading"><i class="fas fa-heart"></i> favoris </h1>
 {% for favoris in favorites %}
     <div class="card shadow mb-3">
-    <div class="card-body">
-    <div class="row">
-    <div class="col-md-4">
-    <img src="{{ asset('uploads/' ~ favoris.menu.image) }}" alt="Image" class="img-fluid img-thumbnail" width="200">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="{{ asset('uploads/' ~ favoris.menu.image) }}" alt="Image" class="img-fluid img-thumbnail" width="200">
+                </div>
+                <div class="col-md-8">
+                    <h3 class="card-title">{{favoris.menu.titre}}</h3>
+                    <p class="card-text">{{favoris.menu.description}}</p>
+                    <a href="{{ path('favoris_supprimer',{'id': favoris.id }) }}" class="btn btn-danger"><i class="fas fa-trash"> Supprimer</i></a>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-8">
-    <h3 class="card-title">{{favoris.menu.titre}}</h3>
-    <p class="card-text">{{favoris.menu.description}}</p>
-    <a href="{{ path('favoris_supprimer',{'id': favoris.id }) }}" class="btn btn-danger"><i class="fas fa-trash"> Supprimer</i></a>
-    </div>
-    </div>
-    
-  </div>
-</div>
 {% endfor %}
 </div>
 {% endblock %}
