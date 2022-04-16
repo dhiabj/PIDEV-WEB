@@ -18,7 +18,6 @@ select{
 
 .center-col {
   margin: auto;
-  padding-bottom: 10%;
 }
 
 </style>
@@ -26,55 +25,47 @@ select{
 {% endblock %}
 
 {% block body %}
-
-
-	<nav class="navbar navbar-dark bg-dark mb-3 rounded">
-	<span class="navbar-brand mb-0 h1">Ajouter menu</span>
-	</nav>
 	<div class="col-md-12">
-    <div class="col-md-12 center-col">
-	<div class="card addmenu-card">
-	<div class="card-body">
-	{{form_start(form, {'attr':{'novalidate':'novalidate'}})}}
-	<div class="form-group">
-		{{ form_label(form.titre) }}
-		{{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+    	<div class="col-md-6 center-col">
+			<div class="card addmenu-card">
+				<div class="card-body">
+					<nav class="navbar navbar-dark bg-dark mb-3 rounded">
+						<span class="navbar-brand mb-0 h1">Ajouter un nouveau menu</span>
+					</nav>
+					{{form_start(form, {'attr':{'novalidate':'novalidate'}})}}
+						<div class="form-group">
+							{{ form_label(form.titre) }}
+							{{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+						</div>
+						<div class="form-group">
+							{{ form_label(form.description) }}
+							{{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+						</div>
+						<div class="form-group">
+							{{ form_label(form.prix) }}
+							{{ form_widget(form.prix, {'attr': {'class': 'form-control'}}) }}
+						</div>
+						<div class="form-group">
+							{{form_label(form.ingredients)}}
+							<br>
+							{{ form_widget(form.ingredients)}}
+						</div>
+						<div class="form-group">
+							{{ form_label(form.categorie) }}
+							{{ form_widget(form.categorie, {'attr': {'class': 'form-control'}}) }}
+						</div>
+						<div class="mb-3">
+							{{ form_label(form.image) }}
+							{{ form_widget(form.image) }}
+						</div>
+						{{ form_row(form.valider, {'attr': {'class': 'btn btn-primary'}}) }}
+					{{form_end(form)}}
+				</div>
+			</div>
+		</div>
 	</div>
-	<div class="form-group">
-		{{ form_label(form.description) }}
-		{{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
-	</div>
-	<div class="form-group">
-		{{ form_label(form.prix) }}
-		{{ form_widget(form.prix, {'attr': {'class': 'form-control'}}) }}
-
-	</div>
-	<div class="form-group">
-	{{form_label(form.ingredients)}}
-	<br>
-	{{ form_widget(form.ingredients)}}
-	</div>
-	<div class="form-group">
-		{{ form_label(form.categorie) }}
-		{{ form_widget(form.categorie, {'attr': {'class': 'form-control'}}) }}
-	</div>
-	<div class="mb-3">
-			{{ form_label(form.image) }}
-			{{ form_widget(form.image) }}
-	</div>
-	
-	
-	{{ form_row(form.valider, {'attr': {'class': 'btn btn-primary'}}) }}
-
-	{{form_end(form)}}
-	</div>
-	</div>
-	</div>
-	</div>
-	
-
-
 {% endblock %}
+
 {% block javascripts %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
