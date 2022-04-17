@@ -40,6 +40,7 @@ class MenuType extends AbstractType
                     'Normal' => 'Normal',
                     'Vegan' => 'Vegan',
                 ],
+                'expanded' => true,
             ])
             ->add('image', FileType::class, [
                 'data_class' => null

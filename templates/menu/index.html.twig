@@ -25,7 +25,7 @@
                 <div class="box">
                     <div class="image">
                         <img src="{{ asset('uploads/' ~ menusVegan.image) }}" alt="Image">
-                        <a href="{{ path('ajout_favoris',{'id': menusVegan.id }) }}" class="fas fa-heart favoris"></a>
+                        <button data-url="{{ path('ajout_favoris',{'id': menusVegan.id }) }}" id="{{ menusVegan.id }}" class="fas fa-heart favoris"></button>
                     </div>
                     <div class="content">
                         <h3>{{menusVegan.titre}}</h3>
@@ -38,8 +38,11 @@
                                 </li>
                             </ul>
                         {% endfor %}
-                        <a href="#" class="btn">add to cart</a>
-                        <span class="price">{{menusVegan.prix}} TND</span>
+                        <div>
+                            <h3>Prix</h3>
+                            <span class="price">{{menusVegan.prix}} TND</span>
+                        </div>
+                        <a href="#" class="btn"><i class="fas fa-cart-plus"> Ajouter au panier</i></a>
                     </div>
                 </div>
             {% endfor %}
@@ -51,7 +54,7 @@
             <div class="box">
                 <div class="image">
                         <img src="{{ asset('uploads/' ~ menusNormal.image) }}" alt="Image">
-                        <a href="{{ path('ajout_favoris',{'id': menusNormal.id }) }}" class="fas fa-heart favoris"></a>
+                        <button data-url="{{ path('ajout_favoris',{'id': menusNormal.id }) }}" id="{{ menusNormal.id }}" class="fas fa-heart favoris"></button>
                 </div>
                 <div class="content">
                     <h3>{{menusNormal.titre}}</h3>
@@ -64,8 +67,11 @@
                             </li>
                         </ul>
                     {% endfor %}
-                    <a href="#" class="btn">add to cart</a>
-                    <span class="price">{{menusNormal.prix}} TND</span>
+                    <div>
+                        <h3>Prix</h3>
+                        <span class="price">{{menusNormal.prix}} TND</span>
+                    </div>
+                    <a href="#" class="btn"><i class="fas fa-cart-plus"> Ajouter au panier</i></a>
                 </div>
             </div>
         {% endfor %}
@@ -74,6 +80,7 @@
 </section>
 {% endblock %}
 {% block javascripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 let mainContent = document.querySelector("#main_content");
 let secondaryContent = document.querySelector("#secondary_content");
@@ -83,5 +90,31 @@ document.querySelector(".switch input").addEventListener("change", (e) => {
   secondaryContent.style.display = e.target.checked ? "none" : "block";
 });
 </script>
+<script>
+	$(function(){
+	$('.favoris').on('click', function(e){
+		var id = $(this).attr('id');
+       
+			$.ajax({
+				url: $(this).data('url'),
+				type: "POST"
+			}).done(function(){
+                console.log(id);
+				$('#'+id).css({'background': 'var(--red)', 'color': 'var(--white)'});
+                var notyf = new Notyf({
+                    duration: 2000,
+                    dismissible: true,
+                    position: {
+                        x: 'right', y: 'top'
+                    },
+                });
+                notyf.success({
+                    message: '<h3>Menu ajouté a votre liste de favoris!</h3>',
+                });
+			});
+		}
+		//console.log(data);
+	);
+    })
+</script>
 {% endblock %}
-

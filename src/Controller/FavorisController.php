@@ -7,6 +7,7 @@ use App\Entity\Menu;
 use App\Entity\User;
 use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -15,9 +16,10 @@ class FavorisController extends AbstractController
 
 
     /**
-     * @Route("/favoris/ajout/{id}", name="ajout_favoris")
+     * @Route("/favoris/ajout/{id}", name="ajout_favoris", methods={"POST"})
+     * @return Response
      */
-    public function ajoutFavoris(FlashyNotifier $flashy, $id): Response
+    public function ajoutFavoris($id): Response
     {
         $user = $this->getDoctrine()->getRepository(User::class)->find(1);
         $menu = $this->getDoctrine()->getRepository(Menu::class)->find($id);
@@ -27,8 +29,8 @@ class FavorisController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $em->persist($favoris);
         $em->flush();
-        $flashy->success('Menu ajouté à votre liste!');
-        return $this->redirectToRoute('app_favoris');
+        $id = $favoris->getId();
+        return new JsonResponse(['id' => $id]);
     }
 
     /**

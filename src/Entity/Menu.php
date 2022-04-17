@@ -87,7 +87,9 @@ class Menu
      * @var string
      *
      * @ORM\Column(name="categorie", type="string", length=255, nullable=false)
-     * @Assert\NotNull
+     * @Assert\NotNull(
+     *     message="Cette valeur ne doit pas être nulle"
+     * )
      */
     private $categorie;
 
