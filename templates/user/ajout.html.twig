@@ -20,7 +20,7 @@
     <nav class="navbar navbar-dark bg-dark mb-3 rounded">
         <span class="navbar-brand mb-0 h1">Ajouter utilisateur</span>
     </nav>
-    {{form_start(formClass)}}
+    {{form_start(formClass,{'attr':{'novalidate':'novalidate'}})}}
     <div class="form-group">
         {{ form_label(formClass.nom) }}
         {{ form_widget(formClass.nom, {'attr': {'class': 'form-control'}}) }}

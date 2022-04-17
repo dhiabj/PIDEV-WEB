@@ -14,9 +14,9 @@
 {% endblock %}
 
 {% block body %}
-<h1>List of users</h1>
-
-<a href="{{ path('adduser') }}">Add new User</a>
+    <nav class="navbar navbar-dark bg-dark mb-3 rounded">
+        <span class="navbar-brand mb-0 h1">Liste des utilisateurs</span>
+    </nav>
     <div class="table-responsive">
     <table class="table table-striped">
         <thead>
@@ -48,11 +48,12 @@
                 <td>{{ u.role }}</td>
                 <td>{{ u.etat }}</td>
                 <td>
-                    <a href="{{ path('updateuser',{'id': u.id }) }}" class="btn btn-danger"><i class="fas fa-trash"> Modifier</i></a>
-                    <a href="{{ path('delete',{'id': u.id }) }}" class="btn btn-warning"><i class="fas fa-pen"> Supprimer</i></a>
+                    <a href="{{ path('updateuser',{'id': u.id }) }}" class="btn btn-warning"><i class="fas fa-pen"> Modifier</i></a>
+                    <a href="{{ path('delete',{'id': u.id }) }}" class="btn btn-danger"><i class="fas fa-trash"> Supprimer</i></a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
 </table>
+    <a href="{{ path('adduser') }}"class="btn btn-info">Ajouter</a>
 {% endblock %}

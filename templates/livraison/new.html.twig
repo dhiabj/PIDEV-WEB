@@ -3,12 +3,11 @@
 {% block title %}New Livraison{% endblock %}
 
 {% block body %}
-    <h1>Créer une Livraison</h1>
 
     <nav class="navbar navbar-dark bg-dark mb-3 rounded">
         <span class="navbar-brand mb-0 h1">Ajouter livraison</span>
     </nav>
-    {{form_start(formClass)}}
+    {{form_start(formClass,{'attr':{'novalidate':'novalidate'}})}}
     <div class="form-group">
         {{ form_label(formClass.nom) }}
         {{ form_widget(formClass.nom, {'attr': {'class': 'form-control'}}) }}
@@ -23,12 +22,12 @@
 
     </div>
     <div class="form-group">
-        {{ form_label(formClass.commande,'Mot de passe') }}
+        {{ form_label(formClass.commande,'Commande') }}
         {{ form_widget(formClass.commande, {'attr': {'class': 'form-control'}}) }}
     </div>
     <div class="form-group">
-        {{ form_label(formClass.livreur, 'Date') }}
-        {{ form_widget(formClass.livreur, {'attr': {'class': 'date'}}) }}
+        {{ form_label(formClass.livreur, '') }}
+        {{ form_widget(formClass.livreur, {'attr': {'class': 'form-control'}}) }}
     </div>
 
     {{ form_row(formClass.valider, {'attr': {'class': 'btn btn-primary'}}) }}

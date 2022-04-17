@@ -41,7 +41,7 @@ class Livraison
      *     message="Cette valeur ne doit pas être nulle"
      * )
      */
-    private $etat;
+    private $etat="Non Livree";
 
     /**
      * @var \User
