@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
+use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * User
  *
- * @ORM\Table(name="user")
- * @ORM\Entity
+ * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="email_unique", columns={"email"})})
+ * @ORM\Entity(repositoryClass=UserRepository::class)
  */
 class User
 {
@@ -38,20 +39,6 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="adresse", type="string", length=255, nullable=false)
-     */
-    private $adresse;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="num_tel", type="string", length=8, nullable=false)
-     */
-    private $numTel;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="email", type="string", length=255, nullable=false)
      */
     private $email;
@@ -64,12 +51,32 @@ class User
     private $password;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="date", nullable=false)
+     */
+    private $date;
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="roles", type="string", length=255, nullable=false)
+     * @ORM\Column(name="num_tel", type="string", length=8, nullable=false)
      */
-    private $roles;
+    private $numTel;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="adresse", type="string", length=255, nullable=false)
+     */
+    private $adresse;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="role", type="string", length=255, nullable=false)
+     */
+    private $role;
     public function __toString() {
         return (string)$this->getId();
     }
@@ -102,30 +109,6 @@ class User
         return $this;
     }
 
-    public function getAdresse(): ?string
-    {
-        return $this->adresse;
-    }
-
-    public function setAdresse(string $adresse): self
-    {
-        $this->adresse = $adresse;
-
-        return $this;
-    }
-
-    public function getNumTel(): ?string
-    {
-        return $this->numTel;
-    }
-
-    public function setNumTel(string $numTel): self
-    {
-        $this->numTel = $numTel;
-
-        return $this;
-    }
-
     public function getEmail(): ?string
     {
         return $this->email;
@@ -150,17 +133,51 @@ class User
         return $this;
     }
 
-    public function getRoles(): ?string
+    public function getDate(): ?\DateTimeInterface
     {
-        return $this->roles;
+        return $this->date;
     }
 
-    public function setRoles(string $roles): self
+    public function setDate(\DateTimeInterface $date): self
     {
-        $this->roles = $roles;
+        $this->date = $date;
 
         return $this;
     }
 
+    public function getNumTel(): ?string
+    {
+        return $this->numTel;
+    }
 
+    public function setNumTel(string $numTel): self
+    {
+        $this->numTel = $numTel;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(string $adresse): self
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getRole(): ?string
+    {
+        return $this->role;
+    }
+
+    public function setRole(string $role): self
+    {
+        $this->role = $role;
+
+        return $this;
+    }
 }

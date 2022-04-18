@@ -22,9 +22,9 @@
     <link rel="stylesheet" href="{{ asset ('plugins/summernote/summernote-bs4.min.css')}}">
     {% block stylesheets %}
     {% endblock %}
-<form method="post" action="{{ path('app_promotion_delete', {'id': promotion.id}) }}" onsubmit="return confirm('Voulez vous supprimer cette promotion?');">
+<form method="post" action="{{ path('admin_promotion_delete', {'id': promotion.id}) }}" onsubmit="return confirm('Voulez vous supprimer cette promotion?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ promotion.id) }}">
-    <a href="{{ path('app_promotion_index') }}" class="btn btn-dark" ><i class="fas fa-list"></i>  Retour a la liste</a>
-    <a href="{{ path('app_promotion_edit', {'id': promotion.id}) }}" class="btn btn-warning" ><i class="fas fa-pen"></i> Editer</a>
+    <a href="{{ path('admin_promotion_index') }}" class="btn btn-dark" ><i class="fas fa-list"></i>  Retour a la liste</a>
+    <a href="{{ path('admin_promotion_edit', {'id': promotion.id}) }}" class="btn btn-warning" ><i class="fas fa-pen"></i> Editer</a>
     <button class="btn btn-danger"><i class="fas fa-trash"></i>Supprimer</button>
 </form>

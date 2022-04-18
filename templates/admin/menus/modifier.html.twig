@@ -1,0 +1,96 @@
+{% extends 'adminTemplate.html.twig' %}
+
+{% block title %}Modifier menu
+{% endblock %}
+
+{% block stylesheets %}
+<style>
+select{
+	display: block;
+	width: 100%;
+}
+.card.addmenu-card {
+  margin: auto;
+  padding-top: 5%;
+  background-color: #f4f4f4;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.center-col {
+  margin: auto;
+}
+
+.categorie{
+	font-weight: bold;
+}
+</style>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+<div class="col-md-12">
+    	<div class="col-md-6 center-col">
+			<div class="card addmenu-card">
+				<div class="card-body">
+					<nav class="navbar navbar-dark bg-dark mb-3 rounded">
+						<span class="navbar-brand mb-0 h1">Modifier menu</span>
+					</nav>
+					{{form_start(form, {'attr':{'novalidate':'novalidate'}})}}
+						<div class="form-group">
+							{{ form_label(form.titre) }}
+							{{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+						</div>
+						<div class="form-group">
+							{{ form_label(form.description) }}
+							{{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+						</div>
+						<div class="form-group">
+							{{ form_label(form.prix) }}
+							{{ form_widget(form.prix, {'attr': {'class': 'form-control'}}) }}
+						</div>
+						<div class="form-group">
+							{{form_label(form.ingredients)}}
+							<br>
+							{{ form_widget(form.ingredients)}}
+						</div>
+						<div class="form-group">
+							{{ form_label(form.categorie, 'Categorie', {'label_attr': {'class': 'categorie'}}) }}
+							{{ form_widget(form.categorie) }}
+						</div>
+						<div class="mb-3">
+							{{ form_label(form.image) }}
+							{{ form_widget(form.image) }}
+						</div>
+						{{ form_row(form.valider, {'attr': {'class': 'btn btn-primary'}}) }}
+					{{form_end(form)}}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+	$(function(){
+	$('.select-ingredients').select2({
+		tags: true,
+		tokenSeparators: [','],
+		theme: "classic",
+	}).on('change', function(e){
+		let label = $(this).find("[data-select2-tag=true]");
+		if(label.length && $.inArray(label.val(), $(this).val() !== -1)){
+			$.ajax({
+				url: "/ingredients/ajout/ajax/"+label.val(),
+				type: "POST"
+			}).done(function(data){
+				console.log(data)
+				label.replaceWith(`<option selected value="${data.id}">${label.val()}</option>`);
+			});
+		}
+		//console.log(label);
+	});
+})
+</script>
+{% endblock %}

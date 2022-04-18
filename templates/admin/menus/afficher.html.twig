@@ -1,0 +1,54 @@
+{% extends 'adminTemplate.html.twig' %}
+
+{% block title %}Afficher menus{% endblock %}
+
+{% block body %}
+{% for message in app.flashes('notice') %}
+<div class="alert alert-success mb-b">
+    {{ message }}
+</div>
+{% endfor %}
+<div class="card shadow">
+<div class="table-responsive">
+    <table class="table table-striped">
+    <thead>
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">Titre</th>
+        <th scope="col">Description</th>
+        <th scope="col">Prix (TND)</th>
+        <th scope="col">Ingredients</th>
+        <th scope="col">Catégorie</th>
+        <th scope="col">Image</th>
+        <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for menus in menus %}
+        <tr>
+        <th scope="row">{{ menus.id }}</th>
+        <td>{{ menus.titre }}</td>
+        <td>{{ menus.description }}</td>
+        <td>{{ menus.prix }}</td>
+        <td>
+        {% for ingredient in menus.ingredients %}
+            <ul>
+                <li>
+                {{ingredient.nom}}
+                </li>
+            </ul>
+        {% endfor %}
+        </td>
+        <td>{{ menus.categorie }}</td>
+        <td><img src="{{ asset('uploads/' ~ menus.image) }}" alt="Image" class="img-fluid img-thumbnail" width="120"/></td>
+        <td>
+        <a href="{{ path('admin_menus_modifier',{'id': menus.id }) }}" class="btn btn-warning"><i class="fas fa-pen"> Modifer</i></a>
+        <a href="{{ path('admin_menus_supprimer',{'id': menus.id }) }}" class="btn btn-danger"><i class="fas fa-trash"> Supprimer</i></a>
+        </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+</div>
+</div>
+{% endblock %}

@@ -11,12 +11,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/promotion")
+ * @Route("/admin", name="admin_")
+ * @package App\Controller
  */
 class PromotionController extends AbstractController
 {
     /**
-     * @Route("/", name="app_promotion_index", methods={"GET"})
+     * @Route("/promotion", name="promotion_index", methods={"GET"})
      */
     public function index(PromotionRepository $promotionRepository): Response
     {
@@ -26,7 +27,7 @@ class PromotionController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="app_promotion_new", methods={"GET", "POST"})
+     * @Route("/promotion/new", name="promotion_new", methods={"GET", "POST"})
      */
     public function new(Request $request, PromotionRepository $promotionRepository): Response
     {
@@ -36,7 +37,7 @@ class PromotionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $promotionRepository->add($promotion);
-            return $this->redirectToRoute('app_promotion_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_promotion_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('promotion/new.html.twig', [
@@ -46,7 +47,7 @@ class PromotionController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="app_promotion_show", methods={"GET"})
+     * @Route("/promotion/{id}", name="promotion_show", methods={"GET"})
      */
     public function show(Promotion $promotion): Response
     {
@@ -56,7 +57,7 @@ class PromotionController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="app_promotion_edit", methods={"GET", "POST"})
+     * @Route("/promotion/{id}/edit", name="promotion_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Promotion $promotion, PromotionRepository $promotionRepository): Response
     {
@@ -65,7 +66,7 @@ class PromotionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $promotionRepository->add($promotion);
-            return $this->redirectToRoute('app_promotion_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_promotion_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('promotion/edit.html.twig', [
@@ -75,7 +76,7 @@ class PromotionController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="app_promotion_delete", methods={"POST"})
+     * @Route("/promotion/{id}", name="promotion_delete", methods={"POST"})
      */
     public function delete(Request $request, Promotion $promotion, PromotionRepository $promotionRepository): Response
     {
@@ -83,6 +84,6 @@ class PromotionController extends AbstractController
             $promotionRepository->remove($promotion);
         }
 
-        return $this->redirectToRoute('app_promotion_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('admin_promotion_index', [], Response::HTTP_SEE_OTHER);
     }
 }

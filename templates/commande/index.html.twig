@@ -25,8 +25,8 @@
                 <td>{{ commande.date ? commande.date|date('Y-m-d') : '' }}</td>
                 <td>{{ commande.total }}</td>
                 <td>
-                    <a href="{{ path('app_commande_show', {'id': commande.id}) }} " class="btn btn-info"><i class="fas fa-address-book"></i>  Afficher</a>
-                    <a href="{{ path('app_commande_edit', {'id': commande.id}) }}" class="btn btn-warning"><i class="fas fa-pen"></i>   Editer</a>
+                    <a href="{{ path('admin_commande_show', {'id': commande.id}) }} " class="btn btn-info"><i class="fas fa-address-book"></i>  Afficher</a>
+                    <a href="{{ path('admin_commande_edit', {'id': commande.id}) }}" class="btn btn-warning"><i class="fas fa-pen"></i>   Editer</a>
                 </td>
             </tr>
         {% else %}

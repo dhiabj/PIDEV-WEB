@@ -2,38 +2,37 @@
 
 namespace App\Entity;
 
+use App\Repository\IngredientsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Ingredients
- *
- * @ORM\Table(name="ingredients", uniqueConstraints={@ORM\UniqueConstraint(name="nom", columns={"nom"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=IngredientsRepository::class)
  */
 class Ingredients
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
     private $nom;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="quantite", type="integer", nullable=false)
+     * @ORM\ManyToMany(targetEntity=Menu::class, inversedBy="ingredients")
      */
-    private $quantite;
+    private $menu;
+
+    public function __construct()
+    {
+        $this->menu = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -52,17 +51,27 @@ class Ingredients
         return $this;
     }
 
-    public function getQuantite(): ?int
+    /**
+     * @return Collection<int, Menu>
+     */
+    public function getMenu(): Collection
     {
-        return $this->quantite;
+        return $this->menu;
     }
 
-    public function setQuantite(int $quantite): self
+    public function addMenu(Menu $menu): self
     {
-        $this->quantite = $quantite;
+        if (!$this->menu->contains($menu)) {
+            $this->menu[] = $menu;
+        }
 
         return $this;
     }
 
+    public function removeMenu(Menu $menu): self
+    {
+        $this->menu->removeElement($menu);
 
+        return $this;
+    }
 }

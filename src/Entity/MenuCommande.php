@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
+use App\Repository\MenuCommandeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * MenuCommande
  *
- * @ORM\Table(name="menu_commande", indexes={@ORM\Index(name="menu_id", columns={"menu_id"}), @ORM\Index(name="command_id", columns={"command_id"})})
- * @ORM\Entity
+ * @ORM\Table(name="menu_commande", indexes={@ORM\Index(name="command_id", columns={"command_id"}), @ORM\Index(name="menu_id", columns={"menu_id"})})
+ * @ORM\Entity(repositoryClass=MenuCommandeRepository::class)
  */
 class MenuCommande
 {
@@ -22,16 +23,6 @@ class MenuCommande
     private $id;
 
     /**
-     * @var \Menu
-     *
-     * @ORM\ManyToOne(targetEntity="Menu")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="menu_id", referencedColumnName="id")
-     * })
-     */
-    private $menu;
-
-    /**
      * @var \Commande
      *
      * @ORM\ManyToOne(targetEntity="Commande")
@@ -41,21 +32,19 @@ class MenuCommande
      */
     private $command;
 
+    /**
+     * @var \Menu
+     *
+     * @ORM\ManyToOne(targetEntity="Menu")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="menu_id", referencedColumnName="id")
+     * })
+     */
+    private $menu;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getMenu(): ?Menu
-    {
-        return $this->menu;
-    }
-
-    public function setMenu(?Menu $menu): self
-    {
-        $this->menu = $menu;
-
-        return $this;
     }
 
     public function getCommand(): ?Commande
@@ -66,6 +55,18 @@ class MenuCommande
     public function setCommand(?Commande $command): self
     {
         $this->command = $command;
+
+        return $this;
+    }
+
+    public function getMenu(): ?Menu
+    {
+        return $this->menu;
+    }
+
+    public function setMenu(?Menu $menu): self
+    {
+        $this->menu = $menu;
 
         return $this;
     }

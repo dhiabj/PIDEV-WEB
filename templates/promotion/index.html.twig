@@ -25,8 +25,8 @@
                 <td>{{ promotion.pourcentage }}</td>
                 <td>{{ promotion.datelimite ? promotion.datelimite|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_promotion_show', {'id': promotion.id}) }} " class="btn btn-info"><i class="fas fa-address-book"></i>  Afficher</a>
-                    <a href="{{ path('app_promotion_edit', {'id': promotion.id}) }}" class="btn btn-warning"><i class="fas fa-pen"></i>   Editer</a>
+                    <a href="{{ path('admin_promotion_show', {'id': promotion.id}) }} " class="btn btn-info"><i class="fas fa-address-book"></i>  Afficher</a>
+                    <a href="{{ path('admin_promotion_edit', {'id': promotion.id}) }}" class="btn btn-warning"><i class="fas fa-pen"></i>   Editer</a>
                 </td>
             </tr>
         {% else %}

@@ -1,0 +1,62 @@
+{% extends 'userTemplate.html.twig' %}
+
+{% block title %}panier{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1.5em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+        h3{
+            color:var(--black);
+            font-size: 2.5rem;
+        }
+        .btn:hover {
+            background: var(--red);
+            letter-spacing: .1rem;
+            border-color: var(--red);
+        }
+        .btn{
+            border-color: #0062cc;
+        }
+        .valid-btn{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
+    </style>
+
+    <div class="example-wrapper">
+        <h1 class="heading"><i class="fas fa-shopping-cart"></i> Panier </h1>
+        {% for panier in panierList %}
+            <div class="card shadow mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="{{ asset('uploads/' ~ panier.menu.image) }}" alt="Image" class="img-fluid img-thumbnail" width="200">
+                        </div>
+                        <div class="col-md-8">
+                            <h3 class="card-title">{{panier.menu.titre}}</h3>
+                            <p class="card-text">{{panier.menu.description}}</p>
+                            <div>
+                                <h3>Prix</h3>
+                                <span>{{panier.menu.prix}} TND</span>
+                            </div>
+                            <a href="{{ path('panier_supprimer',{'id': panier.id }) }}" class="btn btn-danger"><i class="fas fa-trash"> Supprimer</i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <div style="text-align: center;  font-size: 1.6em;">
+            <div style="display: inline-block;"><h3>Total : </h3>
+            </div>
+            <div style="display: inline-block;">
+                {{ total }} TND
+            </div>
+        </div>
+        <div class="valid-btn"><a href="{{ path('panier_valider') }}" class="btn btn-danger"><i class="far fa-paper-plane"> Valider</i></a></div>
+
+    </div>
+
+{% endblock %}

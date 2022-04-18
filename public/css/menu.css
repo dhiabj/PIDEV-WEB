@@ -79,3 +79,7 @@ input:checked+.slider:before {
     color:var(--green);
     font-size: 2rem;
 }
+
+.btn:hover {
+  color: #fff;
+}

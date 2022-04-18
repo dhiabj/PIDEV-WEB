@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Reservation
  *
- * @ORM\Table(name="reservation", indexes={@ORM\Index(name="event_id", columns={"event_id"}), @ORM\Index(name="user_id", columns={"user_id"})})
+ * @ORM\Table(name="reservation", indexes={@ORM\Index(name="user_id", columns={"user_id"}), @ORM\Index(name="event_id", columns={"event_id"})})
  * @ORM\Entity
  */
 class Reservation
@@ -29,16 +29,6 @@ class Reservation
     private $nom;
 
     /**
-     * @var \Evenement
-     *
-     * @ORM\ManyToOne(targetEntity="Evenement")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="event_id", referencedColumnName="id")
-     * })
-     */
-    private $event;
-
-    /**
      * @var \User
      *
      * @ORM\ManyToOne(targetEntity="User")
@@ -47,6 +37,16 @@ class Reservation
      * })
      */
     private $user;
+
+    /**
+     * @var \Evenement
+     *
+     * @ORM\ManyToOne(targetEntity="Evenement")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="event_id", referencedColumnName="id")
+     * })
+     */
+    private $event;
 
     public function getId(): ?int
     {
@@ -65,18 +65,6 @@ class Reservation
         return $this;
     }
 
-    public function getEvent(): ?Evenement
-    {
-        return $this->event;
-    }
-
-    public function setEvent(?Evenement $event): self
-    {
-        $this->event = $event;
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -85,6 +73,18 @@ class Reservation
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getEvent(): ?Evenement
+    {
+        return $this->event;
+    }
+
+    public function setEvent(?Evenement $event): self
+    {
+        $this->event = $event;
 
         return $this;
     }
