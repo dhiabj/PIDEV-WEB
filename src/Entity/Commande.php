@@ -48,6 +48,7 @@ class Commande
      *
      * @ORM\Column(name="total", type="float", precision=10, scale=0, nullable=false)
      * @Assert\NotNull(message= "Le champ est vide")
+
      * @Assert\GreaterThan ("0",
      *     message="Le total ne peut pas être égal a 0 !!")
      */
