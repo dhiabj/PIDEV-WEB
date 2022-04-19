@@ -9,25 +9,26 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <!-- font awesome cdn link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <!-- custom css file link  -->
-    <link rel="stylesheet" href="{{ asset ('css/styles.css')}}">
+    <!-- bootstrap  -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     {% block stylesheets %}
     {% endblock %}
+    <link rel="stylesheet" href="{{ asset ('css/styles.css')}}">
 </head>
 <body>
-    
+
 <!-- header section starts      -->
 
 <header>
 
-    <a href="{# {{path ('app_home')}} #}" class="logo"><i class="fas fa-utensils"></i> ForU</a>
+    <a href="{{path ('app_home')}}" class="logo"><i class="fas fa-utensils"></i> ForU</a>
 
     <nav class="navbar">
-        <a href="{# {{path ('app_home')}} #}">Accueil</a>
-        <a href="{#  {{path ('app_menus')}} #}">Menu</a>
+        <a href="{{path ('app_home')}}">Accueil</a>
+        <a href="#">Menu</a>
         <a href="{{path ('app_evenement')}}">Événement</a>
-        <a href="{#  {{path ('app_reclamation')}} #}">Réclamation</a>
-        <a href="{# {{path ('app_about')}} #}">À propos</a>
+        <a href="#">Réclamation</a>
+        <a href="#">À propos</a>
     </nav>
 
     <div class="icons">
@@ -39,12 +40,12 @@
 </header>
 
 <!-- header section ends-->
-<div class="mt-body">
-{% block body %}{% endblock %}
+<div class="container-fluid wrapper">
+    {% block body %}{% endblock %}
 </div>
 
 <!-- footer section starts  -->
-{% block footer %}
+
 <section class="footer">
 
     <div class="box-container">
@@ -84,66 +85,61 @@
     <div class="credit"> copyright @ 2022 by <span>Inventors</span> </div>
 
 </section>
-{% endblock %}
 
 <!-- footer section ends -->
 
 <!-- loader part  -->
-<div class="loader-container">
-    <img src="{{ asset ('images/loader.gif')}}" alt="">
-</div>
 
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 {% block javascripts %}
-<script>
-var swiper = new Swiper(".home-slider", {
-  spaceBetween: 30,
-  centeredSlides: true,
-  autoplay: {
-    delay: 5500,
-    disableOnInteraction: false,
-  },
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true,
-  },
-  loop: true,
-});
-
-var swiper = new Swiper(".review-slider", {
-  spaceBetween: 20,
-  centeredSlides: true,
-  autoplay: {
-    delay: 5500,
-    disableOnInteraction: false,
-  },
-  loop: true,
-  breakpoints: {
-    0: {
-      slidesPerView: 1,
-    },
-    640: {
-      slidesPerView: 2,
-    },
-    768: {
-      slidesPerView: 2,
-    },
-    1024: {
-      slidesPerView: 3,
-    },
-  },
-});
-
-function loader() {
-  document.querySelector(".loader-container").classList.add("fade-out");
-}
-
-function fadeOut() {
-  setInterval(loader, 2000);
-}
-
-window.onload = fadeOut;
-</script>
+    <script>
+        var swiper = new Swiper(".home-slider", {
+            spaceBetween: 30,
+            centeredSlides: true,
+            autoplay: {
+                delay: 5500,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            loop: true,
+        });
+        var swiper = new Swiper(".review-slider", {
+            spaceBetween: 20,
+            centeredSlides: true,
+            autoplay: {
+                delay: 5500,
+                disableOnInteraction: false,
+            },
+            loop: true,
+            breakpoints: {
+                0: {
+                    slidesPerView: 1,
+                },
+                640: {
+                    slidesPerView: 2,
+                },
+                768: {
+                    slidesPerView: 2,
+                },
+                1024: {
+                    slidesPerView: 3,
+                },
+            },
+        });
+        function loader() {
+            document.querySelector(".loader-container").classList.add("fade-out");
+        }
+        function fadeOut() {
+            setInterval(loader, 2000);
+        }
+        window.onload = fadeOut;
+    </script>
 {% endblock %}
 </body>
 </html>

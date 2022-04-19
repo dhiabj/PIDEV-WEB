@@ -3,27 +3,36 @@
 namespace App\Controller;
 
 use App\Entity\Evenement;
+use App\Entity\Urlizer;
 use App\Form\EvenementType;
 use App\Repository\EvenementRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mailer\MailerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 class EvenementController extends AbstractController
 {
     /**
      * @Route("/admin/listevenement", name="listevenement")
      */
-    public function index(Request $request): Response
+    public function index(Request $request,PaginatorInterface $paginator): Response
     {
-        $repo=$this->getDoctrine()->getRepository(Evenement::class);
+        $var=$this->getDoctrine()->getRepository(Evenement::class)->findAll();
+        $var = $paginator->paginate(
+            $var, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            6/*limit per page*/
+        );
 
-        $evenement=$repo->findAll();
 
         return $this->render('admin/evenement/index.html.twig',
             [
-                'evenement'=>$evenement,
+                'evenement'=>$var,
             ]);
 
 
@@ -54,12 +63,22 @@ class EvenementController extends AbstractController
      * @return Response
      * @Route ("admin/addevenement", name="addevenement")
      */
-    function Add(Request $request): Response{
+    function Add(Request $request,MailerInterface $mailer): Response{
+
         $evenement=new Evenement();
         $form=$this->createForm(EvenementType::class,$evenement);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             //$restaurant->setUser($this->getUser()); #reservation
+            $uploadedFile = $form['imageFile']->getData();
+            $destination = $this->getParameter('kernel.project_dir').'/public/uploads';
+            $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $newFilename = Urlizer::urlize($originalFilename).'-'.uniqid().'.'.$uploadedFile->guessExtension();
+            $uploadedFile->move(
+                $destination,
+                $newFilename
+            );
+            $evenement->setImage($newFilename);
 
 
 
@@ -67,6 +86,16 @@ class EvenementController extends AbstractController
 
             $em->persist($evenement);
             $em->flush();
+            $email= (new TemplatedEmail())
+                ->from('wael.abdelhedi@esprit.tn')
+                ->to('osdj@gh.com')
+                ->subject('🥳 Un nouveau 🍛evenement🍛 est organisé à 🥳ForU🥳')
+                ->htmlTemplate('admin/evenement/email.html.twig')
+                ->context([
+                    'evenement' => $evenement,
+                ]);
+
+            $mailer -> send($email);
             return $this->redirectToRoute('listevenement');
 
         }
@@ -90,6 +119,15 @@ class EvenementController extends AbstractController
         $form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $uploadedFile = $form['imageFile']->getData();
+            $destination = $this->getParameter('kernel.project_dir').'/public/uploads';
+            $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $newFilename = Urlizer::urlize($originalFilename).'-'.uniqid().'.'.$uploadedFile->guessExtension();
+            $uploadedFile->move(
+                $destination,
+                $newFilename
+            );
+            $evenement->setImage($newFilename);
 
 
 

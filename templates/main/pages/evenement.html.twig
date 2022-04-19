@@ -29,7 +29,10 @@
                 </div>
                 <p>{{r.categorie }}  </p>
                 <p>{{r.description }}  </p>
+                <img class="img-fluid img-top rounded-3 w-100" style="height:200px;" src="{{asset('uploads/') ~ r.image}}" alt="...">
+
             </div>
+
             {% endfor %}
 
 
