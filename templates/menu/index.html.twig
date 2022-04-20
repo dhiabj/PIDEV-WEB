@@ -43,6 +43,7 @@
                             <span class="price">{{menusVegan.prix}} TND</span>
                         </div>
                         <a href="#" class="btn"><i class="fas fa-cart-plus"> Ajouter au panier</i></a>
+                        <a href="{{ path('app_review',{'id': menusVegan.id }) }}" class="btn"><i class="fas fa-quote-right"> Avis</i></a>
                     </div>
                 </div>
             {% endfor %}
@@ -72,6 +73,7 @@
                         <span class="price">{{menusNormal.prix}} TND</span>
                     </div>
                     <a href="#" class="btn"><i class="fas fa-cart-plus"> Ajouter au panier</i></a>
+                    <a href="{{ path('app_review',{'id': menusNormal.id }) }}" class="btn"><i class="fas fa-quote-right"> Avis</i></a>
                 </div>
             </div>
         {% endfor %}

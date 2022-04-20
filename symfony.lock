@@ -1,4 +1,7 @@
 {
+    "blackknight467/star-rating-bundle": {
+        "version": "v2.0.1"
+    },
     "doctrine/annotations": {
         "version": "1.13",
         "recipe": {
@@ -494,6 +497,9 @@
     },
     "symfony/stopwatch": {
         "version": "v4.4.38"
+    },
+    "symfony/templating": {
+        "version": "v4.4.37"
     },
     "symfony/translation": {
         "version": "4.4",
