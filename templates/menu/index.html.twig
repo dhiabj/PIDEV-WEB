@@ -8,16 +8,16 @@
 {% block body %}
 <section class="menu" id="menu">
 
-    <h3 class="sub-heading"> notre carte </h3>
+    <h3 class="sub-heading"> Notre Carte </h3>
     <h1 class="heading"> la spécialité du jour </h1>
     <div class="pos-switch">
-        <h3 class="title-switch">vegan</h3>
+        <h3 class="title-switch">Vegan</h3>
         <label class="switch">
             <input type="checkbox" checked>
             <span class="slider round"></span>
         </label>
     </div>
-    
+
 
 <div id="main_content">
     <div class="box-container">
@@ -42,8 +42,12 @@
                             <h3>Prix</h3>
                             <span class="price">{{menusVegan.prix}} TND</span>
                         </div>
-                        <a href="#" class="btn"><i class="fas fa-cart-plus"> Ajouter au panier</i></a>
-                        <a href="{{ path('app_review',{'id': menusVegan.id }) }}" class="btn"><i class="fas fa-quote-right"> Avis</i></a>
+                        <div>
+                            <a href="#" class="btn"><i class="fas fa-cart-plus"> Ajouter au panier</i></a>
+                        </div>
+                        <div>
+                            <a href="{{ path('app_review',{'id': menusVegan.id }) }}" class="btn"><i class="fas fa-quote-right"> Avis</i></a>
+                        </div>
                     </div>
                 </div>
             {% endfor %}
@@ -72,8 +76,12 @@
                         <h3>Prix</h3>
                         <span class="price">{{menusNormal.prix}} TND</span>
                     </div>
-                    <a href="#" class="btn"><i class="fas fa-cart-plus"> Ajouter au panier</i></a>
-                    <a href="{{ path('app_review',{'id': menusNormal.id }) }}" class="btn"><i class="fas fa-quote-right"> Avis</i></a>
+                    <div>
+                        <a href="#" class="btn"><i class="fas fa-cart-plus"> Ajouter au panier</i></a>
+                    </div>
+                    <div>
+                        <a href="{{ path('app_review',{'id': menusNormal.id }) }}" class="btn"><i class="fas fa-quote-right"> Avis</i></a>
+                    </div>
                 </div>
             </div>
         {% endfor %}

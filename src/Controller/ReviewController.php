@@ -6,6 +6,7 @@ use App\Entity\Menu;
 use App\Entity\Review;
 use App\Entity\User;
 use App\Form\ReviewType;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +17,7 @@ class ReviewController extends AbstractController
     /**
      * @Route("/review/{id}", name="app_review")
      */
-    public function index(Request $request, $id): Response
+    public function index(FlashyNotifier $flashy, Request $request, $id): Response
     {
         $review = new Review;
         $user = $this->getDoctrine()->getRepository(User::class)->find(1);
@@ -40,6 +41,7 @@ class ReviewController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($review);
             $em->flush();
+            $flashy->success('Avis enregistré avec succès!');
             return $this->redirectToRoute('app_review', ['id' => $id]);
         }
 
