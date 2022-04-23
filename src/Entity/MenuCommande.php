@@ -41,5 +41,34 @@ class MenuCommande
      */
     private $command;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getMenu(): ?Menu
+    {
+        return $this->menu;
+    }
+
+    public function setMenu(?Menu $menu): self
+    {
+        $this->menu = $menu;
+
+        return $this;
+    }
+
+    public function getCommand(): ?Commande
+    {
+        return $this->command;
+    }
+
+    public function setCommand(?Commande $command): self
+    {
+        $this->command = $command;
+
+        return $this;
+    }
+
 
 }

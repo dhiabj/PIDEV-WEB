@@ -9,6 +9,13 @@ security:
         main:
             anonymous: lazy
             provider: users_in_memory
+            guard:
+                authenticators:
+                    - App\Security\Authenticator
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -20,4 +27,5 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        # - { path: ^/*, roles: ROLE_USER }
+        # - { path: ^/livreur, roles: ROLE_LIVREUR }

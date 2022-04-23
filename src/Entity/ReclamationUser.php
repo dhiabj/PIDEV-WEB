@@ -55,5 +55,58 @@ class ReclamationUser
      */
     private $user;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    public function setTitre(string $titre): self
+    {
+        $this->titre = $titre;
+
+        return $this;
+    }
+
+    public function getTexte(): ?string
+    {
+        return $this->texte;
+    }
+
+    public function setTexte(string $texte): self
+    {
+        $this->texte = $texte;
+
+        return $this;
+    }
+
+    public function getIdr(): ?ReclamationAdmin
+    {
+        return $this->idr;
+    }
+
+    public function setIdr(?ReclamationAdmin $idr): self
+    {
+        $this->idr = $idr;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
 
 }
