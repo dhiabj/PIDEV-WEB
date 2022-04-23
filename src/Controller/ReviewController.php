@@ -20,7 +20,7 @@ class ReviewController extends AbstractController
     public function index(FlashyNotifier $flashy, Request $request, $id): Response
     {
         $review = new Review;
-        $user = $this->getDoctrine()->getRepository(User::class)->find(1);
+        $user = $this->getDoctrine()->getRepository(User::class)->find($this->getUser());
         $menu = $this->getDoctrine()->getRepository(Menu::class)->find($id);
         $reviews = $this->getDoctrine()->getRepository(Review::class)->findBy(array('menu' => $id));
         $totalFiveStars = $this->getDoctrine()->getRepository(Review::class)->totalFiveStars($id);

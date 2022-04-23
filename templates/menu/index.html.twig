@@ -18,6 +18,17 @@
         </label>
     </div>
 
+<div class="pos-price">
+    <div>
+        <a href=""><i class="fas fa-arrow-circle-up fa-2x"></i></a>
+    </div>
+    <div>
+        <h3 class="price">Prix</h3>
+    </div>
+    <div>
+        <a href=""><i class="fas fa-arrow-circle-down fa-2x"></i></a>
+    </div>
+</div>
 
 <div id="main_content">
     <div class="box-container">
@@ -25,7 +36,9 @@
                 <div class="box">
                     <div class="image">
                         <img src="{{ asset('uploads/' ~ menusVegan.image) }}" alt="Image">
+                        {% if is_granted('ROLE_USER') %}
                         <button data-url="{{ path('ajout_favoris',{'id': menusVegan.id }) }}" id="{{ menusVegan.id }}" class="fas fa-heart favoris"></button>
+                        {% endif %}
                     </div>
                     <div class="content">
                         <h3>{{menusVegan.titre}}</h3>
@@ -42,12 +55,14 @@
                             <h3>Prix</h3>
                             <span class="price">{{menusVegan.prix}} TND</span>
                         </div>
+                        {% if is_granted('ROLE_USER') %}
                         <div>
                             <a href="#" class="btn"><i class="fas fa-cart-plus"> Ajouter au panier</i></a>
                         </div>
                         <div>
                             <a href="{{ path('app_review',{'id': menusVegan.id }) }}" class="btn"><i class="fas fa-quote-right"> Avis</i></a>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             {% endfor %}
@@ -59,7 +74,9 @@
             <div class="box">
                 <div class="image">
                         <img src="{{ asset('uploads/' ~ menusNormal.image) }}" alt="Image">
+                        {% if is_granted('ROLE_USER') %}
                         <button data-url="{{ path('ajout_favoris',{'id': menusNormal.id }) }}" id="{{ menusNormal.id }}" class="fas fa-heart favoris"></button>
+                        {% endif %}     
                 </div>
                 <div class="content">
                     <h3>{{menusNormal.titre}}</h3>
@@ -76,12 +93,14 @@
                         <h3>Prix</h3>
                         <span class="price">{{menusNormal.prix}} TND</span>
                     </div>
+                    {% if is_granted('ROLE_USER') %}
                     <div>
                         <a href="#" class="btn"><i class="fas fa-cart-plus"> Ajouter au panier</i></a>
                     </div>
                     <div>
                         <a href="{{ path('app_review',{'id': menusNormal.id }) }}" class="btn"><i class="fas fa-quote-right"> Avis</i></a>
                     </div>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}

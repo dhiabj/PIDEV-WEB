@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MenuController extends AbstractController
 {
     /**
-     * @Route("/menus", name="app_menus")
+     * @Route("/menu", name="app_menus")
      */
     public function menus(): Response
     {

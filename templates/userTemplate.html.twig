@@ -37,9 +37,15 @@
     </nav>
 
     <div class="icons">
+    {% if is_granted('ROLE_USER') %}
         <a href="{{path ('app_favoris')}}" class="fas fa-heart"></a>
         <a href="#" class="fas fa-shopping-cart"></a>
         <a href="#" class="fas fa-user"></a>
+        <a href="{{ path('app_logout') }}" class="fas fa-sign-out-alt"></a>
+        {% else %}
+        <a href="{{ path('app_login') }}" class="fas fa-sign-in-alt"></a>
+    {% endif %}
+        
     </div>
 
 </header>

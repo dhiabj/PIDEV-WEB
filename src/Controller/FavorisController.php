@@ -21,7 +21,7 @@ class FavorisController extends AbstractController
      */
     public function ajoutFavoris($id): Response
     {
-        $user = $this->getDoctrine()->getRepository(User::class)->find(1);
+        $user = $this->getDoctrine()->getRepository(User::class)->find($this->getUser());
         $menu = $this->getDoctrine()->getRepository(Menu::class)->find($id);
         $favoris = new Favoris;
         $favoris->setUser($user);
@@ -38,7 +38,7 @@ class FavorisController extends AbstractController
      */
     public function afficher(): Response
     {
-        $favoris = $this->getDoctrine()->getRepository(Favoris::class)->findBy(array('user' => 1));
+        $favoris = $this->getDoctrine()->getRepository(Favoris::class)->findBy(array('user' => $this->getUser()));
         return $this->render('favoris/index.html.twig', [
             'controller_name' => 'FavorisController',
             'favorites' => $favoris
