@@ -38,34 +38,5 @@ class ReclamationAdmin
      */
     private $id;
 
-    public function getIdr(): ?int
-    {
-        return $this->idr;
-    }
-
-    public function getReponse(): ?string
-    {
-        return $this->reponse;
-    }
-
-    public function setReponse(string $reponse): self
-    {
-        $this->reponse = $reponse;
-
-        return $this;
-    }
-
-    public function getId(): ?ReclamationUser
-    {
-        return $this->id;
-    }
-
-    public function setId(?ReclamationUser $id): self
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
 
 }

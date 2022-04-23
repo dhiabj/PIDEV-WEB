@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use PhpParser\Node\Scalar\String_;
 
 /**
  * Commande
@@ -94,10 +93,6 @@ class Commande
         return $this;
     }
 
-    public function __toString() {
-        return (String) $this->id;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -108,6 +103,11 @@ class Commande
         $this->user = $user;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return strval($this->getId());
     }
 
 
