@@ -16,11 +16,11 @@ class LivraisonType extends AbstractType
         $builder
             ->add('nom')
             ->add('etat', ChoiceType::class, [
-        'choices'  => [
-            'Livree' => 'Livree',
-            'Non Livree' => 'Non Livree',
-        ],
-    ])
+                'choices'  => [
+                    'Livree' => 'Livree',
+                    'Non Livree' => 'Non Livree',
+                ],
+            ])
             ->add('user')
             ->add('commande')
             ->add('livreur')
@@ -35,3 +35,4 @@ class LivraisonType extends AbstractType
         ]);
     }
 }
+
