@@ -91,7 +91,7 @@
                     <img src="{{ asset ('ressources/clipart3191274.png')}}" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">Nom Admin</a>
+                    <a href="#" class="d-block">{{ app.user.nom }} {{ app.user.prenom }}</a>
                 </div>
             </div>
 
@@ -122,15 +122,9 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ path('app_user_index') }}" class="nav-link">
+                                <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Listes des utilisateur</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ path('app_user_new') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Ajouter Utilisateur</p>
+                                    <p>Test</p>
                                 </a>
                             </li>
                         </ul>
@@ -145,7 +139,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ path('admin_menus_ajout') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Ajouter Menu</p>
                                 </a>
@@ -153,7 +147,7 @@
                         </ul>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ path('admin_menus_afficher') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Menu liste</p>
                                 </a>
@@ -177,32 +171,6 @@
                             </li>
                         </ul>
                     </li>
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-                             with font-awesome or any other icon font library -->
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-users"></i>
-                                <p>
-                                    Livraison
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ path('app_livraison_index') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Listes des Livraison</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ path('app_livraison_new') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Ajouter Livraison</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-calendar-alt"></i>

@@ -1,3 +1,31 @@
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Marketplace
+Explore
+
+@NAYROUZWIOUU
+dhiabj
+/
+PIDEV-WEB
+Public
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+PIDEV-WEB/templates/userTemplate.html.twig
+@dhiabj
+dhiabj auth
+Latest commit efd2d38 5 hours ago
+History
+1 contributor
+119 lines (97 sloc)  4.35 KB
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +49,7 @@
     <link rel="stylesheet" href="{{ asset ('css/styles.css')}}">
 </head>
 <body>
-    
+
 <!-- header section starts      -->
 
 <header>
@@ -36,15 +64,22 @@
     </nav>
 
     <div class="icons">
-        <a href="#" class="fas fa-shopping-cart"></a>
-        <a href="#" class="fas fa-user"></a>
+        {% if is_granted('ROLE_USER') %}
+            <a href="{{path ('app_favoris')}}" class="fas fa-heart"></a>
+            <a href="#" class="fas fa-shopping-cart"></a>
+            <a href="#" class="fas fa-user"></a>
+            <a href="{{ path('app_logout') }}" class="fas fa-sign-out-alt"></a>
+        {% else %}
+            <a href="{{ path('app_login') }}" class="fas fa-sign-in-alt"></a>
+        {% endif %}
+
     </div>
 
 </header>
 
 <!-- header section ends-->
 <div class="container-fluid wrapper">
-{% block body %}{% endblock %}
+    {% block body %}{% endblock %}
 </div>
 
 <!-- footer section starts  -->
@@ -108,3 +143,16 @@
 {% endblock %}
 </body>
 </html>
+© 2022 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+Loading complete
