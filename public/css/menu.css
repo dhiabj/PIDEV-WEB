@@ -95,10 +95,26 @@ input:checked+.slider:before {
   font-size: 2.5rem;
 }
 
-a{
+.btn-price {
   color: var(--black);
+  border: none;
+  padding: 0;
+  background: none; /* Set a font size */
+  cursor: pointer; /* Mouse pointer on hover */
 }
 
-a:hover{
-  color: var(--green);
+.icons button{
+  margin-left: .5rem;
+  height:4.5rem;
+  line-height: 4.5rem;
+  width:4.5rem;
+  text-align: center;
+  font-size: 1.7rem;
+}
+
+.icons i:hover,
+.icons button:hover{
+    color:#fff;
+    color: var(--green);
+    transform: rotate(360deg);
 }
