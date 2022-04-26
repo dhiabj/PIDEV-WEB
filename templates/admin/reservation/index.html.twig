@@ -8,6 +8,13 @@
 
                 <div class="card-body px-0 pb-2">
                     <div class="table-responsive p-0">
+                        <form action="{{ path("filter") }}" method="get">
+                            <label>  <input value="" id="nom" name="filter"  class="form-control " placeholder="Votre nom de reservation" style="width: 300px"> </label>
+
+                            <button class="btn btn-primary" > Filter </button>
+                        </form>
+
+
                         <table class="table align-items-center mb-0">
                             <thead>
                             <tr>
@@ -19,6 +26,7 @@
                             </tr>
                             </thead>
                             <tbody>
+
                             {% for r in reservation %}
                                 <tr>
                                     <td>
@@ -33,7 +41,6 @@
                                     </td>
                                     <td>
                                         <p class="text-xs font-weight-bold mb-0">{{ r.Evenement.nom }}</p>
-
                                     </td>
                                     <td class="align-middle text-center ">
 
@@ -52,10 +59,18 @@
 
 
                             </tbody>
+
                         </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <a type="submit" class="btn btn-primary btn-sm "  style="text-align: center" style="margin:auto " href="{{ path('tri' )}}">  <strong>Tri par NOM RESERVATION</strong></a>
+    <br>
+    <br>
+<form>
+    <a class="btn btn-primary" href="{{ path('evenement_list') }}">Imprimer les réservations</a>
+</form>
+
 {% endblock %}

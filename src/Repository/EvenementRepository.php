@@ -73,4 +73,44 @@ class EvenementRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+    public function find_Nb_Rec_Par_Status($type)
+    {
+
+        $em = $this->getEntityManager();
+
+        $query = $em->createQuery(
+            'SELECT DISTINCT  count(r.id) FROM   App\Entity\Evenement r  where r.categorie = :categorie   '
+        );
+        $query->setParameter('categorie', $type);
+        return $query->getResult();
+    }
+    public function OrderByName()
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery('select m from App\Entity\Reservation m order by m.nom ASC');
+        return $query->getResult();
+    }
+    public function Filter($categorie)
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery('select m from App\Entity\Evenement m where m.categorie =:categorie')
+            ->setParameter('categorie', $categorie);
+        return $query->getResult();
+    }
+    public function select()
+    {  $time = new \DateTime() ;
+        $time->format('H:i:s \O\n Y-m-d');
+        $time1=new \DateTime();
+        $time1->add( date_interval_create_from_date_string('7 days'));
+        $time1->format('H:i:s \O\n Y-m-d');
+        $em = $this->getEntityManager();
+        $query = $em->createQuery('select m from App\Entity\Evenement m where m.date between ?1 and ?2')
+            ->setParameter('1',$time)
+            ->setParameter('2',$time1);
+
+        return $query->getResult();
+    }
 }
+
