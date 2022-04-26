@@ -34,8 +34,9 @@
                 <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
+
         </tbody>
     </table>
-
-
+    {{ knp_pagination_render(commandes) }}
+    <a href="{{ path('admin_command_stat')}}" class="btn btn-info"><i class="fas fa-chart-bar"></i>   Statistique</a>
 {% endblock %}

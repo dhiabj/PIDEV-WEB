@@ -46,7 +46,7 @@ class MenuCommandeRepository extends ServiceEntityRepository
         }
     }
 
-    public function sumTotal()
+    public function sumTotal($user)
     {
         return $this->getEntityManager()->createQueryBuilder()
             ->select('sum(m.prix) as total')
@@ -54,12 +54,14 @@ class MenuCommandeRepository extends ServiceEntityRepository
             ->leftJoin('mc.menu', 'm')
             ->leftJoin('mc.command', 'c')
             ->where('c.etat = :etat')
+            ->andWhere('c.user = :user')
             ->setParameter('etat', 'non validé')
+            ->setParameter('user', $user)
             ->getQuery()
             ->getSingleScalarResult();
     }
 
-    public function findPanier()
+    public function findPanier($user)
     {
         return $this->getEntityManager()->createQueryBuilder()
             ->select('mc')
@@ -67,7 +69,9 @@ class MenuCommandeRepository extends ServiceEntityRepository
             ->leftJoin('mc.menu', 'm')
             ->leftJoin('mc.command', 'c')
             ->where('c.etat = :etat')
+            ->andWhere('c.user = :user')
             ->setParameter('etat', 'non validé')
+            ->setParameter('user', $user)
             ->getQuery()
             ->getResult();
     }

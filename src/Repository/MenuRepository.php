@@ -55,7 +55,7 @@ class MenuRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findVeganMenus()
+    public function findVeganMenus(?string $tri = 'ASC')
     {
         return $this->getEntityManager()->createQueryBuilder()
             ->select('m,i')
@@ -63,11 +63,12 @@ class MenuRepository extends ServiceEntityRepository
             ->leftJoin('m.ingredients', 'i')
             ->where('m.categorie = :categorie')
             ->setParameter('categorie', 'vegan')
+            ->orderBy('m.prix',  $tri ?? 'ASC')
             ->getQuery()
             ->getResult();
     }
 
-    public function findNormalMenus()
+    public function findNormalMenus(?string $tri = 'ASC')
     {
         return $this->getEntityManager()->createQueryBuilder()
             ->select('m,i')
@@ -75,6 +76,7 @@ class MenuRepository extends ServiceEntityRepository
             ->leftJoin('m.ingredients', 'i')
             ->where('m.categorie = :categorie')
             ->setParameter('categorie', 'normal')
+            ->orderBy('m.prix',  $tri ?? 'ASC')
             ->getQuery()
             ->getResult();
     }

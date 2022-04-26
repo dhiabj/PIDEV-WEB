@@ -1,0 +1,191 @@
+{% extends 'userTemplate.html.twig' %}
+
+{% block title %}Avis{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .progress-label-left
+{
+    float: left;
+    margin-right: 0.5em;
+    line-height: 1em;
+}
+.progress-label-right
+{
+    float: right;
+    margin-left: 0.3em;
+    line-height: 1em;
+}
+.star-light
+{
+	color:#e9ecef;
+}
+.form-control{
+    font-size: 1.6rem;
+}
+.label-weight{
+	font-weight: bold;
+}
+</style>
+
+<div class="example-wrapper">
+   <div class="container">
+    	<h1 class="mt-5 mb-5"><i class="fas fa-quote-right"> Avis</i></h1>
+    	<div class="card">
+    		<div class="card-header">{{menu.titre}}</div>
+    		<div class="card-body">
+    			<div class="row">
+    				<div class="col-sm-4 text-center">
+    					<img src="{{ asset('uploads/' ~ menu.image) }}" alt="Image" class="img-fluid img-thumbnail" width="200">
+    				</div>
+    				<div class="col-sm-4">
+    					<p>
+                            <div class="progress-label-left"><b>5</b> <i class="fas fa-star text-warning"></i></div>
+
+                            <div class="progress-label-right">(<span id="total_five_star_review">{{totalFiveStars}}</span>)</div>
+                            <div class="progress">
+                            {% if totalStars > 0 %}
+                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="five_star_progress" style="width: {{(totalFiveStars / totalStars)*100}}%"></div>
+                                {% else %}
+                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="five_star_progress"></div>
+                            {% endif %}
+                                
+                            </div>
+                        </p>
+    					<p>
+                            <div class="progress-label-left"><b>4</b> <i class="fas fa-star text-warning"></i></div>
+                            
+                            <div class="progress-label-right">(<span id="total_four_star_review">{{totalFourStars}}</span>)</div>
+                            <div class="progress">
+                                {% if totalStars > 0 %}
+                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="four_star_progress" style="width: {{(totalFourStars / totalStars)*100}}%"></div>
+                                {% else %}
+                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="four_star_progress"></div>
+                            {% endif %}
+                            </div>               
+                        </p>
+    					<p>
+                            <div class="progress-label-left"><b>3</b> <i class="fas fa-star text-warning"></i></div>
+                            
+                            <div class="progress-label-right">(<span id="total_three_star_review">{{totalThreeStars}}</span>)</div>
+                            <div class="progress">
+                                {% if totalStars > 0 %}
+                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="three_star_progress" style="width: {{(totalThreeStars / totalStars)*100}}%"></div>
+                                {% else %}
+                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="three_star_progress"></div>
+                            {% endif %}
+                            </div>               
+                        </p>
+    					<p>
+                            <div class="progress-label-left"><b>2</b> <i class="fas fa-star text-warning"></i></div>
+                            
+                            <div class="progress-label-right">(<span id="total_two_star_review">{{totalTwoStars}}</span>)</div>
+                            <div class="progress">
+                                {% if totalStars > 0 %}
+                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="two_star_progress" style="width: {{(totalTwoStars / totalStars)*100}}%"></div>
+                                {% else %}
+                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="two_star_progress"></div>
+                            {% endif %}
+                            </div>               
+                        </p>
+    					<p>
+                            <div class="progress-label-left"><b>1</b> <i class="fas fa-star text-warning"></i></div>
+                            
+                            <div class="progress-label-right">(<span id="total_one_star_review">{{totalOneStars}}</span>)</div>
+                            <div class="progress">
+                                {% if totalStars > 0 %}
+                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="one_star_progress" style="width: {{(totalOneStars / totalStars)*100}}%"></div>
+                                {% else %}
+                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="one_star_progress"></div>
+                            {% endif %}
+                            </div>               
+                        </p>
+    				</div>
+    				<div class="col-sm-4 text-center">
+    					<h3 class="mt-4 mb-3">Écrivez votre avis ici</h3>
+    					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Avis</button>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    	<div class="mt-5" id="review_content"></div>
+    </div>
+    {% for reviews in reviews %}
+        <div class="row mb-3">
+        <div class="col-sm-1">
+            <div class="rounded-circle pt-2 pb-2">
+                <img src="{{ asset ('ressources/user.png')}}" width="50px" alt="User Image">
+            </div>
+        </div>
+        <div class="col-sm-11">
+            <div class="card">
+            <div class="card-header"><b>{{reviews.user.nom}} {{reviews.user.prenom}}</b></div>
+            <div class="card-body">
+            {% if reviews.rating == 5 %}
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+            {% endif %}
+            {% if reviews.rating == 4 %}
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+            {% endif %}
+            {% if reviews.rating == 3 %}
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+            {% endif %}
+            {% if reviews.rating == 2 %}
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+            {% endif %}
+            {% if reviews.rating == 1 %}
+                <i class="fas fa-star text-warning"></i>
+            {% endif %}
+                <br />
+                {{reviews.text}}
+            </div>
+        </div>
+    </div>
+    </div>
+    {% endfor %}
+    
+    
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Écrivez Votre Avis</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+              {{form_start(form)}}
+	      		<div class="text-center mt-2 mb-4">
+	        		{{ form_label(form.rating, 'Évaluation', {'label_attr': {'class': 'label-weight'}}) }}
+					{{ form_widget(form.rating) }}
+	        	</div>
+	        	<div class="form-group">
+	        		{{ form_label(form.text, 'Message', {'label_attr': {'class': 'label-weight'}}) }}
+					{{ form_widget(form.text, {'attr': {'class': 'form-control'}}) }}
+	        	</div>
+	        	<div class="form-group text-center mt-4">
+	        		{{ form_row(form.valider, {'attr': {'class': 'btn btn-primary'}}) }}
+	        	</div>
+                {{form_end(form)}}
+	    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

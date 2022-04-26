@@ -68,6 +68,7 @@ class Commande
     public function __toString() {
         return (string)$this->getId();
     }
+
     public function getId(): ?int
     {
         return $this->id;

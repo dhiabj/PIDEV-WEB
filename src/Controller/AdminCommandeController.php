@@ -8,8 +8,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use CMEN\GoogleChartsBundle\GoogleCharts\Charts\BarChart;
+use CMEN\GoogleChartsBundle\GoogleCharts\Charts\ColumnChart;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Knp\Component\Pager\PaginatorInterface;
 /**
  * @Route("/admin", name="admin_")
  * @package App\Controller
@@ -19,15 +21,44 @@ class AdminCommandeController extends AbstractController
     /**
      * @Route("/commande/afficher", name="commande_index", methods={"GET"})
      */
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager,PaginatorInterface $paginator, Request $request): Response
     {
         $commandes = $entityManager
             ->getRepository(Commande::class)
             ->findAll();
-
+        $commande = $paginator->paginate(
+            $commandes, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            6// Nombre de résultats par page
+        );
         return $this->render('commande/index.html.twig', [
-            'commandes' => $commandes,
+            'commandes' => $commande,
         ]);
+    }
+    /**
+     * @Route("/commande/stat", name="command_stat")
+     */
+    public function indexCommande(EntityManagerInterface $entityManager): Response
+    {
+
+        $emps = $entityManager
+            ->getRepository(Commande::class)
+            ->findAll();
+
+
+        $data = [['Commande id', 'Total']];
+        foreach($emps as $emp)
+        {
+            $data[] = array($emp->getId(), $emp->getTotal());
+        }
+        $bar = new ColumnChart();
+        $bar->getData()->setArrayToDataTable(
+            $data
+        );
+
+        $bar->getOptions()->getTitleTextStyle()->setColor('#07600');
+        $bar->getOptions()->getTitleTextStyle()->setFontSize(50);
+        return $this->render('commande/stat.html.twig', array('barchart' => $bar,'nbs' => $emps));
     }
 
     /**
@@ -94,4 +125,5 @@ class AdminCommandeController extends AbstractController
 
         return $this->redirectToRoute('admin_commande_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }

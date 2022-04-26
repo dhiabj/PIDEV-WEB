@@ -91,7 +91,7 @@
           <img src="{{ asset ('ressources/clipart3191274.png')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Nom Admin</a>
+          <a href="#" class="d-block">{{ app.user.nom }} {{ app.user.prenom }}</a>
         </div>
       </div>
 
@@ -177,29 +177,29 @@
                     </li>
                   </ul>
                 </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-shopping-cart"></i>
-              <p>
-                Promotion
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ path('admin_promotion_index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Affficher promotion</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ path('admin_promotion_new') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Ajouter promotion</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-shopping-cart"></i>
+                    <p>
+                      Promotion
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                      <a href="{{ path('admin_promotion_index') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Affficher promotion</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="{{ path('admin_promotion_new') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Ajouter promotion</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
                 <li class="nav-item">
                   <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-calendar-alt"></i>

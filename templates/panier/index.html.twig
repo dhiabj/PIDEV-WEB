@@ -19,14 +19,50 @@
             border-color: #0062cc;
         }
         .valid-btn{
+
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 1.5rem;
         }
+        .custom-search {
+            position: relative;
+            width: 300px;
+            margin-left: 30%;
+
+        }
+        .custom-search-input {
+            width: 100%;
+            height: 100%;
+            border: 1px solid #ccc;
+            border-radius: 100px;
+            padding: 10px 100px 10px 20px;
+            line-height: 1;
+            box-sizing: border-box;
+            outline: none;
+        }
+        .custom-search-botton {
+            position: absolute;
+
+            height:100%;
+            right: 3px;
+            top: 3px;
+            bottom: 3px;
+            border: 0;
+            background: #d1095e;
+            color: #fff;
+            outline: none;
+            margin: 0;
+            padding: 0 10px;
+            border-radius: 100px;
+            z-index: 2;
+        }
+        .form-control{
+            font-size: 1.6rem;
+        }
     </style>
 
-    <div class="example-wrapper">
+    <div class="example-wrapper" id="panier">
         <h1 class="heading"><i class="fas fa-shopping-cart"></i> Panier </h1>
         {% for panier in panierList %}
             <div class="card shadow mb-3">
@@ -55,8 +91,61 @@
                 {{ total }} TND
             </div>
         </div>
-        <div class="valid-btn"><a href="{{ path('panier_valider') }}" class="btn btn-danger"><i class="far fa-paper-plane"> Valider</i></a></div>
+        <div class="custom-search" >
+
+            <input type="text" placeholder="Enter text" class="custom-search-input">
+            <button class="btn custom-search-botton" onClick="promo()" >Valider</button>
+
+        </div>
+        {{form_start(form,{'attr':{'novalidate':'novalidate'}})}}
+        {{ form_row(form.captchaCode) }}
+        {{ form_end(form) }}
+
 
     </div>
+<div class="valid-btn"><button onClick="validerPanier()"  class="btn btn-danger"><i class="fas fa-hamburger">   Valider </i>   <i class="fas fa-pizza-slice"></i></button></div>
 
+{% endblock %}
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function promo(){
+            const val = document.querySelector('input').value;
+            console.log(val);
+            $.ajax({
+                url: "/panier?code="+val,
+                type: "GET",
+                success:function(response){
+                   console.log(response);
+                    var parser=new DOMParser();
+                    var xmlDoc=parser.parseFromString(response,"text/html");
+                    var tds = xmlDoc.getElementById("panier");
+                    console.log(tds);
+                    $("#panier").replaceWith(tds);
+                }
+            });
+
+
+
+
+
+
+        }
+        function validerPanier(){
+            const val = document.querySelector('input').value;
+            console.log(val);
+            $.ajax({
+                url: "/panier/valider/"+val,
+                type: "POST",
+                success:function(response){
+                    console.log(response);
+                    location.reload();
+                    /*var parser=new DOMParser();
+                    var xmlDoc=parser.parseFromString(response,"text/html");
+                    var tds = xmlDoc.getElementById("panier");
+                    console.log(tds);
+                    $("#panier").replaceWith(tds);*/
+                }
+            });}
+    </script>
 {% endblock %}

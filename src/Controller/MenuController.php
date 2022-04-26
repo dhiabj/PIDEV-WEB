@@ -4,18 +4,20 @@ namespace App\Controller;
 
 use App\Entity\Menu;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MenuController extends AbstractController
 {
     /**
-     * @Route("/menus", name="app_menus")
+     * @Route("/menu", name="app_menus")
      */
-    public function menus(): Response
+    public function menus(Request $request): Response
     {
-        $menusVegan = $this->getDoctrine()->getRepository(Menu::class)->findVeganMenus();
-        $menusNormal = $this->getDoctrine()->getRepository(Menu::class)->findNormalMenus();
+        $tri = $request->query->get('price');
+        $menusVegan = $this->getDoctrine()->getRepository(Menu::class)->findVeganMenus($tri);
+        $menusNormal = $this->getDoctrine()->getRepository(Menu::class)->findNormalMenus($tri);
         return $this->render('menu/index.html.twig', [
             'menusVegan' => $menusVegan,
             'menusNormal' => $menusNormal
