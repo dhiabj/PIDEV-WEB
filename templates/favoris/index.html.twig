@@ -32,6 +32,11 @@
                 <div class="col-md-8">
                     <h3 class="card-title">{{favoris.menu.titre}}</h3>
                     <p class="card-text">{{favoris.menu.description}}</p>
+                    <div>
+                        <h3>Prix</h3>
+                        <span class="price">{{favoris.menu.prix}} TND</span>
+                    </div>
+                    <a href="#" class="btn btn-danger"><i class="fas fa-cart-plus"> Ajouter au panier</i></a>
                     <a href="{{ path('favoris_supprimer',{'id': favoris.id }) }}" class="btn btn-danger"><i class="fas fa-trash"> Supprimer</i></a>
                 </div>
             </div>
