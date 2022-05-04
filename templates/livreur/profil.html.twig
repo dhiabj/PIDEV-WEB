@@ -1,0 +1,37 @@
+{% extends 'livTemplate.html.twig' %}
+
+{% block title %}Mon Profil{% endblock %}
+
+{% block body %}
+    <section class="order" id="order">
+
+        <h3 class="sub-heading"> We wish you a good day </h3>
+        <h1 class="heading"> you can change whatever you want </h1>
+        <div class="container-xl">
+            <div class="col-md-12">
+                <div class="center">
+                    <div class="card login-card">
+                        <div class="card-body">
+                            <nav class="navbar navbar-dark bg-dark mb-3 rounded">
+                                <span class="navbar-text">Mon Profil</span>
+                            </nav>
+
+                            <div class="grix xs2">
+                                <div>Nom : {{ app.user.nom }}</div>
+                                <div>Prenom : {{ app.user.prenom }}</div>
+                                <div>Prenom : {{ app.user.prenom }}</div>
+                                <div>Prenom : {{ app.user.prenom }}</div>
+                                <div>Prenom : {{ app.user.prenom }}</div>
+                                <div>Prenom : {{ app.user.prenom }}</div>
+                                <div>Prenom : {{ app.user.prenom }}</div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}

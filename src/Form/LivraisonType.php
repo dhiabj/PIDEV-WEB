@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Livraison;
+use App\Repository\UserRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -21,9 +23,27 @@ class LivraisonType extends AbstractType
                     'Non Livree' => 'Non Livree',
                 ],
             ])
-            ->add('user')
+            ->add('user', EntityType::class, [
+                'class' => 'App\Entity\User',
+                'query_builder' => function (UserRepository $ur) {
+                    return $ur->createQueryBuilder('u')
+                        ->andWhere('u.roles = :val')
+                        ->setParameter('val', '["ROLE_USER"]');
+                },
+                'choice_label' => 'prenom',
+            ])
+            //->add('user')
             ->add('commande')
-            ->add('livreur')
+            ->add('livreur', EntityType::class, [
+                'class' => 'App\Entity\User',
+                'query_builder' => function (UserRepository $ur) {
+                    return $ur->createQueryBuilder('u')
+                        ->andWhere('u.roles = :val')
+                        ->setParameter('val', '["ROLE_LIVREUR"]');
+                },
+                'choice_label' => 'prenom',
+            ])
+            //->add('livreur')
             ->add('valider', SubmitType::class)
         ;
     }
@@ -35,4 +55,3 @@ class LivraisonType extends AbstractType
         ]);
     }
 }
-

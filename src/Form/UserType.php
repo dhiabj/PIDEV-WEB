@@ -4,45 +4,21 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('email')
+            ->add('password')
             ->add('nom')
             ->add('prenom')
-            ->add('email')
-            //->add('password')
-            ->add('password', PasswordType::class)
-            ->add('date', DateType::class, [
-                'placeholder' => [
-                    'year' => 'Année', 'month' => 'Mois', 'day' => 'Jours',
-                ],
-            ])
+            ->add('date')
             ->add('numTel')
             ->add('adresse')
-            ->add('role', ChoiceType::class, [
-                'choices'  => [
-                    'Client' => 'Client',
-                    'Admin' => 'Admin',
-                    'Livreur' => 'Livreur',
-                ],
-            ])
-            ->add('etat', ChoiceType::class, [
-                'choices'  => [
-                    'Not Verified' => 'Not Verified',
-                    'Verified' => 'Verified',
-                    'Banned' => 'Banned',
-                ],
-            ])
-            ->add('valider', SubmitType::class)
         ;
     }
 

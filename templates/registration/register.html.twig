@@ -1,8 +1,16 @@
 {% extends 'userTemplate.html.twig' %}
 
 {% block title %}Register{% endblock %}
+{% block stylesheets %}
+<style>
+.form-control{
+    font-size: 1.6rem;
+}
+</style>
+{% endblock %}
 
 {% block body %}
+<div class="container mt-5">
     <h1>Register</h1>
 
     {{ form_start(registrationForm) }}
@@ -10,8 +18,20 @@
         {{ form_row(registrationForm.plainPassword, {
             label: 'Password'
         }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+        {{ form_row(registrationForm.nom) }}
+        {{ form_row(registrationForm.prenom) }}
+        {{ form_row(registrationForm.adresse) }}
+        {{ form_row(registrationForm.numTel) }}
+        {{ form_row(registrationForm.date) }}
+   <span class="txt1 p-b-11"> êtes vous un robot ?</span>
+    <div class="wrap-input100 m-b-36">
+        {{ form_widget(registrationForm.captchaCode, {'attr': {'class': 'input100'} }) }}
+        <span class="focus-input100"></span>
+    </div>
 
-        <button type="submit" class="btn">Register</button>
+        <button type="submit" class="btn btn-primary">Register</button>
+      <div class="error">{{ form_errors(registrationForm.captchaCode) }} </div>
     {{ form_end(registrationForm) }}
+</div>
+    
 {% endblock %}
