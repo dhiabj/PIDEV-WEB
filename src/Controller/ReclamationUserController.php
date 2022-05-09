@@ -11,6 +11,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 /**
  * @Route("/reclamation/user")
@@ -18,12 +21,55 @@ use Symfony\Component\Routing\Annotation\Route;
 class ReclamationUserController extends AbstractController
 {
     /**
+     * @Route("/listo/pdf", name="listo", methods={"GET"})
+     */
+    public function listo(ReclamationUserRepository $reclamationUserRepository): Response
+    {
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('reclamation_user/index.html.twig', [
+            'reclamations' => $reclamationUserRepository->findAll(),
+        ]);
+
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (inline view)
+        $dompdf->stream("mypdf.pdf", [
+            "Attachment" => false
+        ]);
+    }
+    /**
      * @Route("/", name="app_reclamation_user_index", methods={"GET"})
      */
-    public function index(ReclamationUserRepository $reclamationUserRepository): Response
+    public function index(ReclamationUserRepository $reclamationUserRepository , Request $request , PaginatorInterface $paginator ): Response
     {
+        $res= $this->getDoctrine()->getRepository(ReclamationUser::class)->noti();
+        $donnees = $this->getDoctrine()->getRepository(ReclamationUser::class)->
+        findBy(
+
+            array('titre'=>'texte')
+        );
+        $rec = $paginator->paginate(
+            $donnees ,
+            $request->query->getInt('page',1),
+            3
+
+        );
         return $this->render('reclamation_user/index.html.twig', [
-            'reclamation_users' => $reclamationUserRepository->findAll(),
+            'reclamations'=>$rec ,'reclamation_users' => $reclamationUserRepository->findAll(),
+            'res'=>$res,
         ]);
     }
 
@@ -40,6 +86,7 @@ class ReclamationUserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $reference = mt_rand(1000, 10000);
             $reclamationUser->setIdrep($reference);
+            $reclamationUser->setUserid(1);
             $reclamationAdmin = new ReclamationAdmin();
             $reclamationAdmin->setReponse(null);
             $reclamationAdmin->setIdr($reference);
@@ -57,13 +104,21 @@ class ReclamationUserController extends AbstractController
     /**
      * @Route("/{id}", name="app_reclamation_user_show", methods={"GET"})
      */
-    public function show(ReclamationUser $reclamationUser,ReclamationAdminRepository $reclamationAdminRepository): Response
+    public function show(ReclamationUser $reclamationUser,ReclamationAdminRepository $reclamationAdminRepository, $id): Response
     {
+
+        $rec = $this->getDoctrine()->getRepository(ReclamationUser::class)->find($id);
+        //dd($rec);
         $reclamationAdmin = $reclamationAdminRepository->findOneBy(['idr' => $reclamationUser->getIdrep()]);
+        $rec->setStatus('seen');
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($rec);
+        $em->flush();
         return $this->render('reclamation_user/show.html.twig', [
             'reclamation_user' => $reclamationUser,
             'reclamation_admin' => $reclamationAdmin,
         ]);
+
     }
 
     /**
@@ -85,6 +140,9 @@ class ReclamationUserController extends AbstractController
         ]);
     }
 
+
+
+
     /**
      * @Route("/delete/{id}", name="app_reclamation_user_delete", methods={"GET","POST"})
      */
@@ -99,4 +157,7 @@ class ReclamationUserController extends AbstractController
 
         return $this->redirectToRoute('app_reclamation_user_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
 }

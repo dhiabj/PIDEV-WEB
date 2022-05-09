@@ -44,6 +44,17 @@ class ReclamationUserRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
+    public function noti (){
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('count(u.status)')
+            ->from(ReclamationUser::class, 'u')
+            ->where('u.userid = :userid')
+            ->setParameter('userid', 1)
+            ->andWhere('u.status = :status')
+            ->setParameter('status', 'unseen')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 
     // /**
     //  * @return ReclamationUser[] Returns an array of ReclamationUser objects

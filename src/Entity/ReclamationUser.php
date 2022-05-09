@@ -25,8 +25,15 @@ class ReclamationUser
     private $idrep;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+
      * @Assert\NotBlank(message="titre ne doit pas etre vide")
+     * @Assert\Length(
+     *     min = 5 ,
+
+     *     minMessage = " Le Titre doit dépasser 5 characteres",
+
+     * )
+     * * @ORM\Column(type="text", nullable=true)
      */
     private $titre;
 
@@ -36,6 +43,16 @@ class ReclamationUser
 
      */
     private $texte;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $userid;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $status;
 
     public function getId(): ?int
     {
@@ -74,6 +91,30 @@ class ReclamationUser
     public function setTexte(?string $texte): self
     {
         $this->texte = $texte;
+
+        return $this;
+    }
+
+    public function getUserid(): ?int
+    {
+        return $this->userid;
+    }
+
+    public function setUserid(?int $userid): self
+    {
+        $this->userid = $userid;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }
