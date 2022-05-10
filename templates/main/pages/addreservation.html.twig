@@ -9,6 +9,9 @@
             display: block;
             width: 100%;
         }
+        .form-control{
+            font-size: 1.6rem;
+        }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 {% endblock %}
@@ -20,12 +23,24 @@
         <span class="navbar-brand mb-0 h1">Ajouter Une Réservation</span>
     </nav>
 
+{#{%  set s =evenement.nbrPersonnes %}
+
+    <div> {{ s }}</div>#}
+
     {{form_start(form,{'attr':{'novalidate':'novalidate'}})}}
     <div class="form-group">
-
-        {{ form_label(form.nom) }}
-       <input type="text" {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+        <div class="form-group">
+            {{ form_label(form.nom) }}
+            {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+        {{ form_label(form.nbrPersonnes, 'Nombre Personnes') }}
+        {{ form_widget(form.nbrPersonnes, {'attr': {'class': 'form-control'}}) }}
+        </div>
     </div>
+    {%  set s =evenement.nbrPersonnes %}
+
+    <div> <p> Le nombre de places disponibles : {{ s }} </p> </div>
     {{ form_row(form.valider, {'attr': {'class': 'btn btn-primary'}}) }}
 
 

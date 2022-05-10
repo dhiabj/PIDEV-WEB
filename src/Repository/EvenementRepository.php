@@ -112,5 +112,13 @@ class EvenementRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
+    public function mise_a_jour()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+           DELETE FROM `evenement` WHERE date < CURRENT_DATE ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+    }
 }
 

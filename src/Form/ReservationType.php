@@ -13,6 +13,7 @@ class ReservationType extends AbstractType
     {
         $builder
             ->add('nom')
+            ->add('nbrPersonnes')
             -> add ( 'valider' , SubmitType ::class);
 
         ;

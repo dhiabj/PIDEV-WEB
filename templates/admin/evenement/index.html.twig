@@ -100,22 +100,14 @@
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-xs text-secondary mb-0">{{ r.nbrPersonnes }}</p>
                                     </td>
-                                    <td class="align-middle text-center">
-                                        <span>
-                                        <a href="{{ path ('statevenement',{'id':r.id}) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                            Stat
-                                        </a>
-                                            </span>
-                                    </td>
                                     <td class="align-middle text-center ">
 
                                             <a href="{{ path ('modifierevenement',{'id':r.id}) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                 Modifier
                                             </a>
-
                                     </td>
                                     <td class="align-middle text-center">
- <span>
+                                           <span>
                                         <a href="{{ path ('supprimerevenement',{'id':r.id}) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                             Supprimer
                                         </a>
@@ -126,12 +118,19 @@
                             </tbody>
                             <tbody id="Recherche">
                         </table>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+    <td class="align-middle text-center">
+                            <span>
+                                <a type="submit" class="btn btn-primary btn-sm "  style="text-align: center" style="margin:auto " href="{{ path ('statevenement') }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                            Statistiques
+                        </a>
+                            </span>
+    </td>
     <div class="container py-5">
         <div class="d-flex justify-content-center">
 

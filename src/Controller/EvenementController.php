@@ -7,6 +7,7 @@ use App\Entity\Urlizer;
 use App\Form\EvenementType;
 use App\Repository\EvenementRepository;
 use App\Repository\ReservationRepository;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,6 +18,15 @@ use Symfony\Component\Mailer\MailerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Validator\Constraints\Json;
+use symfony\Component\Serializer\Annotation\Groups;
 
 
 class EvenementController extends AbstractController
@@ -26,6 +36,7 @@ class EvenementController extends AbstractController
      */
     public function index(Request $request, PaginatorInterface $paginator,EvenementRepository $repo): Response
     {
+        //$requestsql = $this->getDoctrine()->getRepository(Evenement::class)->mise_a_jour();
         $upcoming =$repo->select();
         $var = $this->getDoctrine()->getRepository(Evenement::class)->findAll();
         $var = $paginator->paginate(
@@ -117,7 +128,7 @@ class EvenementController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      * @Route ("admin/modifierevenement/{id}", name="modifierevenement")
      */
-    function Update(EvenementRepository $repository, $id, Request $request)
+    function Update(EvenementRepository $repository, $id, Request $request,MailerInterface $mailer)
     {
         $evenement = $repository->find($id);
         $form = $this->createForm(EvenementType::class, $evenement);
@@ -135,12 +146,23 @@ class EvenementController extends AbstractController
 
 
             $em = $this->getDoctrine()->getManager();
+            $em->persist($evenement);
             $em->flush();
+            $email = (new TemplatedEmail())
+                ->from('wael.abdelhedi@esprit.tn')
+                ->to('osdj@gh.com')
+                ->subject('🥳 Un nouveau 🍛evenement🍛 est organisé à 🥳ForU🥳')
+                ->htmlTemplate('admin/evenement/email.html.twig')
+                ->context([
+                    'evenement' => $evenement,
+                ]);
 
+            $mailer->send($email);
             return $this->redirectToRoute("listevenement");
         }
         return $this->render('admin/evenement/modifierevenement.html.twig',
             [
+                'evenement' => $evenement,
                 'form' => $form->createView()
             ]);
     }
@@ -171,7 +193,7 @@ class EvenementController extends AbstractController
     }
 
     /**
-     * @Route("admin/statevenement/{id}", name="statevenement")
+     * @Route("admin/statevenement", name="statevenement")
      */
     public function evenement_stat(EvenementRepository $evenementRepository): Response
     {
@@ -259,4 +281,136 @@ class EvenementController extends AbstractController
         // Send some text response
         return new Response("The PDF file has been succesfully generated !");
     }
+
+
+    //////////////mobile//////////////////
+    /**
+     * @Route("/addeventmobile", name="addeventmobile")
+     * @Method("POST")
+     */
+
+    public function ajouterevenement(Request $request,NormalizerInterface $Normalizer)
+    {
+        $evenement = new Evenement();
+        $nom = $request->query->get("nom");
+        $description = $request->query->get("description");
+        $nbrpersonne = $request->query->get("nbrPersonnes");
+        $date =$request->query->get('date');
+        $categorie = $request->query->get('categorie');
+        $image = $request->query->get('image');
+
+        $em = $this->getDoctrine()->getManager();
+
+
+
+        $evenement->setNom($nom);
+        $evenement->setDescription($description);
+        $evenement->setNbrPersonnes($nbrpersonne);
+        $evenement->setCategorie($categorie);
+        $evenement->setDate(new \DateTime($date));
+        $evenement->setImage($image);
+        $em->persist($evenement);
+        $em->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($evenement);
+      //  return new JsonResponse($formatted);
+         //return new JsonResponse("event ajoute");
+        $jsonContent=$Normalizer->normalize($evenement,'json',['groups'=>'post:read']);
+        return new Response("evenement ajoutee".json_encode( $jsonContent));
+         //http://127.0.0.1:8000/addeventmobile?nom=atatatat&description=ytitiutuit&date=2021-04-09&image=tatata.jpg&nbrPersonnes=8&categorie=hhhhh
+
+
+    }
+
+
+
+    /**
+     * @Route("/deleteeventmobile", name="deleteeeventmobile")
+     * @Method("DELETE")
+     */
+
+    public function deleteeventmobile(Request $request,NormalizerInterface $Normalizer) {
+        $id = $request->get("id");
+
+        $em = $this->getDoctrine()->getManager();
+        $evenement = $em->getRepository(Evenement::class)->find($id);
+        if($evenement!=null ) {
+            $em->remove($evenement);
+            $em->flush();
+
+            $serialize = new Serializer([new ObjectNormalizer()]);
+            $formatted = $serialize->normalize($evenement);
+           // return new JsonResponse($formatted);
+            //return new JsonResponse("event deleted.");
+            $jsonContent=$Normalizer->normalize($evenement,'json',['groups'=>'post:read']);
+            return new Response("evenement supprimee".json_encode( $jsonContent));
+
+
+        }
+        return new JsonResponse("id event invalide.");
+        //http://127.0.0.1:8000/deleteeventmobile?id=38
+
+
+    }
+    /**
+     * @Route("/updateevent", name="updateevent")
+     * @Method("PUT")
+     */
+    public function modifierevenement(Request $request,NormalizerInterface $Normalizer) {
+        $em = $this->getDoctrine()->getManager();
+        $evenement = $this->getDoctrine()->getManager()
+            ->getRepository(Evenement::class)
+            ->find($request->get("id"));
+        $evenement->setNom($request->get("nom"));
+        $evenement->setDescription($request->get("description"));
+        $evenement->setNbrPersonnes($request->get("nbrPersonnes"));
+        $evenement->setCategorie($request->get("categorie"));
+        $evenement->setDate(new \DateTime($request->get("date")));
+        $evenement->setImage($request->get("image"));
+
+
+        $em->persist($evenement);
+        $em->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($evenement);
+        //return new JsonResponse("event a ete modifiee avec success.");
+        $jsonContent = $Normalizer->normalize($evenement, 'json',['groups'=>'post:read']);
+        return new Response("event a ete modifiee avec success".json_encode($jsonContent));
+// http://127.0.0.1:8000/updateevent?id=37&nom=atatatat&description=ytitiutuit&date=2021-04-09&image=tatata.jpg&nbrPersonnes=8&categorie=hhhhh
+    }
+
+
+
+    /******************affichage Evenement*****************************************/
+
+    /**
+     * @Route("/afficheevent", name="afficheevent")
+     *
+     */
+    public function afficheevent(NormalizerInterface $normalizer)
+    {
+
+        $repository = $this->getDoctrine()->getRepository(Evenement::class);
+        $evenement =$repository->findAll();
+        $jsonContent = $normalizer->normalize($evenement, 'json',['groups'=>'post:read']);
+
+        return new Response("Liste des evenements :".json_encode($jsonContent));
+
+    }
+    /**
+     * @Route("/evenement/{id}", name="evenement")
+     *
+     */
+    public function EvenementId(Request $request,$id,NormalizerInterface $normalizer)
+    {
+        $em= $this->getDoctrine()->getManager();
+        $evenement= $em->getRepository(Evenement::class)->find($id);
+        $jsonContent = $normalizer->normalize($evenement, 'json',['groups'=>'post:read']);
+
+        return new Response("L''evenement : ".json_encode($jsonContent));
+
+    }
+
+
+
 }
