@@ -34,6 +34,7 @@ class Review
 
     /**
      * @ORM\ManyToOne(targetEntity=Menu::class)
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $menu;
 

@@ -26,6 +26,7 @@ class Ingredients
 
     /**
      * @ORM\ManyToMany(targetEntity=Menu::class, inversedBy="ingredients")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $menu;
 

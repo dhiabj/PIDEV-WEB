@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Menu
@@ -22,6 +23,7 @@ class Menu
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("post:read")
      */
     private $id;
 
@@ -41,6 +43,7 @@ class Menu
      * @Assert\NotNull(
      *     message="Cette valeur ne doit pas être nulle"
      * )
+     * @Groups("post:read")
      */
     private $titre;
 
@@ -60,6 +63,7 @@ class Menu
      * @Assert\NotNull(
      *     message="Cette valeur ne doit pas être nulle"
      * )
+     * @Groups("post:read")
      */
     private $description;
 
@@ -74,6 +78,7 @@ class Menu
      * @Assert\NotNull(
      *     message="Cette valeur ne doit pas être nulle"
      * )
+     * @Groups("post:read")
      */
     private $prix;
 
@@ -90,16 +95,18 @@ class Menu
      * @Assert\NotNull(
      *     message="Cette valeur ne doit pas être nulle"
      * )
+     * @Groups("post:read")
      */
     private $categorie;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="image", type="string", length=255, nullable=false)
+     * @ORM\Column(name="image", type="string", length=255, nullable=true)
      * @Assert\NotNull(
      *     message="Cette valeur ne doit pas être nulle"
      * )
+     * @Groups("post:read")
      */
     private $image;
 
