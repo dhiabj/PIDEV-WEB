@@ -34,6 +34,7 @@ class MenuJsonController extends AbstractController
         $menu->setTitre($request->get('titre'));
         $menu->setDescription($request->get('description'));
         $menu->setPrix($request->get('prix'));
+        $menu->setIngredients($request->get('ingredients'));
         $menu->setCategorie($request->get('categorie'));
         $menu->setImage($request->get('image'));
         $em->persist($menu);
@@ -52,6 +53,7 @@ class MenuJsonController extends AbstractController
         $menu->setTitre($request->get('titre'));
         $menu->setDescription($request->get('description'));
         $menu->setPrix($request->get('prix'));
+        $menu->setIngredients($request->get('ingredients'));
         $menu->setCategorie($request->get('categorie'));
         $menu->setImage($request->get('image'));
         $em->persist($menu);

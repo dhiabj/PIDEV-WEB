@@ -83,8 +83,22 @@ class Menu
     private $prix;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Ingredients::class, mappedBy="menu")
-     * @Assert\NotNull
+     * @var string
+     *
+     * @ORM\Column(name="ingredients", type="string", length=255, nullable=false)
+     * @Assert\Regex(
+     *     pattern = "/^[a-zA-ZÀ-Ÿ, ]*$/",
+     *     message="Cette valeur n'est pas valide"
+     * )
+     * @Assert\Length(
+     *     min= 2,
+     *     max= 255,
+     *     minMessage = "la description doit etre supperieur a {{ limit }} caracteres",
+     *     maxMessage = " la description ne doit pas depasser {{ limit }} caracteres")
+     * @Assert\NotNull(
+     *     message="Cette valeur ne doit pas être nulle"
+     * )
+     * @Groups("post:read")
      */
     private $ingredients;
 
@@ -163,6 +177,18 @@ class Menu
         return $this;
     }
 
+    public function getIngredients(): ?string
+    {
+        return $this->ingredients;
+    }
+
+    public function setIngredients(string $ingredients): self
+    {
+        $this->ingredients = $ingredients;
+
+        return $this;
+    }
+
     public function getCategorie(): ?string
     {
         return $this->categorie;
@@ -183,33 +209,6 @@ class Menu
     public function setImage($image)
     {
         $this->image = $image;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Ingredients>
-     */
-    public function getIngredients(): Collection
-    {
-        return $this->ingredients;
-    }
-
-    public function addIngredient(Ingredients $ingredient): self
-    {
-        if (!$this->ingredients->contains($ingredient)) {
-            $this->ingredients[] = $ingredient;
-            $ingredient->addMenu($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIngredient(Ingredients $ingredient): self
-    {
-        if ($this->ingredients->removeElement($ingredient)) {
-            $ingredient->removeMenu($this);
-        }
 
         return $this;
     }
