@@ -1,0 +1,36 @@
+{% extends 'livTemplate.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+{% block body %}
+<section class="home" id="home">
+
+    <div class="swiper-container home-slider">
+
+        <div class="swiper-wrapper wrapper">
+
+            <div class="swiper-slide slide">
+                <div class="image">
+                    <img src="{{ asset ('images/flyer.png')}}" alt="">
+                </div>
+            </div>
+
+            <div class="swiper-slide slide">
+                <div class="image">
+                    <img src="{{ asset ('images/affiche.png')}}" alt="">
+                </div>
+            </div>
+
+            <div class="swiper-slide slide">
+                <div class="image">
+                    <img src="{{ asset ('images/affiche2.png')}}" alt="">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="swiper-pagination mt-pagination"></div>
+
+    </div>
+
+</section>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'LivTemplate.html.twig' %}
+
+{% block title %}Livraison{% endblock %}
+
+{% block body %}
+    <section class="order" id="order">
+
+    <h3 class="sub-heading"> We wish you a good day </h3>
+    <nav class="navbar navbar-dark bg-dark mb-3 rounded">
+        <span class="navbar-brand mb-0 h1">Liste des Livraisons</span>
+    </nav>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Client</th>
+            <th>Livreur</th>
+            <th>Commande</th>
+            <th>Etat</th>
+            <th>Changer Etat Livraison</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for livraison in livraisons %}
+            <tr>
+                <td>{{ livraison.id }}</td>
+                <td>{{ livraison.nom }}</td>
+                <td>{{ livraison.user.nom }}</td>
+                <td>{{ livraison.livreur.nom }}</td>
+                <td>{{ livraison.commande }}</td>
+                <td>{{ livraison.etat }}</td>
+                <td>
+                    {% if livraison.etat != "Livree" %}
+                    <a href="{{ path('app_livraison_edit_etat', {'id': livraison.id,'etat':'Livree'}) }}"class="btn btn-info">Livree</a>
+                    <a href="{{ path('app_livraison_edit_etat',{'id': livraison.id ,'etat':'Non Livree'}) }}" class="btn btn-warning">Non Livree</a>
+                    <a href="{{ path('app_livraison_edit_etat',{'id': livraison.id ,'etat':'En Cours'}) }}" class="btn btn-danger">En Cours</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{#        <div> <p>Nb Restants: {{ nbRestants }}</p></div>#}
+    </section>
+
+{% endblock %}

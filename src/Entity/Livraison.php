@@ -3,12 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Livraison
  *
  * @ORM\Table(name="livraison", indexes={@ORM\Index(name="comande_id", columns={"commande_id"}), @ORM\Index(name="user_id", columns={"user_id"}), @ORM\Index(name="livreur_id", columns={"livreur_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\LivraisonRepository")
  */
 class Livraison
 {
@@ -25,6 +26,9 @@ class Livraison
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255, nullable=false)
+     * @Assert\NotNull(
+     *     message="Cette valeur ne doit pas être nulle"
+     * )
      */
     private $nom;
 
@@ -32,16 +36,23 @@ class Livraison
      * @var string
      *
      * @ORM\Column(name="etat", type="string", length=255, nullable=false)
+     * @Assert\NotNull(
+     *     message="Cette valeur ne doit pas être nulle"
+     * )
      */
-    private $etat;
+    private $etat="Non Livree";
 
     /**
      * @var \User
      *
      * @ORM\ManyToOne(targetEntity="User")
+     * @Assert\NotNull(
+     *     message="Cette valeur ne doit pas être nulle"
+     * )
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * })
+     * @
      */
     private $user;
 
@@ -49,6 +60,9 @@ class Livraison
      * @var \Commande
      *
      * @ORM\ManyToOne(targetEntity="Commande")
+     * @Assert\NotNull(
+     *     message="Cette valeur ne doit pas être nulle"
+     * )
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="commande_id", referencedColumnName="id")
      * })
@@ -59,6 +73,9 @@ class Livraison
      * @var \User
      *
      * @ORM\ManyToOne(targetEntity="User")
+     * @Assert\NotNull(
+     *     message="Cette valeur ne doit pas être nulle"
+     * )
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="livreur_id", referencedColumnName="id")
      * })

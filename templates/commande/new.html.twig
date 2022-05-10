@@ -1,0 +1,14 @@
+{% extends 'adminTemplate.html.twig' %}
+
+{% block title %}Créer Commande{% endblock %}
+
+{% block body %}
+
+    <nav class="navbar navbar-dark bg-dark mb-3 rounded">
+        <span class="navbar-brand mb-0 h1">Créer une Commande</span>
+    </nav>
+    {{ include('commande/_form.html.twig') }}
+     <br>
+
+    <a href="{{ path('admin_commande_index') }}" class="btn btn-dark" ><i class="fas fa-list"></i>  Retour a la liste</a>
+{% endblock %}

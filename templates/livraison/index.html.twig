@@ -1,0 +1,90 @@
+{% extends 'adminTemplate.html.twig' %}
+
+{% block title %}Livraison index{% endblock %}
+
+{% block body %}
+    <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+    <nav class="navbar navbar-dark bg-dark mb-3 rounded">
+        <span class="navbar-brand mb-0 h1">Liste des Livraisons</span>
+    </nav>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Client</th>
+            <th>Livreur</th>
+            <th>Commande</th>
+            <th>Etat</th>
+            <th>Actions</th>
+            {#<th>Qr Code</th>#}
+        </tr>
+        </thead>
+        <tbody>
+        {#{% set compteur=0 %}#}
+        {% for livraison in livraisons %}
+           {# {% set compteur = compteur+1 %}#}
+            <tr>
+                <td>{{ livraison.id }}</td>
+                <td>{{ livraison.nom }}</td>
+                <td>{{ livraison.user.prenom }}</td>
+                <td>{{ livraison.livreur.prenom }}</td>
+                <td>{{ livraison.commande }}</td>
+                <td>{{ livraison.etat }}</td>
+                <td>
+                    <a href="{{ path('app_livraison_edit',{'id': livraison.id }) }}" class="btn btn-warning">Modifier</a>
+                    <a href="{{ path('app_livraison_delete',{'id': livraison.id }) }}" class="btn btn-danger"> Supprimer</a>
+                    <a href="{{ path('app_livraison_show', {'id': livraison.id}) }}" class="btn btn-info"> Details</a>
+                </td>
+                <td>
+                {#<td><a onclick="showQr(this.id)" id="qr{{ compteur }}" class="btn rounded-pill btn-primary" style="background-color: #1b1e21;border-color: #1b1e21  ">Générer code QR</a>
+                    <img id="image_qr{{ compteur }}" style="width: 120px;height: 120px; display: none;"
+                         src="{{ qr_code_data_uri(" Identifiant : "~livraison.id~"\n Nom de la livraison : "~livraison.nom~"\n Identifiant du client : "~livraison.user~"\n Identifiant du Livreur : "~livraison.livreur~"\n Identifiant du commande : "~livraison.commande~"\n Etat : "~livraison.etat) }}" /></td>
+
+                <script>
+                    function showQr(id) {
+                        var qr = document.getElementById(id);
+                        var img = document.getElementById('image'+id);
+                        // console.log(qr);
+                        console.log(img);
+                        if (img.style.display === "none") {
+                            img.style.display = "block";
+                            qr.style.display="none";
+                        } else {
+                            img.style.display = "none";
+                        }
+                        console.log(img);
+                    }
+                </script>#}
+              {#  <script >
+                    const qrcode = new QRCode(document.getElementById('qrcode'), {
+                        text: '" Identifiant : "~livraison.id~"\n Nom de la livraison : "~livraison.nom~"\n Identifiant du client : "~livraison.user~"\n Identifiant du Livreur : "~livraison.livreur~"\n Identifiant du commande : "~livraison.commande~"\n Etat : "~livraison.etat',
+                        width: 128,
+                        height: 128,
+                        colorDark : '#000',
+                        colorLight : '#fff',
+                        correctLevel : QRCode.CorrectLevel.H
+                    });
+
+                </script>#}
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_livraison_new') }}" class="btn btn-info">Ajouter</a>
+    <div class="container py-5">
+        <div class="d-flex justify-content-center">
+
+            {{ knp_pagination_render(livraisons) }}
+        </div>
+    </div>
+
+
+{% endblock %}

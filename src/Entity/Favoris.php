@@ -3,14 +3,12 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
-use App\Repository\FavorisRepository;
 
 /**
  * Favoris
  *
  * @ORM\Table(name="favoris", indexes={@ORM\Index(name="menu_id", columns={"menu_id"}), @ORM\Index(name="user_id", columns={"user_id"})})
- * @ORM\Entity(repositoryClass=FavorisRepository::class)
+ * @ORM\Entity
  */
 class Favoris
 {
@@ -20,7 +18,6 @@ class Favoris
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @Groups("post:read")
      */
     private $id;
 
@@ -31,7 +28,6 @@ class Favoris
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * })
-     * @Groups("post:read")
      */
     private $user;
 
@@ -42,7 +38,6 @@ class Favoris
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="menu_id", referencedColumnName="id", onDelete="CASCADE")
      * })
-     * @Groups("post:read")
      */
     private $menu;
 
@@ -74,4 +69,6 @@ class Favoris
 
         return $this;
     }
+
+
 }

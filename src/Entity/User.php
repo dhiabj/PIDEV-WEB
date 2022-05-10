@@ -5,8 +5,8 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -17,14 +17,18 @@ class User implements UserInterface
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     * @Groups("post:read")
+     * @ORM\Column(type="integer",nullable=false)
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups("post:read")
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="Ce champs ne doit pas être vide")
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email.",
+     *     checkMX = true)
      */
     private $email;
 
@@ -33,41 +37,70 @@ class User implements UserInterface
      */
     private $roles = [];
 
+//
+//* @Assert\NotBlank(message="Ce champs ne doit pas être vide")
+//* @Assert\Regex(
+//*  pattern="/^(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$/",
+//*  message="Votre mot de passe doit contenir au moins 1 chiffre, 1 majuscule, 1 minuscule et avoir une longueur d'au moins 8 caractères."
+//* )
     /**
-     * @var string The hashed password
-     * @ORM\Column(type="string")
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=255, nullable=false)
      */
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups("post:read")
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="Ce champs ne doit pas être vide")
+     * @Assert\Length(min=3,minMessage="Votre Nom doit être supèrieur à 3 caractéres")
      */
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups("post:read")
+     * @var string
+     * @ORM\Column(name="prenom", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="Ce champs ne doit pas être vide")
+     * @Assert\Length(min=3,minMessage="Votre Nom doit être supèrieur à 3 caractéres")
      */
     private $prenom;
 
     /**
-     * @ORM\Column(type="date")
-     * @Groups("post:read")
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="date", type="date", nullable=true)
      */
     private $date;
 
     /**
-     * @ORM\Column(type="string", length=8)
-     * @Groups("post:read")
+     * @var string
+     *
+     * @ORM\Column(name="num_Tel", type="string", length=255, nullable=false)
+     *  @Assert\NotBlank(message="Ce champs ne doit pas être vide")
+     * @Assert\Length(min=8,max=8,minMessage="téléphone doit être égale à 8 chiffres numériques")
      */
     private $numTel;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups("post:read")
+     * @var string
+     *
+     * @ORM\Column(name="adresse", type="string", length=255, nullable=false)
+     *   @Assert\NotBlank(message="Ce champs ne doit pas être vide")
      */
     private $adresse;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="etat", type="string", length=255, nullable=false)
+     */
+    private $etat="Not Verified";
+
+    public function __toString() {
+        return (string)$this->getId();
+    }
 
     public function getId(): ?int
     {
@@ -118,7 +151,7 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -128,6 +161,22 @@ class User implements UserInterface
         $this->password = $password;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEtat(): string
+    {
+        return $this->etat;
+    }
+
+    /**
+     * @param string $etat
+     */
+    public function setEtat(string $etat): void
+    {
+        $this->etat = $etat;
     }
 
     /**
@@ -208,5 +257,16 @@ class User implements UserInterface
         $this->adresse = $adresse;
 
         return $this;
+    }
+    protected $captchaCode;
+
+    public function getCaptchaCode()
+    {
+        return $this->captchaCode;
+    }
+
+    public function setCaptchaCode($captchaCode)
+    {
+        $this->captchaCode = $captchaCode;
     }
 }

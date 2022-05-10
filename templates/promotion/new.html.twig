@@ -1,0 +1,15 @@
+{% extends 'adminTemplate.html.twig' %}
+
+{% block title %}New Promotion{% endblock %}
+
+{% block body %}
+    <h1></h1>
+    <nav class="navbar navbar-dark bg-dark mb-3 rounded">
+        <span class="navbar-brand mb-0 h1">Creer une Promotion</span>
+    </nav>
+    {{ include('promotion/_form.html.twig') }}
+
+    <br>
+
+    <a href="{{ path('admin_promotion_index') }}" class="btn btn-dark" ><i class="fas fa-list"></i>  Retour a la liste</a>
+{% endblock %}

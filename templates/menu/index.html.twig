@@ -57,7 +57,7 @@
                         </div>
                         {% if is_granted('ROLE_USER') %}
                         <div>
-                            <a href="#" class="btn"><i class="fas fa-cart-plus"> Ajouter au panier</i></a>
+                            <a href="{{ path('ajout_panier',{'id': menusVegan.id }) }}" class="btn"><i class="fas fa-cart-plus"> Ajouter au panier</i></a>
                         </div>
                         <div>
                             <a href="{{ path('app_review',{'id': menusVegan.id }) }}" class="btn"><i class="fas fa-quote-right"> Avis</i></a>
@@ -95,7 +95,7 @@
                     </div>
                     {% if is_granted('ROLE_USER') %}
                     <div>
-                        <a href="#" class="btn"><i class="fas fa-cart-plus"> Ajouter au panier</i></a>
+                        <a href="{{ path('ajout_panier',{'id': menusNormal.id }) }}" class="btn"><i class="fas fa-cart-plus"> Ajouter au panier</i></a>
                     </div>
                     <div>
                         <a href="{{ path('app_review',{'id': menusNormal.id }) }}" class="btn"><i class="fas fa-quote-right"> Avis</i></a>

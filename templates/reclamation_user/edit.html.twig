@@ -1,0 +1,13 @@
+{% extends 'userTemplate.html.twig' %}
+
+{% block title %}Edit ReclamationUser{% endblock %}
+
+{% block body %}
+    <h1>Edit ReclamationUser</h1>
+
+    {{ include('reclamation_user/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_reclamation_user_index') }}">back to list</a>
+
+    {{ include('reclamation_user/_delete_form.html.twig') }}
+{% endblock %}

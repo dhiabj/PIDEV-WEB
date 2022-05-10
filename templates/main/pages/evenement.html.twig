@@ -6,84 +6,38 @@
 
 <section class="review" id="review">
 
-    <h3 class="sub-heading"> customer's review </h3>
-    <h1 class="heading"> what they say </h1>
+    <h3 class="sub-heading"> Evenements </h3>
+    <h1 class="heading"> ForU evenements </h1>
 
     <div class="swiper-container review-slider">
 
         <div class="swiper-wrapper">
+            {% for r in evenement %}
 
             <div class="swiper-slide slide">
                 <i class="fas fa-quote-right"></i>
                 <div class="user">
-                    <img src="{{ asset ('images/pic-1.png')}}" alt="">
                     <div class="user-info">
-                        <h3>john deo</h3>
+
+                      <h3> <a href="{{ path('addreservation',{'id':r.id}) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                            {{ r.nom }}
+                        </a></h3>
                         <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
+                            {{ r.date|date('d/m/y')}}
                         </div>
                     </div>
                 </div>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit fugiat consequuntur repellendus aperiam deserunt nihil, corporis fugit voluptatibus voluptate totam neque illo placeat eius quis laborum aspernatur quibusdam. Ipsum, magni.</p>
+                <p>{{r.categorie }}  </p>
+                <p>{{r.description }}  </p>
+
+                <p> {{ r.nbrPersonnes }} </p>
+                <img class="img-fluid img-top rounded-3 w-100" style="height:200px;" src="{{asset('uploads/') ~ r.image}}" alt="...">
+
             </div>
 
-            <div class="swiper-slide slide">
-                <i class="fas fa-quote-right"></i>
-                <div class="user">
-                    <img src="{{ asset ('images/pic-2.png')}}" alt="">
-                    <div class="user-info">
-                        <h3>john deo</h3>
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                    </div>
-                </div>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit fugiat consequuntur repellendus aperiam deserunt nihil, corporis fugit voluptatibus voluptate totam neque illo placeat eius quis laborum aspernatur quibusdam. Ipsum, magni.</p>
-            </div>
+            {% endfor %}
 
-            <div class="swiper-slide slide">
-                <i class="fas fa-quote-right"></i>
-                <div class="user">
-                    <img src="{{ asset ('images/pic-3.png')}}" alt="">
-                    <div class="user-info">
-                        <h3>john deo</h3>
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                    </div>
-                </div>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit fugiat consequuntur repellendus aperiam deserunt nihil, corporis fugit voluptatibus voluptate totam neque illo placeat eius quis laborum aspernatur quibusdam. Ipsum, magni.</p>
-            </div>
 
-            <div class="swiper-slide slide">
-                <i class="fas fa-quote-right"></i>
-                <div class="user">
-                    <img src="{{ asset ('images/pic-4.png')}}" alt="">
-                    <div class="user-info">
-                        <h3>john deo</h3>
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                    </div>
-                </div>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit fugiat consequuntur repellendus aperiam deserunt nihil, corporis fugit voluptatibus voluptate totam neque illo placeat eius quis laborum aspernatur quibusdam. Ipsum, magni.</p>
-            </div>
 
         </div>
 
@@ -91,4 +45,13 @@
     
 </section>
 
+    <div id="google_translate_element"></div>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+        }
+    </script>
+
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 {% endblock %}

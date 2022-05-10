@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Welcome to the Space Bar!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1111;
+            font-family: Helvetica, Arial, sans-serif;
+        }
+        h1 {
+            background-color: #fff2cc;
+            color: #ff6700a8;
+            padding: 30px 0;
+            font-weight: normal;
+        }
+        hr {
+            border: none;
+            border-top: 3px solid #fff2cc;
+            margin: 20px;
+        }
+        .container {
+            background-color: #FFEFB2;
+            width: 100%;
+            margin: 0 auto;
+        }
+        .bottom {
+            background-color: #efefee;
+        }
+        .block {
+            margin: 0;
+            padding: 70px;
+        }
+        .block1 {
+            margin: 0;
+            padding: 20px;
+        }
+        .logo {
+            width: 75px;
+            padding: 10px 20px 20px;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #264459;
+            color: #fefefe;
+            border: 1px solid #fff;
+            border-radius: 3px;
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="body">
+    <div class="container">
+        <div class="header text-center">
+            <a href="{{ url('app_home') }}">
+                <img src="{{ absolute_url(asset('/ressources/logo.png')) }}" class="logo" alt="SpaceBar Logo">
+            </a>
+        </div>
+        <div class="content">
+            <h1 class="text-center"> Hello </h1>
+            <p class="block">
+                Bienvenue sur
+                <strong>ForU</strong>
+
+                <strong>
+                    <a href="{{ url('addreservation', {'id': evenement.id}) }}">{{evenement.nom}}</a>
+                </strong>
+            </p>
+
+        </div>
+        <div class="footer">
+            <p class="block">
+                You are welcome to the new event <br><br>
+
+                <em>Your friendly ForU Team</em>
+            </p>
+            <p class="block1 bottom text-center">
+                Pour toute question n'hésitez pas à nous contacter sur ce numéro:
+                +22561810475<br><br>
+                <em>Envoyé avec  ❤️de la part de ForU</em>
+            </p>
+        </div>
+    </div>
+</div>
+</body>

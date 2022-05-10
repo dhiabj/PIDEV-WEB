@@ -1,0 +1,65 @@
+{% extends 'adminTemplate.html.twig' %}
+
+{% block title %}Ajouter Evenement
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .txt-bold{
+            font-weight: bold;
+        }
+        .txt-err{
+            color:red;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+
+
+    <nav class="navbar navbar-dark bg-dark mb-3 rounded">
+        <span class="navbar-brand mb-0 h1">Ajouter Un Evenement</span>
+    </nav>
+    {{form_start(form,{'attr':{'novalidate':'novalidate'}})}}
+    <div class="form-group">
+        {{ form_label(form.nom) }}
+        {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+
+    </div>
+    <div class="form-group">
+        {{ form_label(form.date, 'Date', {'label_attr': {'class': 'txt-bold'}}) }}
+        {{ form_widget(form.date, {'attr': {'class': 'evenement'}}) }}
+
+    </div>
+    <div class="form-group">
+        {{ form_label(form.categorie, 'Categorie', {'label_attr': {'class': 'txt-bold'}}) }}
+        {{ form_widget(form.categorie) }}
+    </div>
+    <div class="form-group">
+        {{form_label(form.description)}}
+        <br>
+        {{ form_widget(form.description)}}
+
+    </div>
+    <div class="form-group">
+        {{ form_label(form.nbrPersonnes, 'Nombre Personnes') }}
+        {{ form_widget(form.nbrPersonnes, {'attr': {'class': 'form-control'}}) }}
+
+
+    </div>
+    <div class="form-group">
+        {{ form_widget(form.imageFile, {'attr':{'class':'form-control'}})}}
+
+
+    </div>
+
+
+
+
+    {{ form_row(form.valider, {'attr': {'class': 'btn btn-primary'}}) }}
+
+    {{form_end(form)}}
+
+
+{% endblock %}

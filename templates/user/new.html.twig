@@ -1,0 +1,27 @@
+{% extends 'adminTemplate.html.twig' %}
+
+{% block title %}Nouveau Utilisateur{% endblock %}
+
+{% block body %}
+
+    <section class="shop checkout section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-10">
+                    <div class="checkout-form">
+
+                        <h2>S'inscrire</h2>
+                        <p>Veuillez vous inscrire  plus rapidement</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    {{ include('user/_form.html.twig') }}
+
+
+{% endblock %}

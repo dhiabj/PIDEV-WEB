@@ -1,0 +1,92 @@
+<section class="shop checkout section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-12">
+                <div class="checkout-form">
+
+
+                    {{ form_start(form,{attr:{'novalidate':'novalidate'}}) }}
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div class="form-group">
+                                <label>First Name<span>*</span>
+                                </label>
+                                {{ form_widget(form.nom,{'attr':{'class':'form-control '}}) }}
+                                {{ form_errors(form.nom,{'attr':{'class':'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div class="form-group">
+                                <label>Last Name<span>*</span>
+                                </label>
+                                {{ form_widget(form.prenom,{'attr':{'class':'form-control '}}) }}
+                                {{ form_errors(form.prenom,{'attr':{'class':'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div class="form-group">
+                                <label>Email Address<span>*</span>
+                                </label>
+                                {{ form_widget(form.email,{'attr':{'class':'form-control '}}) }}
+                                {{ form_errors(form.email,{'attr':{'class':'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div class="form-group">
+                                <label>Password<span>*</span>
+                                </label>
+                                {{ form_widget(form.password,{'attr':{'class':'form-control'}}) }}
+                                {{ form_errors(form.password,{'attr':{'class':'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div class="form-group">
+                                <label>Adresse<span>*</span>
+                                </label>
+                                {{ form_widget(form.adresse,{'attr':{'class':'form-control '}}) }}
+                                {{ form_errors(form.adresse,{'attr':{'class':'form-control'}}) }}
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div class="form-group">
+                                <label>Phone No<span>*</span>
+                                </label>
+                                {{ form_widget(form.numTel,{'attr':{'class':'form-control '}}) }}
+                                {{ form_errors(form.numTel,{'attr':{'class':'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div class="form-group">
+                                <label>Date Naissance<span>*</span>
+                                </label>
+                                {{ form_widget(form.date,{'attr':{'class':'form-control p-0 border-0'}}) }}
+                                {{ form_errors(form.date,{'attr':{'class':'form-control'}}) }}
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-group create-account">
+                                <input id="cbox" type="checkbox">
+                                <label>Create an account?</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="single-widget get-button">
+                        <div class="content">
+                            <div class="button">
+                                {{ form_widget(form) }}
+                                <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    {{ form_end(form) }}
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

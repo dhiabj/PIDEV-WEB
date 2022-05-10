@@ -1,0 +1,26 @@
+{{form_start(form,{'attr':{'novalidate':'novalidate'}})}}
+   <div class="form-group">
+       {{ form_label(form.etat) }}
+       {{ form_widget(form.etat, {'attr': {'class': 'form-control'}}) }}
+
+   </div>
+<div class="form-group">
+    {{ form_label(form.date) }}
+    {{ form_widget(form.date, {'attr': {'class': 'form-control-input'}}) }}
+    {{  form_errors(form.etat,{'attr':{'class': 'text-danger'}}) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.total) }}
+    {{ form_widget(form.total, {'attr': {'class': 'form-control'}}) }}
+    {{  form_errors(form.etat,{'attr':{'class': 'text-danger'}}) }}
+
+</div>
+<div class="form-group">
+    {{ form_label(form.user) }}
+    {{ form_widget(form.user, {'attr': {'class': 'form-control'}}) }}
+
+</div>
+
+
+{{ form_row(form.valider, {'attr': {'class': 'btn btn-primary'}}) }}
+{{ form_end(form) }}

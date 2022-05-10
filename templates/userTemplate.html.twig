@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/41664e673b.js" crossorigin="anonymous"></script>
     <title>{% block title %}ForU{% endblock %}</title>
 
     <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -32,15 +33,19 @@
         <a href="{{path ('app_home')}}">Accueil</a>
         <a href="{{path ('app_menus')}}">Menu</a>
         <a href="{{path ('app_evenement')}}">Événement</a>
-        <a href="{{path ('app_reclamation')}}">Réclamation</a>
+        {% if is_granted('ROLE_USER') %}
+        <a href="{{path ('app_reclamation_user_index')}}">Réclamation</a>
+        {% endif %}
         <a href="{{path ('app_about')}}">À propos</a>
     </nav>
 
     <div class="icons">
     {% if is_granted('ROLE_USER') %}
+        <a href="{{ path ('app_livraison_user') }}" class="fa-solid fa-truck"></a>
         <a href="{{path ('app_favoris')}}" class="fas fa-heart"></a>
-        <a href="#" class="fas fa-shopping-cart"></a>
-        <a href="#" class="fas fa-user"></a>
+        <a href="{{ path ('app_panier') }}" class="fas fa-shopping-cart"></a>
+        <a href="{{ path ('app_historique') }}" class="fas fa-history"></a>
+        <a href="{{ path ('app_user_profil') }}" class="fas fa-user"></a>
         <a href="{{ path('app_logout') }}" class="fas fa-sign-out-alt"></a>
         {% else %}
         <a href="{{ path('app_login') }}" class="fas fa-sign-in-alt"></a>
@@ -52,7 +57,20 @@
 
 <!-- header section ends-->
 <div class="container-fluid wrapper">
-{% block body %}{% endblock %}
+
+    {% for flash in app.flashes('success') %}
+        <div class="alert alert-success " style="align-items: center">{{ flash }}</div>
+    {% endfor %}
+    {% for flash in app.flashes('warning') %}
+        <div class="alert alert-warning " style="align-items: center">{{ flash }}</div>
+    {% endfor %}
+    {% for flash in app.flashes('error') %}
+        <div class="alert alert-danger " style="align-content: center">{{ flash }}</div>
+    {% endfor %}
+    <div class="mt-3">
+        {% block body %}{% endblock %}
+    </div>
+
 </div>
 
 <!-- footer section starts  -->

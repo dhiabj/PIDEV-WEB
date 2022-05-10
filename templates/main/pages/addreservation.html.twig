@@ -1,0 +1,55 @@
+{% extends 'userTemplate.html.twig' %}
+
+{% block title %}Ajouter reservation
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        select{
+            display: block;
+            width: 100%;
+        }
+        .form-control{
+            font-size: 1.6rem;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
+
+{% block body %}
+
+    <nav class="navbar navbar-dark bg-dark mb-3 rounded">
+        <span class="navbar-brand mb-0 h1">Ajouter Une Réservation</span>
+    </nav>
+
+{#{%  set s =evenement.nbrPersonnes %}
+
+    <div> {{ s }}</div>#}
+
+    {{form_start(form,{'attr':{'novalidate':'novalidate'}})}}
+    <div class="form-group">
+        <div class="form-group">
+            {{ form_label(form.nom) }}
+            {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+        {{ form_label(form.nbrPersonnes, 'Nombre Personnes') }}
+        {{ form_widget(form.nbrPersonnes, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    {%  set s =evenement.nbrPersonnes %}
+
+    <div> <p> Le nombre de places disponibles : {{ s }} </p> </div>
+    {{ form_row(form.valider, {'attr': {'class': 'btn btn-primary'}}) }}
+
+
+    {{form_end(form)}}
+
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6381.124145949898!2d10.18147762628329!3d36.90082341971166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12e2cb763f2120bb%3A0xc3e79593db50c2e8!2sLa%20petite%20Ariana%2C%20Cebalat%20Ben%20Ammar!5e0!3m2!1sfr!2stn!4v1650322845664!5m2!1sfr!2stn" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+{% endblock %}
+{% block footer %}
+{% endblock %}
+{% block aside %}
+{% endblock %}

@@ -6,6 +6,7 @@
   <title>{% block title %}Admin{% endblock %}</title>
 
   <!-- Google Font: Source Sans Pro -->
+    <script src="https://kit.fontawesome.com/41664e673b.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset ('plugins/fontawesome-free/css/all.min.css')}}">
@@ -122,13 +123,46 @@
                   </a>
                   <ul class="nav nav-treeview">
                     <li class="nav-item">
-                      <a href="#" class="nav-link">
+                      <a href="{{ path('app_user_new') }}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Test</p>
+                        <p>Ajouter Utilisateur</p>
                       </a>
                     </li>
                   </ul>
+                 <ul class="nav nav-treeview">
+                   <li class="nav-item">
+                     <a href="{{ path('app_user_index') }}" class="nav-link">
+                       <i class="far fa-circle nav-icon"></i>
+                       <p>Liste des utilisateurs</p>
+                     </a>
+                   </li>
+                 </ul>
                 </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fa-solid fa-truck"></i>
+              <p>
+                 Livraison
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ path('app_livraison_new') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ajouter Livraison</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ path('app_livraison_index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Liste des Livraisons</p>
+                </a>
+              </li>
+            </ul>
+          </li>
                 <li class="nav-item">
                   <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-utensils"></i>
@@ -164,49 +198,89 @@
                   </a>
                   <ul class="nav nav-treeview">
                     <li class="nav-item">
-                      <a href="#" class="nav-link">
+                      <a href="{{ path('admin_commande_index') }}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Test</p>
+                        <p>Affficher commande</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="{{ path('admin_commande_new') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Ajouter commande</p>
                       </a>
                     </li>
                   </ul>
                 </li>
                 <li class="nav-item">
                   <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-calendar-alt"></i>
+                    <i class="nav-icon fas fa-shopping-cart"></i>
                     <p>
-                      Événements
+                      Promotion
                       <i class="right fas fa-angle-left"></i>
                     </p>
                   </a>
                   <ul class="nav nav-treeview">
                     <li class="nav-item">
-                      <a href="#" class="nav-link">
+                      <a href="{{ path('admin_promotion_index') }}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Test</p>
+                        <p>Afficher promotion</p>
                       </a>
                     </li>
-                  </ul>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-edit"></i>
-                    <p>
-                      Réclamations
-                      <i class="right fas fa-angle-left"></i>
-                    </p>
-                  </a>
-                  <ul class="nav nav-treeview">
                     <li class="nav-item">
-                      <a href="#" class="nav-link">
+                      <a href="{{ path('admin_promotion_new') }}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Test</p>
+                        <p>Ajouter promotion</p>
                       </a>
                     </li>
                   </ul>
                 </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-calendar-alt"></i>
+              <p>
+                Événements
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ path('listevenement') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Evenements</p>
+                </a>
+                <a href="{{ path('listreservation') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Réservations</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ path('addevenement') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ajouter evenement</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-shopping-cart"></i>
+              <p>
+                Réclamation
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ path('app_reclamation_admin_index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Afficher réclamation</p>
+                </a>
+              </li>
+
+            </ul>
+          </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{ path('app_logout') }}" class="nav-link">
                   <i class="nav-icon fas fa-sign-out-alt"></i>
                     <p>
                       Déconnexion

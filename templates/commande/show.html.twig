@@ -1,0 +1,34 @@
+{% extends 'adminTemplate.html.twig' %}
+
+{% block title %}Commande{% endblock %}
+
+{% block body %}
+
+    <nav class="navbar navbar-dark bg-dark mb-3 rounded">
+        <span class="navbar-brand mb-0 h1">Commande</span>
+    </nav>
+    <table class="table table-dark">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ commande.id }}</td>
+            </tr>
+            <tr>
+                <th>Etat</th>
+                <td>{{ commande.etat }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ commande.date ? commande.date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Total</th>
+                <td>{{ commande.total }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- les boutons backtolist et Editer sont dans le twig de delete -->
+
+    {{ include('commande/_delete_form.html.twig') }}
+{% endblock %}

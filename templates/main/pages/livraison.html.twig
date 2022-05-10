@@ -1,0 +1,57 @@
+{% extends 'userTemplate.html.twig' %}
+
+{% block title %}Livraison{% endblock %}
+
+{% block body %}
+    <section class="order" id="order">
+
+        <div class="container-xl">
+            <div class="col-md-12">
+                <div class="center">
+                    <div class="card login-card">
+                        <div class="card-body">
+                            <nav class="navbar navbar-dark bg-dark mb-3 rounded">
+                                <span class="navbar-text">Mon Profil</span>
+                            </nav>
+
+                            <div class="grix xs2">
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Client</th>
+                <th>Livreur</th>
+                <th>Commande</th>
+                <th>Etat</th>
+                <th>Annuler la Livraison</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for livraison in livraisonss %}
+                <tr>
+                    <td>{{ livraison.id }}</td>
+                    <td>{{ livraison.nom }}</td>
+                    <td>{{ livraison.user.prenom }}</td>
+                    <td>{{ livraison.livreur.nom }}</td>
+                    <td>{{ livraison.commande }}</td>
+                    <td>{{ livraison.etat }}</td>
+                    <td>
+                        {% if livraison.etat != "Livree" %}
+                        {% if livraison.etat != "Annuler" %}
+                            <a href="{{ path('app_livraison_annuler', {'id': livraison.id,'etat':'Annuler'}) }}"class="btn btn-info">Annuler</a>
+                        {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+{% endblock %}

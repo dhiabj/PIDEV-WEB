@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
+use App\Repository\CommandeRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Commande
  *
  * @ORM\Table(name="commande", indexes={@ORM\Index(name="user_id", columns={"user_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=CommandeRepository::class)
  */
 class Commande
 {
@@ -25,6 +26,12 @@ class Commande
      * @var string
      *
      * @ORM\Column(name="etat", type="string", length=255, nullable=false)
+     * @Assert\Length(
+     *     min= 2,
+     *     max= 15,
+     *     minMessage = "le nom doit etre supperieur a {{ limit }} caracteres",
+     *     maxMessage = " le nom ne doit pas depasser {{ limit }} caracteres")
+     * @Assert\NotNull
      */
     private $etat;
 
@@ -32,6 +39,8 @@ class Commande
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="date", nullable=false)
+     * @Assert\GreaterThan("today",
+     *  message = "la date n'est pas valide")
      */
     private $date;
 
@@ -39,6 +48,10 @@ class Commande
      * @var float
      *
      * @ORM\Column(name="total", type="float", precision=10, scale=0, nullable=false)
+     * @Assert\NotNull(message= "Le champ est vide")
+
+     * @Assert\GreaterThan ("0",
+     *     message="Le total ne peut pas être égal a 0 !!")
      */
     private $total;
 
@@ -49,8 +62,12 @@ class Commande
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * })
+     * @Assert\NotNull(message= "Le champ est vide")
      */
     private $user;
+    public function __toString() {
+        return (string)$this->getId();
+    }
 
     public function getId(): ?int
     {

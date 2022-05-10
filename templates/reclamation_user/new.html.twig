@@ -1,0 +1,18 @@
+{% extends 'userTemplate.html.twig' %}
+
+{% block title %}New ReclamationUser{% endblock %}
+
+{% block body %}
+
+
+    {{ form_start(form ,{'attr' : {'novalidate' : 'novalidate'}}) }}
+    <div class="form-group">
+        {{ form_label(form.titre) }}
+        {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    {{ form_row(form.texte) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+
+    <a class="btn btn-outline-primary btn-fw" href="{{ path('app_reclamation_user_index') }}">back to list</a>
+{% endblock %}

@@ -3,9 +3,14 @@
 namespace App\Security;
 
 use App\Entity\User;
+use App\Entity\LoginAttempt;
+use App\Repository\LoginAttemptRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -19,6 +24,8 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
+
 
 class AppAuthenticator extends AbstractFormLoginAuthenticator implements PasswordAuthenticatedInterface
 {
@@ -30,13 +37,20 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
     private $urlGenerator;
     private $csrfTokenManager;
     private $passwordEncoder;
+    private $loginAttemptRepository;
+    private $userRepository;
+    private $userProvider;
 
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder,LoginAttemptRepository $loginAttemptRepository, UserRepository $userRepository, UserProviderInterface $userProvider)
     {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
+        $this->loginAttemptRepository = $loginAttemptRepository;
+        $this->userRepository = $userRepository;
+        $this->userProvider = $userProvider;
+
     }
 
     public function supports(Request $request)
@@ -56,6 +70,11 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
             Security::LAST_USERNAME,
             $credentials['email']
         );
+        if(!$this->passwordEncoder->isPasswordValid($this->getUser($credentials,$this->userProvider), $credentials['password'])){
+            $newLoginAttempt = new LoginAttempt($request->getClientIp(), $credentials['email']);
+            $this->entityManager->persist($newLoginAttempt);
+            $this->entityManager->flush();
+        }
 
         return $credentials;
     }
@@ -78,8 +97,26 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
 
     public function checkCredentials($credentials, UserInterface $user)
     {
+        /*$userRepository =$this->getDoctrine()->getRepository(User::class);*/
+        if(!$this->passwordEncoder->isPasswordValid($user, $credentials['password'])){
+            if ($this->loginAttemptRepository->countRecentLoginAttempts($credentials['email']) >=3 and $this->loginAttemptRepository->countRecentLoginAttempts($credentials['email'])<5) {
+
+                /*$user = $userRepository->find($request->query->get('id'));*/
+                throw new CustomUserMessageAuthenticationException('Vous avez essayé de vous connecter avec un mot'
+                    .' de passe incorrect de trop nombreuses fois. Veuillez patienter svp avant de ré-essayer.');
+            }
+            if ($this->loginAttemptRepository->countRecentLoginAttempts($credentials['email']) >= 5) {
+
+                /*$user = $userRepository->find($request->query->get('id'));*/
+                $user->setEtat("Banned");
+                $this->userRepository->add($user,true);
+                throw new CustomUserMessageAuthenticationException('Votre compte a été banni à cause des rasiooooo');
+            }
+        }
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
+
+
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
@@ -94,9 +131,18 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
+        $user = $token->getUser();
+        $this->loginAttemptRepository->deleteAttempts($user->getUsername());
 
-        return new RedirectResponse($this->urlGenerator->generate('app_home'));
-        //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        if(in_array('ROLE_ADMIN',$user->getRoles(),true)) {
+            return new RedirectResponse($this->urlGenerator->generate('app_admin'));
+        }
+        if(in_array('ROLE_LIVREUR',$user->getRoles(),true)) {
+            return new RedirectResponse($this->urlGenerator->generate('app_livreur'));
+        }
+        if(in_array('ROLE_USER',$user->getRoles(),true)) {
+            return new RedirectResponse($this->urlGenerator->generate('app_user'));
+        }
     }
 
     protected function getLoginUrl()

@@ -1,0 +1,11 @@
+{% extends 'adminTemplate.html.twig' %}
+
+{% block title %}New ReclamationAdmin{% endblock %}
+
+{% block body %}
+    <h1>Create new ReclamationAdmin</h1>
+
+    {{ include('reclamation_admin/_form.html.twig') }}
+
+    <a class="btn btn-outline-primary btn-fw" href="{{ path('app_reclamation_admin_index') }}">back to list</a>
+{% endblock %}

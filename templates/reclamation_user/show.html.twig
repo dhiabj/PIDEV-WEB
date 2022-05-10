@@ -1,0 +1,35 @@
+{% extends 'userTemplate.html.twig' %}
+
+{% block title %}ReclamationUser{% endblock %}
+
+{% block body %}
+    <h1>ReclamationUser</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Titre</th>
+                <td>{{ reclamation_user.titre }}</td>
+            </tr>
+            <tr>
+                <th>Texte</th>
+                <td>{{ reclamation_user.texte|purify }}</td>
+            </tr>
+            <tr>
+                <th>Reponse</th>
+                {% if reclamation_admin.reponse %}
+                    <td>{{ reclamation_admin.reponse|purify }}</td>
+                    {% else %}
+                    <td>no response yet</td>
+                {% endif %}
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-outline-primary btn-fw" href="{{ path('app_reclamation_user_index') }}">back to list</a>
+
+    <a class="btn btn-outline-primary btn-fw" href="{{ path('app_reclamation_user_edit', {'id': reclamation_user.id}) }}">edit</a>
+    <a class="btn btn-success" href="{{ path('listo') }}">Create pdf</a>
+
+    {{ include('reclamation_user/_delete_form.html.twig') }}
+{% endblock %}

@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
+use App\Repository\ReclamationUserRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * ReclamationUser
  *
- * @ORM\Table(name="reclamation_user", indexes={@ORM\Index(name="user_id", columns={"user_id"}), @ORM\Index(name="idr", columns={"idr"})})
- * @ORM\Entity
+ * @ORM\Table(name="reclamation_user", indexes={@ORM\Index(name="user_id", columns={"user_id"})})
+ * @ORM\Entity(repositoryClass=ReclamationUserRepository::class)
  */
 class ReclamationUser
 {
@@ -22,6 +23,13 @@ class ReclamationUser
     private $id;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="idrep", type="integer", nullable=false)
+     */
+    private $idrep;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="titre", type="string", length=255, nullable=false)
@@ -31,12 +39,19 @@ class ReclamationUser
     /**
      * @var string
      *
-     * @ORM\Column(name="texte", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="texte", type="string", length=255, nullable=false)
      */
     private $texte;
 
     /**
-     * @var \User
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=255, nullable=true)
+     */
+    private $status;
+
+    /**
+     * @var \ReclamationUser
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
@@ -45,29 +60,31 @@ class ReclamationUser
      */
     private $user;
 
-    /**
-     * @var \ReclamationAdmin
-     *
-     * @ORM\ManyToOne(targetEntity="ReclamationAdmin")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idr", referencedColumnName="idr")
-     * })
-     */
-    private $idr;
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTitre(): ?string
+    public function getIdrep(): ?int
     {
-        return $this->titre;
+        return $this->idrep;
     }
 
-    public function setTitre(string $titre): self
+    public function setIdrep(int $idrep): self
     {
-        $this->titre = $titre;
+        $this->idrep = $idrep;
+
+        return $this;
+    }
+
+    public function getTitire(): ?string
+    {
+        return $this->titire;
+    }
+
+    public function setTitire(string $titire): self
+    {
+        $this->titire = $titire;
 
         return $this;
     }
@@ -84,6 +101,32 @@ class ReclamationUser
         return $this;
     }
 
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+
+
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    public function setTitre(string $titre): self
+    {
+        $this->titre = $titre;
+
+        return $this;
+    }
+
     public function getUser(): ?User
     {
         return $this->user;
@@ -92,18 +135,6 @@ class ReclamationUser
     public function setUser(?User $user): self
     {
         $this->user = $user;
-
-        return $this;
-    }
-
-    public function getIdr(): ?ReclamationAdmin
-    {
-        return $this->idr;
-    }
-
-    public function setIdr(?ReclamationAdmin $idr): self
-    {
-        $this->idr = $idr;
 
         return $this;
     }

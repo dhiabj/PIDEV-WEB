@@ -1,0 +1,153 @@
+{% extends 'adminTemplate.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
+
+                <div class="card-body px-0 pb-2">
+                    <div class="table-responsive p-0">
+
+                        <h1 style="text-align: center ; margin-top: 20px ; margin-bottom: 20px" >Upcoming Events</h1>
+
+
+                        <table class="table" border="1px solid black">
+                            <thead>
+                            <tr>
+
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nom</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">categorie</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">description</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">date</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nombre Personnes</th>
+                            </tr>
+                            <tbody>
+                            {% for r in coming %}
+                                <tr>
+                                    <td>
+
+                                        <div class="d-flex px-2 py-1">
+                                            <div>
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">{{ r.nom }}</h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ r.categorie }}</p>
+                                    </td>
+                                    <td class="align-middle text-center text-sm">
+                                        <p class="text-xs text-secondary mb-0">{{ r.description }}</p>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">{{  r.date ? r.date|date('d/m/y') : ''}} </span>
+                                    </td>
+                                    <td class="align-middle text-center text-sm">
+                                        <p class="text-xs text-secondary mb-0">{{ r.nbrPersonnes }}</p>
+                                    </td>
+
+
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="5">no records found</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <div>
+                            <p style="100px" > <input  id="myInput"  type="text" placeholder="Recherche">
+                                <img src="https://img.icons8.com/nolan/344/google-web-search.png" style="width:50px;height:50px;"/></a>
+
+                        </div>
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nom</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">categorie</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">description</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">date</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nombre Personnes</th>
+                                <th class="text-secondary opacity-7"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tbody id="myTable">
+
+                            {% for r in evenement %}
+                                <tr>
+                                    <td>
+
+                                        <div class="d-flex px-2 py-1">
+                                            <div>
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">{{ r.nom }}</h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ r.categorie }}</p>
+                                    </td>
+                                    <td class="align-middle text-center text-sm">
+                                        <p class="text-xs text-secondary mb-0">{{ r.description }}</p>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">{{ r.date|date('d/m/y')}} </span>
+                                    </td>
+                                    <td class="align-middle text-center text-sm">
+                                        <p class="text-xs text-secondary mb-0">{{ r.nbrPersonnes }}</p>
+                                    </td>
+                                    <td class="align-middle text-center ">
+
+                                            <a href="{{ path ('modifierevenement',{'id':r.id}) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                Modifier
+                                            </a>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                           <span>
+                                        <a href="{{ path ('supprimerevenement',{'id':r.id}) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                            Supprimer
+                                        </a>
+                                            </span>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                            <tbody id="Recherche">
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <td class="align-middle text-center">
+                            <span>
+                                <a type="submit" class="btn btn-primary btn-sm "  style="text-align: center" style="margin:auto " href="{{ path ('statevenement') }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                            Statistiques
+                        </a>
+                            </span>
+    </td>
+    <div class="container py-5">
+        <div class="d-flex justify-content-center">
+
+            {{ knp_pagination_render(evenement) }}
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+
+{% endblock %}

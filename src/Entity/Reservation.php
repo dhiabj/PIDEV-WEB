@@ -2,51 +2,60 @@
 
 namespace App\Entity;
 
+use App\Repository\ReservationRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups ;
 /**
- * Reservation
- *
- * @ORM\Table(name="reservation", indexes={@ORM\Index(name="user_id", columns={"user_id"}), @ORM\Index(name="event_id", columns={"event_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=ReservationRepository::class)
  */
 class Reservation
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     * @Groups("post:read")
+
      */
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     min= 2,
+     *     max= 15,
+     *     minMessage = "le nom doit etre supperieur à {{ limit }} caracteres",
+     *     maxMessage = " le nom ne doit pas dépasser {{ limit }} caracteres")
+     * @Assert\NotNull
+     * @Groups("post:read")
+
      */
     private $nom;
+
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Evenement::class, inversedBy="reservations")
+     */
+    private $Evenement;
+
+    /**
+     * @ORM\Column(type="integer")
+     * @Groups("post:read")
+     */
+    private $nbrPersonnes;
 
     /**
      * @var \User
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * })
+     *@Groups("post:read")
      */
     private $user;
-
-    /**
-     * @var \Evenement
-     *
-     * @ORM\ManyToOne(targetEntity="Evenement")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="event_id", referencedColumnName="id")
-     * })
-     */
-    private $event;
 
     public function getId(): ?int
     {
@@ -58,9 +67,33 @@ class Reservation
         return $this->nom;
     }
 
-    public function setNom(string $nom): self
+    public function setNom(?string $nom): self
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getEvenement(): ?Evenement
+    {
+        return $this->Evenement;
+    }
+
+    public function setEvenement(?Evenement $Evenement): self
+    {
+        $this->Evenement = $Evenement;
+
+        return $this;
+    }
+
+    public function getNbrPersonnes(): ?int
+    {
+        return $this->nbrPersonnes;
+    }
+
+    public function setNbrPersonnes(int $nbrPersonnes): self
+    {
+        $this->nbrPersonnes = $nbrPersonnes;
 
         return $this;
     }
@@ -76,18 +109,4 @@ class Reservation
 
         return $this;
     }
-
-    public function getEvent(): ?Evenement
-    {
-        return $this->event;
-    }
-
-    public function setEvent(?Evenement $event): self
-    {
-        $this->event = $event;
-
-        return $this;
-    }
-
-
 }

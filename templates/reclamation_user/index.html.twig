@@ -1,0 +1,44 @@
+{% extends 'userTemplate.html.twig' %}
+
+{% block title %}ReclamationUser index{% endblock %}
+{% block body %}
+    <section class="order" id="order">
+        <h1>Mes Reclamations</h1>
+        <span style="background: red ; padding: 5px; border-radius: 10px ; color : white ;font-weight: bold  ;position:absolute;right:100px;top: 90px">{{ res }}</span>
+        <table class="table">
+            <thead>
+            <tr>
+
+                <th>Titre</th>
+
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for reclamation_user in reclamation_users %}
+                <tr>
+
+                    <td>{{ reclamation_user.titre }}</td>
+
+                    <td>
+                        <a class="btn btn-outline-primary btn-fw"  href="{{ path('app_reclamation_user_show', {'id': reclamation_user.id}) }}">Inspecter</a>
+                        <a class="btn btn-outline-primary btn-fw" href="{{ path('app_reclamation_user_edit', {'id': reclamation_user.id}) }}">Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">no records found</td>
+                </tr>
+
+            {% endfor %}
+            <div>{{ knp_pagination_render(reclamations) }}</div>
+            </tbody>
+        </table>
+        <a class="btn btn-outline-primary btn-fw" href="{{ path('app_reclamation_user_new') }}">Envoyer un nouvelle réclamation </a>
+
+
+
+    </section>
+
+
+{% endblock %}

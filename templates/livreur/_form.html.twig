@@ -1,0 +1,34 @@
+
+{{form_start(form)}}
+<div class="form-group">
+    {{ form_label(form.nom) }}
+    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+
+</div>
+<div class="form-group">
+    {{ form_label(form.plainPassword) }}
+    {{ form_widget(form.plainPassword, {'attr': {'class': 'form-control'}}) }}
+
+</div>
+<div class="form-group">
+    {{ form_label(form.date) }}
+    {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+
+</div>
+<div class="form-group">
+    {{ form_label(form.numTel) }}
+    {{ form_widget(form.numTel, {'attr': {'class': 'form-control'}}) }}
+
+</div>
+<div class="form-group">
+    {{ form_label(form.numTel) }}
+    {{ form_widget(form.numTel, {'attr': {'class': 'form-control'}}) }}
+
+</div>
+<div class="form-group">
+    {{ form_label(form.adresse) }}
+    {{ form_widget(form.adresse, {'attr': {'class': 'form-control'}}) }}
+
+</div>
+<br>
+{{ form_end(form) }}

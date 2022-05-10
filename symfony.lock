@@ -1,6 +1,21 @@
 {
+    "bacon/bacon-qr-code": {
+        "version": "2.0.7"
+    },
     "blackknight467/star-rating-bundle": {
         "version": "v2.0.1"
+    },
+    "captcha-com/captcha": {
+        "version": "4.2.5"
+    },
+    "captcha-com/symfony-captcha-bundle": {
+        "version": "4.2.12"
+    },
+    "cmen/google-charts-bundle": {
+        "version": "5.0.0"
+    },
+    "dasprid/enum": {
+        "version": "1.0.3"
     },
     "doctrine/annotations": {
         "version": "1.13",
@@ -82,17 +97,68 @@
     "doctrine/sql-formatter": {
         "version": "1.1.2"
     },
+    "dompdf/dompdf": {
+        "version": "v1.2.1"
+    },
     "egulias/email-validator": {
         "version": "3.1.2"
     },
+    "endroid/installer": {
+        "version": "1.4.0"
+    },
+    "endroid/qr-code": {
+        "version": "4.4.8"
+    },
+    "endroid/qr-code-bundle": {
+        "version": "4.0.7"
+    },
+    "exercise/htmlpurifier-bundle": {
+        "version": "4.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "3.0",
+            "ref": "99590c5352b58fadacd5535337589aba7e44f5a7"
+        },
+        "files": [
+            "./config/packages/exercise_html_purifier.yaml"
+        ]
+    },
+    "ezyang/htmlpurifier": {
+        "version": "v4.14.0"
+    },
+    "firebase/php-jwt": {
+        "version": "v5.5.1"
+    },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.7"
+    },
+    "friendsofsymfony/ckeditor-bundle": {
+        "version": "2.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "2.0",
+            "ref": "f5ad42002183a6881962683e6d84bbb25cdfce5d"
+        },
+        "files": [
+            "./config/packages/fos_ckeditor.yaml"
+        ]
+    },
+    "knplabs/knp-components": {
+        "version": "v3.4.0"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.8.0"
     },
     "laminas/laminas-code": {
         "version": "4.5.1"
     },
     "mercuryseries/flashy-bundle": {
         "version": "v3.0.2"
+    },
+    "messagebird/php-rest-api": {
+        "version": "v3.0.0"
     },
     "monolog/monolog": {
         "version": "1.26.1"
@@ -108,6 +174,12 @@
     },
     "phar-io/version": {
         "version": "3.2.1"
+    },
+    "phenx/php-font-lib": {
+        "version": "0.5.4"
+    },
+    "phenx/php-svg-lib": {
+        "version": "0.4.1"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
@@ -161,6 +233,9 @@
     },
     "psr/log": {
         "version": "1.1.4"
+    },
+    "sabberworm/php-css-parser": {
+        "version": "8.4.0"
     },
     "sebastian/cli-parser": {
         "version": "1.0.1"
@@ -337,6 +412,15 @@
             "./src/Kernel.php"
         ]
     },
+    "symfony/google-mailer": {
+        "version": "4.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "4.4",
+            "ref": "f8fd4ddb9b477510f8f4bce2b9c054ab428c0120"
+        }
+    },
     "symfony/http-client": {
         "version": "v4.4.39"
     },
@@ -375,6 +459,18 @@
             "version": "1.0",
             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
         }
+    },
+    "symfony/messenger": {
+        "version": "4.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.3",
+            "ref": "25e3c964d3aee480b3acc3114ffb7940c89edfed"
+        },
+        "files": [
+            "./config/packages/messenger.yaml"
+        ]
     },
     "symfony/mime": {
         "version": "v4.4.37"
@@ -574,13 +670,28 @@
         "version": "4.4",
         "recipe": {
             "repo": "github.com/symfony/recipes",
-            "branch": "main",
+            "branch": "master",
             "version": "3.3",
             "ref": "dae9b39fd6717970be7601101ce5aa960bf53d9a"
         }
     },
     "symfony/yaml": {
         "version": "v4.4.37"
+    },
+    "symfonycasts/reset-password-bundle": {
+        "version": "1.13",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.0",
+            "ref": "97c1627c0384534997ae1047b93be517ca16de43"
+        },
+        "files": [
+            "./config/packages/reset_password.yaml"
+        ]
+    },
+    "symfonycasts/verify-email-bundle": {
+        "version": "v1.10.0"
     },
     "theseer/tokenizer": {
         "version": "1.2.1"

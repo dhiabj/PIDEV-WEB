@@ -1,0 +1,42 @@
+{% extends 'adminTemplate.html.twig' %}
+
+{% block title %}Commande index{% endblock %}
+
+{% block body %}
+
+    <nav class="navbar navbar-dark bg-dark mb-3 rounded">
+        <span class="navbar-brand mb-0 h1">Tableau des Commandes</span>
+    </nav>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Etat</th>
+                <th>Date</th>
+                <th>Total</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for commande in commandes %}
+            <tr>
+                <td>{{ commande.id }}</td>
+                <td>{{ commande.etat }}</td>
+                <td>{{ commande.date ? commande.date|date('Y-m-d') : '' }}</td>
+                <td>{{ commande.total }}</td>
+                <td>
+                    <a href="{{ path('admin_commande_show', {'id': commande.id}) }} " class="btn btn-info"><i class="fas fa-address-book"></i>  Afficher</a>
+                    <a href="{{ path('admin_commande_edit', {'id': commande.id}) }}" class="btn btn-warning"><i class="fas fa-pen"></i>   Editer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    {{ knp_pagination_render(commandes) }}
+    <a href="{{ path('admin_command_stat')}}" class="btn btn-info"><i class="fas fa-chart-bar"></i>   Statistique</a>
+{% endblock %}

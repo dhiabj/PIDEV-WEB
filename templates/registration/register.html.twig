@@ -23,8 +23,14 @@
         {{ form_row(registrationForm.adresse) }}
         {{ form_row(registrationForm.numTel) }}
         {{ form_row(registrationForm.date) }}
+   <span class="txt1 p-b-11"> êtes vous un robot ?</span>
+    <div class="wrap-input100 m-b-36">
+        {{ form_widget(registrationForm.captchaCode, {'attr': {'class': 'input100'} }) }}
+        <span class="focus-input100"></span>
+    </div>
 
         <button type="submit" class="btn btn-primary">Register</button>
+      <div class="error">{{ form_errors(registrationForm.captchaCode) }} </div>
     {{ form_end(registrationForm) }}
 </div>
     

@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
+use App\Repository\MenuCommandeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * MenuCommande
  *
  * @ORM\Table(name="menu_commande", indexes={@ORM\Index(name="command_id", columns={"command_id"}), @ORM\Index(name="menu_id", columns={"menu_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=MenuCommandeRepository::class)
  */
 class MenuCommande
 {
@@ -69,4 +70,6 @@ class MenuCommande
 
         return $this;
     }
+
+
 }

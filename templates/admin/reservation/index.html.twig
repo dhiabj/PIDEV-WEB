@@ -1,0 +1,76 @@
+{% extends 'adminTemplate.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
+
+                <div class="card-body px-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <form action="{{ path("filter") }}" method="get">
+                            <label>  <input value="" id="nom" name="filter"  class="form-control " placeholder="Votre nom de reservation" style="width: 300px"> </label>
+
+                            <button class="btn btn-primary" > Filter </button>
+                        </form>
+
+
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nom reservation</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">evenement</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Anuuler</th>
+
+                                <th class="text-secondary opacity-7"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {% for r in reservation %}
+                                <tr>
+                                    <td>
+
+                                        <div class="d-flex px-2 py-1">
+                                            <div>
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">{{ r.nom }}</h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ r.Evenement.nom }}</p>
+                                    </td>
+                                    <td class="align-middle text-center ">
+
+                                        <a href="{{ path ('supprimerreservation',{'id':r.id}) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                            Anuuler
+                                        </a>
+
+                                    </td>
+                                </tr>
+
+
+                            {% endfor %}
+
+
+
+
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a type="submit" class="btn btn-primary btn-sm "  style="text-align: center" style="margin:auto " href="{{ path('tri' )}}">  <strong>Tri par NOM RESERVATION</strong></a>
+    <br>
+    <br>
+<form>
+    <a class="btn btn-primary" href="{{ path('evenement_list') }}">Imprimer les réservations</a>
+</form>
+
+{% endblock %}

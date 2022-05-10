@@ -1,0 +1,124 @@
+{% extends 'adminTemplate.html.twig' %}
+
+{% block title %}Liste des utilisateurs
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        select{
+            display: block;
+            width: 100%;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-dark bg-dark mb-3 rounded">
+        <span class="navbar-brand mb-0 h1">Liste des utilisateurs</span>
+    </nav>
+    <table class="table table-striped" style="width: 100%">
+    <td>
+        <a href="{{ path('app_user_new') }}"class="btn btn-info">Ajouter</a>
+    </td>
+    <td>
+        <a href="{{ path('app_stats_contoller') }}"class="btn btn-info">Statistiques</a>
+    </td>
+
+    <form id="search-form" class="example-wrapper" role="search" method="get" action="{{ path('app_user_index') }}">
+        <div>
+            <td style="width: 80%">
+                <input type="text" class="form-control" placeholder="Recherche par prenom" name="search" id="recherche">
+            </td>
+            <td style="width: 20%">
+                <button type="submit" class="btn btn-success" style="width: 80%">search</button>
+            </td>
+        </div>
+    </form>
+    <div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Prenom</th>
+            <th scope="col">Email</th>
+            <th scope="col">Date</th>
+            <th scope="col">Téléphone</th>
+            <th scope="col">Adresse</th>
+            <th scope="col">Role</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for u in users %}
+            <tr>
+                <td>{{ u.id }}</td>
+                <td>{{ u.nom }}</td>
+                <td>{{ u.prenom }}</td>
+                <td>{{ u.email }}</td>
+                <td>{{ u.date |date('d-m-Y') }}</td>
+                <td>{{ u.numTel }}</td>
+                <td>{{ u.adresse }}</td>
+                <td>{{ u.roles[0] }}</td>
+                <td>
+                    <a href="{{ path('app_user_edit',{'id': u.id }) }}" class="btn btn-warning">Modifier</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+
+    <div id="search-results" class="example-wrapper"></div>
+
+    {% block javascripts %}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            var searchRequest = null;
+            $("#recherche").keyup(function() {
+                var that = this;
+                var value = $(this).val();
+                var entitySelector = $("#entitiesNav").html('');
+                if (searchRequest != null)
+                    searchRequest.abort();
+                searchRequest = $.ajax({
+                    type: "GET",
+                    url: "{{ path('app_user_index') }}",
+                    data: {
+                        'q' : value
+                    },
+                    dataType: "text",
+                    success: function(msg){
+                        //we need to check if the value is the same
+                        if (value==$(that).val()) {
+                            var result = JSON.parse(msg);
+                            $.each(result, function(key, arr) {
+                                $.each(arr, function(id, value) {
+                                    if (key == 'entities') {
+                                        if (id != 'error') {
+                                            entitySelector.append('<li><a href="/daten/'+id+'">'+value+'</a></li>');
+                                        } else {
+                                            entitySelector.append('<li class="errorLi">'+value+'</li>');
+                                        }
+                                    }
+                                });
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+    {% endblock %}
+
+    <div class="container py-5">
+        <div class="d-flex justify-content-center">
+
+            {{ knp_pagination_render(users) }}
+        </div>
+    </div>
+{% endblock %}

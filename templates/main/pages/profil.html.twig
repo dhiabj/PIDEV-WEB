@@ -1,0 +1,79 @@
+{% extends 'userTemplate.html.twig' %}
+
+{% block title %}   Mon Profil {% endblock %}
+
+
+
+{% block body %}
+    <main id="main" class="main">
+
+        <h3 class="sub-heading"> We wish you a good day </h3>
+        <div class="container-xl">
+            <div class="col-md-12">
+                <div class="center">
+                    <div class="card login-card">
+                        <div class="card-body">
+                            <nav class="navbar navbar-dark bg-dark mb-3 rounded">
+                                <span class="navbar-text">Mon Profil</span>
+                            </nav>
+
+                            <div class="grix xs2">
+
+        <section class="section profile">
+            <div class="row">
+                <div class="col-xl-4">
+
+                    <div class="card">
+                        <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+
+                            <img src="{{asset('images/pic-4.png')}}" alt="Profile" class="rounded-circle">
+                            <div class="social-links mt-2">
+                                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-xl-8">
+
+                    <div class="card">
+                        <div class="card-body pt-3">
+
+                            <p>Nom : {{ app.user.nom }}</p>
+                            <p>Prénom : {{ app.user.prenom }}</p>
+                            <p>E-mail : {{ app.user.email }}</p>
+                            <p>Numéro de téléphone : {{ app.user.numTel }}</p>
+                            <p>Date de naissance :
+                            {% set dateTime = date(app.user.date) %}
+                            <span class="day">{{ dateTime | date('d') }}</span>
+                            <span class="month">{{ dateTime | date('F') }}</span>
+                            <span class="year">{{ dateTime | date('Y') }}</span> </p>
+                            <p>Adresse : {{ app.user.adresse }}</p>
+                            <div class="grix xs4 container">
+                                    <div class="col-xs4">
+                                        <a href="{{ path('users_profil_modifier') }}"class="btn btn-info">Modfier</a>
+                                    </div>
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main><!-- End #main -->
+{% endblock %}

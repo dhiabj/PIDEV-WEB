@@ -1,0 +1,41 @@
+{% extends 'adminTemplate.html.twig' %}
+
+{% block title %}Promotion index{% endblock %}
+
+{% block body %}
+
+    <nav class="navbar navbar-dark bg-dark mb-3 rounded">
+        <span class="navbar-brand mb-0 h1">Tableau des Promotions</span>
+    </nav>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Code</th>
+                <th>Pourcentage</th>
+                <th>Datelimite</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for promotion in promotions %}
+            <tr>
+                <td>{{ promotion.id }}</td>
+                <td>{{ promotion.code }}</td>
+                <td>{{ promotion.pourcentage }}</td>
+                <td>{{ promotion.datelimite ? promotion.datelimite|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('admin_promotion_show', {'id': promotion.id}) }} " class="btn btn-info"><i class="fas fa-address-book"></i>  Afficher</a>
+                    <a href="{{ path('admin_promotion_edit', {'id': promotion.id}) }}" class="btn btn-warning"><i class="fas fa-pen"></i>   Editer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a
+{% endblock %}

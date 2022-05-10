@@ -1,0 +1,15 @@
+{% extends 'adminTemplate.html.twig' %}
+
+{% block title %}Editer Promotion{% endblock %}
+
+{% block body %}
+
+    <nav class="navbar navbar-dark bg-dark mb-3 rounded">
+        <span class="navbar-brand mb-0 h1">Editer Promotion</span>
+    </nav>
+    {{ include('promotion/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <br>
+
+    <a href="{{ path('admin_promotion_index') }}" class="btn btn-dark" ><i class="fas fa-list"></i>  Retour a la liste</a>
+{% endblock %}

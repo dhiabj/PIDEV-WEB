@@ -1,0 +1,40 @@
+{% extends 'LivTemplate.html.twig' %}
+
+{% block title %}Editer Profil{% endblock %}
+
+{% block body %}
+
+    <h3 class="sub-heading"> We wish you a good day </h3>
+    <div class="container-xl">
+        <div class="col-md-12">
+            <div class="center">
+                <div class="card login-card">
+                    <div class="card-body">
+                        <nav class="navbar navbar-dark bg-dark mb-3 rounded">
+                            <span class="navbar-text">Editer Profil</span>
+                        </nav>
+
+                        <div class="grix xs2">
+
+                            <section class="section profile">
+                                <div class="row">
+                                    <div class="col-xl-4">
+
+                                        <div class="card">
+                                            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+
+    {{ include('livreur/_form.html.twig', {'button_label': 'Update'}) }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        </section>
+                            <a href="{{ path('app_livreur_profil') }}" class="btn btn-dark" ><i class="fas fa-list"></i>  Retour a la liste</a>
+                         </div>
+                     </div>
+                </div>
+             </div>
+        </div>
+    </div>
+{% endblock %}

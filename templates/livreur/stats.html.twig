@@ -1,0 +1,17 @@
+{% extends 'LivTemplate.html.twig' %}
+
+{% block title %}Livraison{% endblock %}
+
+{% block body %}
+    <section class="order" id="order">
+
+        <h3 class="sub-heading"> We wish you a good day </h3>
+        <nav class="navbar navbar-dark bg-dark mb-3 rounded">
+            <span class="navbar-brand mb-0 h1">Mes livraisons</span>
+        </nav>
+
+                <div> <p>Nombre des Livraisons Restants à Livrer : {{ nombre }}</p></div>
+        <a href="{{ path('app_livreur_index') }}"class="btn btn-info">Détails</a>
+    </section>
+
+{% endblock %}
