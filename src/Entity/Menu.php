@@ -110,9 +110,16 @@ class Menu
      */
     private $image;
 
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Favoris", mappedBy="menu")
+     */
+    private $favorite;
+
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
+        $this->favorite = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -202,6 +209,36 @@ class Menu
     {
         if ($this->ingredients->removeElement($ingredient)) {
             $ingredient->removeMenu($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Menu>
+     */
+    public function getFavorite(): Collection
+    {
+        return $this->favorite;
+    }
+
+    public function addFavorite(Menu $favorite): self
+    {
+        if (!$this->favorite->contains($favorite)) {
+            $this->favorite[] = $favorite;
+            $favorite->setMenu($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavorite(Menu $favorite): self
+    {
+        if ($this->favorite->removeElement($favorite)) {
+            // set the owning side to null (unless already changed)
+            if ($favorite->getMenu() === $this) {
+                $favorite->setMenu(null);
+            }
         }
 
         return $this;

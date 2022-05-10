@@ -81,6 +81,18 @@ class MenuRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findFavorites($user)
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('m,f')
+            ->from(Menu::class, 'm')
+            ->leftJoin('m.favorite', 'f')
+            ->where('f.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Menu[] Returns an array of Menu objects
     //  */

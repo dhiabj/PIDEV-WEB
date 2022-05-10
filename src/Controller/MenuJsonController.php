@@ -95,7 +95,24 @@ class MenuJsonController extends AbstractController
      */
     public function showFavoritesJSON($id, NormalizerInterface $Normalizer)
     {
-        $favoris = $this->getDoctrine()->getRepository(Favoris::class)->findBy(array('user' => $id));
+        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+        //dd($user);
+        $favoris = $this->getDoctrine()->getRepository(Menu::class)->findFavorites($user);
+        $jsonContent = $Normalizer->normalize($favoris, 'json', ['groups' => 'post:read']);
+        return new Response(json_encode($jsonContent));
+    }
+
+    /**
+     * @Route("/deleteFavoritesJSON/{menuId}/{userId}", name="deleteFavoritesJSON")
+     */
+    public function deleteFavoritesJSON($menuId, $userId, NormalizerInterface $Normalizer)
+    {
+        $favoris = $this->getDoctrine()->getRepository(Favoris::class)->findBy(array('user' => $userId, 'menu' => $menuId));
+        $em = $this->getDoctrine()->getManager();
+        foreach ($favoris as $favori) {
+            $em->remove($favori);
+        }
+        $em->flush();
         $jsonContent = $Normalizer->normalize($favoris, 'json', ['groups' => 'post:read']);
         return new Response(json_encode($jsonContent));
     }
